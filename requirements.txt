@@ -1,0 +1,33 @@
+Pt V2:
+
+ADMIN:
+-Redenumire flow How-it-works in HOME (intreginclusiv tabel DB)
+-Butoane pentru selectie afisare pt consultanti/clienti separat
+
+-FAQ diversificat pentru consultanti/clienti
+
+
+-Categorii consultanti devine 'Consultanti' care o sa permita crearea conturilor de consultanti.La adauga categorie o sa fie un mniu pentru creare categorii ca pe 'home'.
+
+-Pagina consultanti -> CRUD + filtre(categorie, grad activitate) + search bar cautare dupa nume.
+
+-Overall status of platform (vazut stare fiecare comanda cu toate statusurile ('DECLINED','FINALIZED',''IN PROGRESS(WITH PAYMENT),''IN PROGRESS(PENDING_FOR_PAYMENT)))
+
+-Comenzi vizualizare in forma tabelara cu butoane: ACCEPT/DECLINE/SEE DETAILS
+
+-Mesaj care vine afisat in mail la clienti, ACCEPT/DECLINE comanda sa fie editabil din UI.
+-Un mesaj poate fii salvat ca mesaj SATNDARD, caz in care, poate fii presetat in UI.
+
+
+
+-La comenzi: text-box-ul de message sa fie editabil. 
+-Payment options : Paypall + trimis chitante.
+
+CONSULTANT:
+-Consultant...Sectiune 'Toate comenzile' . Poate vedea toate comenzile existente. Poate sa puna BID de timp/pret.
+-Consultant ... Sectiune 'Status comenzile mele' vede statutul comenzilor la care a pus bid.
+
+
+
+
+

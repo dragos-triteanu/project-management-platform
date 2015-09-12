@@ -2,7 +2,7 @@ $(document).ready(function(){
 	 
 	var userRole = $("#userRole").val();
 	
-	if(userRole == 'MODERATOR'){
+	if(userRole == 'ADMINISTRATOR'){
 		var editor = new wysihtml5.Editor("textarea", {
 		    toolbar:      "toolbar",
 		    stylesheets:  "./resources/css/wysihtml5/wysihtml5.css",
