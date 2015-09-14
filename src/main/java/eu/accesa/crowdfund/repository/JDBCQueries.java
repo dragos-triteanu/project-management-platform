@@ -9,10 +9,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 class JDBCQueries {
 	/**
-	 * {@link HowItWorksRepository} queries.
+	 * {@link LandingPageRepository} queries.
 	 */
-	public static final String UPDATE_WYSIWYG_HTML = "UPDATE howitworks SET html=? where id=? ";
-	public static final String RETRIEVE_HTML_FOR_WYSIWYG = "SELECT html FROM howitworks where id=?";
+	public static final String UPDATE_WYSIWYG_HTML = "UPDATE home SET html=? where id=? ";
+	public static final String RETRIEVE_HTML_FOR_WYSIWYG = "SELECT html FROM home where id=?";
 	
 	/**
 	 * {@link FAQRepository} queries.

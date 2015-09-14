@@ -1,9 +1,9 @@
 <#assign userTypes = {
     "ADMINISTRATOR": [
         {
-            "name": "How It Works",
-            "url": "./howitworks",
-            "id": "howitworks"
+            "name": "Home",
+            "url": "./home",
+            "id": "home"
         },
         {
             "name": "FAQ",
@@ -11,16 +11,16 @@
             "id": "faq"
         },
         {
-            "name": "Categorii consultanti",
-            "url": "./categories",
-            "id": "categories"
+            "name": "Consultanti",
+            "url": "./consultants",
+            "id": "consultants"
         }
     ],
     "CONSULTANT": [
         {
-            "name": "How It Works",
-            "url": "./howitworks",
-            "id": "howitworks"
+            "name": "Home",
+            "url": "./home",
+            "id": "home"
         },
         {
             "name": "FAQ",
@@ -30,9 +30,9 @@
     ],
     "CLIENT": [
         {
-            "name": "How It Works",
-            "url": "./howitworks",
-            "id": "howitworks"
+            "name": "Home",
+            "url": "./home",
+            "id": "home"
         },
         {
             "name": "FAQ",

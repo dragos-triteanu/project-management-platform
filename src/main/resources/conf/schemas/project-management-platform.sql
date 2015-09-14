@@ -3,7 +3,7 @@ DROP DATABASE `projectManagementDB`;
 CREATE DATABASE IF NOT EXISTS `projectManagementDB` CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `projectManagementDB`;
 
-CREATE TABLE IF NOT EXISTS `crowdfundingDB`.`howItWorks` (
+CREATE TABLE IF NOT EXISTS `crowdfundingDB`.`home` (
   `id` int(7) NOT NULL,
   `html` varchar(1000) NOT NULL,
   PRIMARY KEY  (`id`)

@@ -24,6 +24,7 @@ public class CategoryController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAllCategories(){
         boolean myVal = true;
+
         ModelAndView categoryPage = new ModelAndView();
         categoryPage.setViewName("categories");
         categoryPage.addObject("myVal", myVal);
