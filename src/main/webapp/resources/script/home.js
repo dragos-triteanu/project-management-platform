@@ -19,14 +19,14 @@ $(document).ready(function(){
 		});
 		
 		$("#editSectionButton").on("click",function(){
-			var isFormVisible = $("#how-it-works-form").is(":visible")
+			var isFormVisible = $("#home-form").is(":visible")
 			if(!isFormVisible){
 				var content = $("#wysiwyg-data").val();
 				window.editor.setValue(content);
-				$("#how-it-works-form").show();
+				$("#home-form").show();
 				this.innerHTML = "Cancel";
 			}else{
-				$("#how-it-works-form").hide();
+				$("#home-form").hide();
 				this.innerHTML = "Edit This Section";
 			}
 		});

@@ -30,7 +30,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12 col-xs-12">
-							<form id="how-it-works-form" action="./home/updatePage" method="POST" style="display:none;">
+							<form id="home-form" action="./home/updatePage" method="POST" style="display:none;">
 								<#if htmlForWysiwygEscaped??>
 									<input type="hidden" id="wysiwyg-data" value="${htmlForWysiwygEscaped}" />
 								</#if>
