@@ -32,5 +32,11 @@ public class ConsultantController {
         return "consultants";
     }
 
+    @RequestMapping(value = "/createConsultant" , method = RequestMethod.GET)
+    public void loadConsultantPage(){
+
+
+
+    }
 
 }

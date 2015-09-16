@@ -1,3 +1,6 @@
 .consultantTitle {text-align:center}
 .btn-save { margin-left: 5%}
 .new-category { display: none }
+.consultants-table tbody {
+    text-align: left;
+}

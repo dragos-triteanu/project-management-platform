@@ -2,6 +2,7 @@ package eu.accesa.crowdfund.controller;
 
 import eu.accesa.crowdfund.model.QuestionAndAnswer;
 import eu.accesa.crowdfund.repository.FAQRepository;
+import eu.accesa.crowdfund.services.FAQService;
 import eu.accesa.crowdfund.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,32 +19,31 @@ import java.util.List;
  * @author dragos.triteanu
  *
  */
-		
 @Controller
 @RequestMapping("/faq")
 public class FAQController {
 	
 	@Autowired
-	private FAQRepository faqRepository;
+	private FAQService faqService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String faq(ModelMap modelMap){
 		SessionUtils.populateModelWithAuthenticatedRole(modelMap);
 
-		List<QuestionAndAnswer> qaa = faqRepository.retrieveQuestionsAndAnswers();
+		List<QuestionAndAnswer> qaa = faqService.retrieveAllFAQs();
 		modelMap.addAttribute("questionsAndAnswers", qaa);
 		return "faq";
 	}
 	
 	@RequestMapping(value="/add",method = RequestMethod.POST)
 	public String addNewQuestion(@ModelAttribute("questionAndAnswer") QuestionAndAnswer questionAndAnswer){
-		faqRepository.insertQuestionAndAnswer(questionAndAnswer);
+		faqService.addNewFAQ(questionAndAnswer);
 		return "redirect:/faq";
 	}
 	
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	public String deleteQuestionById(@RequestParam("deleteId") String deleteId){
-		faqRepository.deleteQuestionAndAnswerById(deleteId);
+		faqService.deleteeFAQById(deleteId);
 		return "redirect:/faq";
 	}
 }

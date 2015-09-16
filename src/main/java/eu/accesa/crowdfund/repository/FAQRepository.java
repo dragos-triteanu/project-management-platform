@@ -43,7 +43,7 @@ public class FAQRepository {
 	 */
 	public void insertQuestionAndAnswer(QuestionAndAnswer questionAndAnswer){
 		LOG.debug("Inserting QuestionAndAnswer with question="+questionAndAnswer.getQuestion() + " and answer="+questionAndAnswer.getAnswer());
-		int response = faqJdbcTemplate.update(INSERT_QAA, new Object[]{questionAndAnswer.getQuestion(),questionAndAnswer.getAnswer()});
+		int response = faqJdbcTemplate.update(INSERT_QAA, new Object[]{questionAndAnswer.getId(),questionAndAnswer.getQuestion(),questionAndAnswer.getAnswer()});
 		LOG.debug("Number of rows modified ="+response);
 	}
 	

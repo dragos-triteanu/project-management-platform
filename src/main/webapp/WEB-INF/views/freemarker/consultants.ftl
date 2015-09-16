@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <#assign userRole = "${userRole}">
 <#import "*/components/navbar.ftl" as navbarRenderer/>
-<#import "*/components/consultant.ftl" as consultant/>
+<#import "*/components/consultant-table.ftl" as consultant/>
 <html>
     <header>
         <#include "*/includes.ftl">
@@ -23,8 +23,8 @@
           </div>
          </div>
         <div class="row">
-            <div class="col-md-6 col-xs-6 col-md-offset-1 col-xs-offset-1">
-                <button class="btn btn-primary">Creeaza Consultant</button>
+            <div class="col-md-6 col-xs-6 col-md-offset-5 col-xs-offset-1">
+                <a href="./consultants/createConsultant"><button type="submit" class="btn btn-primary">Creeaza Consultant</button></a>
             </div>
         </div>
         <#else>

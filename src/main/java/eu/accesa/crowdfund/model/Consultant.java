@@ -1,7 +1,6 @@
 package eu.accesa.crowdfund.model;
 
 import javax.swing.text.Document;
-import java.io.File;
 import java.util.UUID;
 
 /**
@@ -18,7 +17,7 @@ public class Consultant {
     private String ibanCode;
     private String cardOwner;
     private Document cv;
-    private Category category;
+    private ConsultantCategory category;
     private int numerOfActiveProjects;
 
     public UUID getUid() {
@@ -56,8 +55,8 @@ public class Consultant {
     public Document getCv() { return cv; }
     public void setCv(Document cv) { this.cv = cv; }
 
-    public Category getCategory() { return category; }
-    public void setCategory(Category category) { this.category = category; }
+    public ConsultantCategory getCategory() { return category; }
+    public void setCategory(ConsultantCategory category) { this.category = category; }
 
     public int getNumerOfActiveProjects() { return numerOfActiveProjects; }
     public void setNumerOfActiveProjects(int numerOfActiveProjects) { this.numerOfActiveProjects = numerOfActiveProjects; }

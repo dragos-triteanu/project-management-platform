@@ -1,6 +1,6 @@
 package eu.accesa.crowdfund.controller;
 
-import eu.accesa.crowdfund.model.Category;
+import eu.accesa.crowdfund.model.ConsultantCategory;
 import eu.accesa.crowdfund.model.Consultant;
 import eu.accesa.crowdfund.services.ConsultantService;
 import eu.accesa.crowdfund.utils.SessionUtils;
@@ -30,7 +30,7 @@ public class ConsultantDetailsController {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
         Consultant consultant = consultantService.getConsultantByUid(uid);
         modelMap.addAttribute("consultant", consultant);
-        List<Category> category = new ArrayList<>();
+        List<ConsultantCategory> category = new ArrayList<>();
         category.add(consultant.getCategory());
         modelMap.addAttribute("categories", category);
         modelMap.addAttribute("titlePage", "Editare Consultant");

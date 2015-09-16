@@ -37,6 +37,10 @@ public class DatasourceConfig {
 	
 	@Value("${crowdfunding.datasource.schema}")
 	private String dbSchema;
+
+	@Value("${crowdfunding.datasource.recreateDB}")
+	private boolean recreateDB;
+
 	
 	@Bean(name="crowdfundingJdbcTemplate")
 	public JdbcTemplate crowdfundingJdbcTemplate(){
@@ -53,13 +57,16 @@ public class DatasourceConfig {
 	@Bean(name="dataSource")
 	public DataSource dataSource(){
 		DataSource dataSource = datasourceCreator();
-		DatabasePopulatorUtils.execute(datasourcePopulator(), dataSource);
+		if(recreateDB) {
+			DatabasePopulatorUtils.execute(datasourcePopulator(), dataSource);
+		}
+
 		return dataSource;
 	}
 	
 	private DatabasePopulator datasourcePopulator(){
 		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-		databasePopulator.setContinueOnError(true);
+		databasePopulator.setContinueOnError(false);
 		databasePopulator.addScript(new ClassPathResource(dbSchema));
 		return databasePopulator;
 	}

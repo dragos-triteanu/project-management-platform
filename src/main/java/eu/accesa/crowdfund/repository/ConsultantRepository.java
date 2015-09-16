@@ -1,6 +1,6 @@
 package eu.accesa.crowdfund.repository;
 
-import eu.accesa.crowdfund.model.Category;
+import eu.accesa.crowdfund.model.ConsultantCategory;
 import eu.accesa.crowdfund.model.Consultant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,14 +32,12 @@ public class ConsultantRepository {
         con.setMail("sorina@mail.com");
         con.setPhoneNumber("0741509510");
         con.setNumerOfActiveProjects(0);
-        Category category = new Category();
-        category.setUid(UUID.randomUUID());
+        ConsultantCategory category = new ConsultantCategory();
+        category.setId("a2b3c4");
         category.setName("Medicina");
         con.setCategory(category);
-
         List<Consultant> consultantList =new ArrayList(){};// faqJdbcTemplate.query(RETRIEVE_ALL_QAA,new Object[]{}, Mappers.questionAndAnswerMapper());\
         consultantList.add(con);
-
         LOG.debug("Found :"+consultantList);
         return consultantList;
     }
@@ -54,8 +52,8 @@ public class ConsultantRepository {
         con.setMail("sorina@mail.com");
         con.setPhoneNumber("0741509510");
         con.setNumerOfActiveProjects(0);
-        Category category = new Category();
-        category.setUid(UUID.randomUUID());
+        ConsultantCategory category = new ConsultantCategory();
+        category.setId("a1b2c3");
         category.setName("Medicina");
         con.setCategory(category);
 
