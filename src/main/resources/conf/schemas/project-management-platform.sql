@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS `projectManagementDB` CHARACTER SET utf8 COLLATE u
 USE `projectManagementDB`;
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`home` (
-  `id` int(1) NOT NULL,
+  `id` int(2) NOT NULL,
   `html` varchar(1000) NOT NULL,
   PRIMARY KEY  (`id`)
 );

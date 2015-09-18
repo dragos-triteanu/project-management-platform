@@ -9,7 +9,7 @@
 			       <span class="icon-bar"></span>
 			       <span class="icon-bar"></span>
 			      </button>
-			      <img src="./resources/images/accesa.png" class="navbar-brand"/>
+			      <img src="./resources/images/logo.png" class="navbar-brand"/>
 		      </div>
 			<div class="collapse navbar-collapse" id="navigationbar">
 				<ul class="nav navbar-nav navbar-float">
