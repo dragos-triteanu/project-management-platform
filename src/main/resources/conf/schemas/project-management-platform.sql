@@ -18,8 +18,9 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`faq` (
   PRIMARY KEY  (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultant-categories` (
+CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultantCategories` (
   `id` VARCHAR(36) NOT NULL ,
   `name` varchar(1000) NOT NULL,
   PRIMARY KEY  (`id`)
 );
+INSERT INTO consultantCategories(id,name) VALUES('1','Medicine');

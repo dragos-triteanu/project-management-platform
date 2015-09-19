@@ -14,12 +14,12 @@
         <#if userRole == 'ADMINISTRATOR'>
         <div class="container">
          <div class ="panel-group">
-                <div class="h2 consultantTitle" >
-                    Consultanti
-                </div>
-                <div class="consultants-table">
-                    <@consultant.renderTable consultantsList/>
-                </div>
+            <div class="h2 consultantTitle" >
+                Consultanti
+            </div>
+            <div class="consultants-table">
+                <@consultant.renderTable consultantsList/>
+            </div>
           </div>
          </div>
         <div class="row">

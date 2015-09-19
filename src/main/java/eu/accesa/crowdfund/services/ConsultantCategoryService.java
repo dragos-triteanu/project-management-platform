@@ -2,7 +2,9 @@ package eu.accesa.crowdfund.services;
 
 import eu.accesa.crowdfund.model.ConsultantCategory;
 import eu.accesa.crowdfund.repository.ConsultantCategoryRepository;
+import eu.accesa.crowdfund.utils.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
  * Service class meant for managing operations regarding consultant categories.
  * Created by Dragos on 9/16/2015.
  */
+@Service
 public class ConsultantCategoryService {
 
     @Autowired
@@ -20,6 +23,7 @@ public class ConsultantCategoryService {
      * @param consultantCategory
      */
     public void insertConsultantCategory(final ConsultantCategory consultantCategory){
+        consultantCategory.setId(UUIDGenerator.generateUUID());
         consultantCategoryRepository.insertCategory(consultantCategory);
     }
 

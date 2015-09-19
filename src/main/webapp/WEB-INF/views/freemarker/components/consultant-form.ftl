@@ -1,5 +1,4 @@
-<#macro renderForm titlePage consultant="" categories="">
-
+<#macro renderForm titlePage consultant="" >
 <div id ="consultant-details">
     <#if consultant?has_content>
         <form class="edit-form form-horizontal" role="form" action="./projectdetails/update" method="POST" enctype="multipart/form-data">
@@ -119,21 +118,18 @@
         <div class="col-md-2 col-xs-2">
             <label for="category-consultant" class="control-label">Specialitate:</label>
         </div>
-        <div class="col-md-6 col-xs-6" id="all-categories">
+        <div class="col-md-4 col-xs-4" id="all-categories">
             <select id="category-dropdown" class="form-control">
-                <#if categories?has_content>
+                <#if categories??>
                     <#list categories as category>
-                        <option  value="${category.uid}" <#if (category.uid == consultant.category.uid)> selected="selected" </#if>> ${category.name}</option>
+                        <#if consultant?has_content>
+                            <option  value="${category.id}" <#if (category.id == consultant.category.id)> selected="selected" </#if>> ${category.name}</option>
+                        <#else>
+                            <option  value="${category.id}"> ${category.name}</option>
+                        </#if>
                     </#list>
                 </#if>
-                <option value="00000000-0000-0000-0000-000000000000">Categorie Noua</option>
             </select>
-        </div>
-        <div class="col-md-6 col-xs-6 new-category" id="new-category">
-            <input type="text" id="category-consultant" placeholder="Numele Categoriei">
-            <button type="button" class="btn btn-default btn-sm" id="back-to-all-categories">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-            </button>
         </div>
     </div>
 
