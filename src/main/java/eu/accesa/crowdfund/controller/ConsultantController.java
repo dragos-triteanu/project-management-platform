@@ -1,10 +1,8 @@
 package eu.accesa.crowdfund.controller;
 
-import eu.accesa.crowdfund.model.Consultant;
-import eu.accesa.crowdfund.model.ConsultantSpeciality;
-import eu.accesa.crowdfund.services.ConsultantCategoryService;
-import eu.accesa.crowdfund.services.ConsultantService;
-import eu.accesa.crowdfund.utils.SessionUtils;
+import java.io.IOException;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +14,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.List;
+import eu.accesa.crowdfund.model.Consultant;
+import eu.accesa.crowdfund.model.ConsultantSpeciality;
+import eu.accesa.crowdfund.services.ConsultantCategoryService;
+import eu.accesa.crowdfund.services.ConsultantService;
+import eu.accesa.crowdfund.utils.SessionUtils;
 
 /**
  * Created by Dragos on 9/12/2015.
  */
 @Controller
 public class ConsultantController {
-    private static final Logger LOG = LoggerFactory.getLogger(ConsultantController.class);
-
-    @Autowired
-    private ConsultantCategoryService consultantCategoryService;
+	private static final Logger LOG = LoggerFactory.getLogger(ConsultantController.class);
 
     @Autowired
     private ConsultantService consultantService;
+    
+    @Autowired
+    private ConsultantCategoryService consultantCategoryService;
+	
 
     @RequestMapping(value = "consultants", method = RequestMethod.GET)
     public String getAllConsultants(ModelMap modelMap) {
@@ -40,7 +42,7 @@ public class ConsultantController {
         modelMap.addAttribute("consultantsList", consultants);
         return "consultants";
     }
-
+    
     @RequestMapping(value = "createConsultant",method = RequestMethod.GET)
     public String loadCreateConsultantPage(ModelMap modelMap){
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
@@ -65,4 +67,6 @@ public class ConsultantController {
         return "redirect:/consultants";
     }
 
+    
+    
 }

@@ -1,7 +1,5 @@
 package eu.accesa.crowdfund.model;
 
-import javax.swing.text.Document;
-
 /**
  * Created by Dragos on 9/12/2015.
  */
@@ -18,6 +16,7 @@ public class Consultant {
     private byte[] cv;
     private ConsultantSpeciality speciality;
     private int numberOfActiveProjects;
+    private String cvURL;
 
     public Consultant(){
         speciality = new ConsultantSpeciality();
@@ -122,4 +121,12 @@ public class Consultant {
     public void setStudies(String studies) {
         this.studies = studies;
     }
+
+	public String getCvURL() {
+		return cvURL;
+	}
+
+	public void setCvURL(String cvURL) {
+		this.cvURL = cvURL;
+	}
 }
