@@ -41,7 +41,7 @@ public class FAQController {
 	}
 	
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
-	public String deleteQuestionById(@RequestParam("deleteId") String deleteId){
+	public String deleteQuestionById(@RequestParam("deleteId") int deleteId){
 		faqService.deleteeFAQById(deleteId);
 		return "redirect:/faq";
 	}

@@ -6,7 +6,7 @@ import javax.swing.text.Document;
  * Created by Dragos on 9/12/2015.
  */
 public class Consultant {
-    private String id;
+    private int id;
     private String lastName;
     private String firstName;
     private String mail;
@@ -23,11 +23,11 @@ public class Consultant {
         speciality = new ConsultantSpeciality();
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -103,7 +103,7 @@ public class Consultant {
         this.speciality = speciality;
     }
 
-    public void setSpecialityId(final String specialityId){
+    public void setSpecialityId(final int specialityId){
         this.speciality.setSpecialityId(specialityId);
     }
 

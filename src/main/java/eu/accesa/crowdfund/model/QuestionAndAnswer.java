@@ -9,7 +9,7 @@ public class QuestionAndAnswer {
 	/**
 	 * The unique id of the question.
 	 */
-	private String id;
+	private int id;
 
 	/**
 	 * The question, represented as a string.
@@ -37,11 +37,11 @@ public class QuestionAndAnswer {
 		this.answer = answer;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 }

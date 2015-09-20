@@ -8,7 +8,7 @@ import java.util.UUID;
  * Created by Dragos on 9/19/2015.
  */
 public class Order {
-    private UUID uid;
+    private int id;
     private String domain;
     private String subject;
     private long nrOfPages;
@@ -19,12 +19,12 @@ public class Order {
     private Client client;
     private OrderStatus orderStatus;
 
-    public UUID getUid() {
-        return uid;
+    public int getUid() {
+        return id;
     }
 
-    public void setUid(UUID uid) {
-        this.uid = uid;
+    public void setUid(int uid) {
+        this.id = uid;
     }
 
     public String getDomain() {

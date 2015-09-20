@@ -47,7 +47,7 @@ public class ConsultantCategoryRepository {
      * Retrieves all {@link eu.accesa.crowdfund.model.ConsultantSpeciality}s in the 'consultant-category' DB schema.
      * @return
      */
-    public void deleteCategoryById(final String id){
+    public void deleteCategoryById(final int id){
         LOG.debug("Deleting category with categoryId={}",id);
         int update = jdbcTemplate.update(DELETE_CONSULTANT_CATEGORY_BY_ID, new Object[]{id});
         LOG.debug("Number of rows modified by delete : {}", update);

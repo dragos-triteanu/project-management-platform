@@ -1,8 +1,7 @@
 package eu.accesa.crowdfund.repository;
 
-import eu.accesa.crowdfund.model.ConsultantSpeciality;
 import eu.accesa.crowdfund.model.Consultant;
-import eu.accesa.crowdfund.utils.UUIDGenerator;
+import eu.accesa.crowdfund.model.ConsultantSpeciality;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,13 +25,13 @@ public class ConsultantRepository {
     public List<Consultant> retrieveConsultants(){
         LOG.debug("Retrieving list of all Consultant objects");
         Consultant con = new Consultant();
-        con.setId(UUIDGenerator.generateUUID());
+        con.setId(1);
         con.setFirstName("Sorina");
         con.setLastName("Vasiliu");
         con.setMail("sorina@mail.com");
         con.setPhoneNumber("0741509510");
         ConsultantSpeciality category = new ConsultantSpeciality();
-        category.setSpecialityId("a2b3c4");
+        category.setSpecialityId(1);
         category.setSpecialityName("Medicina");
         con.setSpeciality(category);
         List<Consultant> consultantList =new ArrayList(){};// jdbcTemplate.query(RETRIEVE_ALL_QAA,new Object[]{}, Mappers.questionAndAnswerMapper());\
@@ -46,15 +45,15 @@ public class ConsultantRepository {
         LOG.debug("Retrieving the Consultant with uid :" + uid);
 
         Consultant con = new Consultant();
-        con.setId("121fd12f12");
+        con.setId(1);
         con.setFirstName("Sorina");
         con.setLastName("Vasiliu");
         con.setMail("sorina@mail.com");
         con.setPhoneNumber("0741509510");
         ConsultantSpeciality category = new ConsultantSpeciality();
-        category.setSpecialityId("a1b2c3");
+        category.setSpecialityId(1);
         category.setSpecialityName("Medicina");
-        con.setSpecialityId("123");
+        con.setSpecialityId(2);
         con.setNumberOfActiveProjects(0);
 
         LOG.debug("Found :"+con);

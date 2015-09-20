@@ -2,7 +2,6 @@ package eu.accesa.crowdfund.services;
 
 import eu.accesa.crowdfund.model.Consultant;
 import eu.accesa.crowdfund.repository.ConsultantRepository;
-import eu.accesa.crowdfund.utils.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +31,6 @@ public class ConsultantService {
     }
 
     public void createConsultant(Consultant consultant){
-        consultant.setId(UUIDGenerator.generateUUID());
         consultantRepository.insertConsultant(consultant);
     }
 }

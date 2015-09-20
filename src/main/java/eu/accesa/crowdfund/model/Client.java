@@ -6,17 +6,17 @@ import java.util.UUID;
  * Created by Dragos on 9/19/2015.
  */
 public class Client {
-    private UUID uid;
+    private int id;
     private String firstName;
     private String lastName;
     private String email;
 
-    public UUID getUid() {
-        return uid;
+    public int getUid() {
+        return id;
     }
 
-    public void setUid(UUID uid) {
-        this.uid = uid;
+    public void setUid(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {

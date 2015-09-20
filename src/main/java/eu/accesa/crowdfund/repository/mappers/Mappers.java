@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 /**
  * Utility class for housing {@link RowMapper}s for various application's DAO's.
@@ -24,7 +25,7 @@ public class Mappers {
 		@Override
 		public QuestionAndAnswer mapRow(ResultSet rs, int rowNum) throws SQLException {
 			QuestionAndAnswer qaa = new QuestionAndAnswer();
-			qaa.setId(rs.getString("id"));
+			qaa.setId(rs.getInt("id"));
 			qaa.setQuestion(rs.getString("question"));
 			qaa.setAnswer(rs.getString("answer"));
 			return qaa;
@@ -41,7 +42,7 @@ public class Mappers {
 		@Override
 		public ConsultantSpeciality mapRow(ResultSet rs, int rowNum) throws SQLException {
 			ConsultantSpeciality consultantCategory = new ConsultantSpeciality();
-			consultantCategory.setSpecialityId(rs.getString("specialityId"));
+			consultantCategory.setSpecialityId(rs.getInt("specialityId"));
 			consultantCategory.setSpecialityName(rs.getString("specialityName"));
 			return consultantCategory;
 		}

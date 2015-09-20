@@ -36,7 +36,7 @@ public class ConsultantSpecialityController extends ConsultantController {
     }
 
     @RequestMapping(value="deleteCategory",method = RequestMethod.POST)
-    public String createCategory(@RequestParam("deleteId") final String deleteId,ModelMap modelMap){
+    public String createCategory(@RequestParam("deleteId") final int deleteId,ModelMap modelMap){
         consultantCategoryService.deleteConsultantCategory(deleteId);
 
         List<ConsultantSpeciality> categories = consultantCategoryService.retrieveAllConsultantCategories();

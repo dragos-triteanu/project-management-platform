@@ -2,11 +2,11 @@ package eu.accesa.crowdfund.services;
 
 import eu.accesa.crowdfund.model.ConsultantSpeciality;
 import eu.accesa.crowdfund.repository.ConsultantCategoryRepository;
-import eu.accesa.crowdfund.utils.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Service class meant for managing operations regarding consultant categories.
@@ -23,7 +23,6 @@ public class ConsultantCategoryService {
      * @param consultantCategory
      */
     public void insertConsultantCategory(final ConsultantSpeciality consultantCategory){
-        consultantCategory.setSpecialityId(UUIDGenerator.generateUUID());
         consultantCategoryRepository.insertCategory(consultantCategory);
     }
 
@@ -39,7 +38,7 @@ public class ConsultantCategoryService {
      * Deletes a consultant category from the corresponding schema.
      * @param consultantCategoryId the id of the to be deleted {@link eu.accesa.crowdfund.model.ConsultantSpeciality}.
      */
-    public void deleteConsultantCategory(final String consultantCategoryId){
+    public void deleteConsultantCategory(final int consultantCategoryId){
         consultantCategoryRepository.deleteCategoryById(consultantCategoryId);
     }
 }

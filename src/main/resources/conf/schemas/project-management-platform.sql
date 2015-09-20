@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS `projectManagementDB` CHARACTER SET utf8 COLLATE u
 USE `projectManagementDB`;
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`home` (
-  `id` int(2) NOT NULL,
+  `id` INT(2) NOT NULL,
   `html` varchar(1000) NOT NULL,
   PRIMARY KEY  (`id`)
 );
@@ -12,14 +12,14 @@ INSERT INTO `projectmanagementdb`.`home` (`id`, `html`) VALUES (1, '<p>This is a
 
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`faq` (
-  `id` VARCHAR(36) NOT NULL ,
+  `id` INT (16) NOT NULL AUTO_INCREMENT,
   `question` varchar(1000) NOT NULL,
   `answer` varchar(1000) NOT NULL,
   PRIMARY KEY  (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultants` (
-  `id` VARCHAR(36) NOT NULL,
+  `id` INT(16) NOT NULL AUTO_INCREMENT,
   `lastname` VARCHAR(36) NOT NULL ,
   `firstname` varchar(1000) NOT NULL,
   `email` varchar(1000) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultants` (
 );
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultantSpecialities` (
-  `specialityId` VARCHAR(36) NOT NULL ,
+  `specialityId` INT(16) NOT NULL AUTO_INCREMENT,
   `specialityName` varchar(1000) NOT NULL,
   PRIMARY KEY  (`specialityId`)
 );

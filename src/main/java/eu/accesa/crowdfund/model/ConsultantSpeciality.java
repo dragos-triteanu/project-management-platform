@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Created by Dragos on 9/12/2015.
  */
 public class ConsultantSpeciality {
-
-    private String specialityId;
+    private int specialityId;
     private String specialityName;
 
     public String getSpecialityName() {
@@ -19,11 +18,11 @@ public class ConsultantSpeciality {
         this.specialityName = specialityName;
     }
 
-    public String getSpecialityId() {
+    public int getSpecialityId() {
         return specialityId;
     }
 
-    public void setSpecialityId(String specialityId) {
+    public void setSpecialityId(int specialityId) {
         this.specialityId = specialityId;
     }
 }
