@@ -28,7 +28,7 @@ public class ConsultantCategoryRepository {
      */
     public void insertCategory(ConsultantSpeciality consultantCategory) {
         LOG.debug("Inserting category with categoryId={}", consultantCategory.getSpecialityId());
-        int update = jdbcTemplate.update(INSERT_CONSULTANT_CATEGORY, new Object[]{consultantCategory.getSpecialityId(), consultantCategory.getSpecialityName()});
+        int update = jdbcTemplate.update(INSERT_CONSULTANT_CATEGORY, new Object[]{consultantCategory.getSpecialityName()});
         LOG.debug("Number of rows modified by insert : {}",update);
     }
 

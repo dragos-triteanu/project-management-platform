@@ -15,36 +15,33 @@
 
     <div class="form-group">
         <div class="col-md-2 col-xs-2">
-            <label for="clientLastName" class="control-label">Nume:</label>
+            <label for="lastName" class="control-label">Nume:</label>
         </div>
         <div class="col-md-6 col-xs-6">
             <#if !(order?has_content)>
-                <input type="text" class="form-control" id="clientLastName" name="clientLastName"
-                       placeholder="Introduceti numele.">
+                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Introduceti numele.">
             </#if>
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-2 col-xs-2">
-            <label for="clientFirstName" class="control-label">Prenume:</label>
+            <label for="firstName" class="control-label">Prenume:</label>
         </div>
         <div class="col-md-6 col-xs-6">
             <#if !(order?has_content)>
-                <input type="text" class="form-control" id="clientFirstName" name="clientFirstName"
-                       placeholder="Introduceti prenumele.">
+                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Introduceti prenumele.">
             </#if>
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-2 col-xs-2">
-            <label for="clientEmail" class="control-label">Adresa de e-mail:</label>
+            <label for="email" class="control-label">Adresa de e-mail:</label>
         </div>
         <div class="col-md-6 col-xs-6">
             <#if !(order?has_content)>
-                <input type="text" class="form-control" id="clientEmail" name="clientEmail"
-                       placeholder="Introduceti adresa de mail.">
+                <input type="text" class="form-control" id="email" name="email" placeholder="Introduceti adresa de mail.">
             </#if>
         </div>
     </div>
@@ -55,9 +52,9 @@
         </div>
         <div class="col-md-6 col-xs-6">
             <#if !(order?has_content)>
-                <p class="form-control-static" id="orderDomain" name="orderDomain">${order.domain}</p>
+                <p class="form-control-static" id="orderDomain" name="domain">${order.domain}</p>
             <#else>
-                <textarea class="form-control" id="orderDomain" name="orderDomain"></textarea>
+                <textarea class="form-control" id="orderDomain" name="domain"></textarea>
             </#if>
         </div>
     </div>

@@ -66,8 +66,7 @@ public class ConsultantRepository {
      */
     public void insertConsultant(final Consultant consultant){
         LOG.info("Inserting consultant with consultantId={}",consultant.getId());
-        int update = jdbcTemplate.update(JDBCQueries.INSERT_CONSULTANT, new Object[]{consultant.getId(),
-                                                                                     consultant.getLastName(),
+        int update = jdbcTemplate.update(JDBCQueries.INSERT_CONSULTANT, new Object[]{consultant.getLastName(),
                                                                                      consultant.getFirstName(),
                                                                                      consultant.getMail(),
                                                                                      consultant.getPhoneNumber(),

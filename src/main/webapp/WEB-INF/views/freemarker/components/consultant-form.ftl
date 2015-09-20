@@ -81,7 +81,7 @@
         </div>
         <div class="col-md-6 col-xs-6">
             <#if consultant?has_content>
-                <input type="text" class="form-control" id="consultantSchool" value="${consultant.school!''}" name="studies" placeholder="Introduceti ultima scoala absolvita de consultantului." required>
+                <input type="text" class="form-control" id="consultantSchool" value="${consultant.studies!''}" name="studies" placeholder="Introduceti ultima scoala absolvita de consultantului." required>
             <#else>
                 <input type="text" class="form-control" id="consultantSchool"  name="studies" placeholder="Introduceti ultima scoala absolvita de consultantului." required>
             </#if>
