@@ -1,7 +1,7 @@
 package eu.accesa.crowdfund.controller;
 
-import eu.accesa.crowdfund.model.ConsultantCategory;
 import eu.accesa.crowdfund.model.Consultant;
+import eu.accesa.crowdfund.model.ConsultantSpeciality;
 import eu.accesa.crowdfund.services.ConsultantService;
 import eu.accesa.crowdfund.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +30,8 @@ public class ConsultantDetailsController {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
         Consultant consultant = consultantService.getConsultantByUid(uid);
         modelMap.addAttribute("consultant", consultant);
-        List<ConsultantCategory> category = new ArrayList<>();
-        category.add(consultant.getCategory());
+        List<ConsultantSpeciality> category = new ArrayList<>();
+        category.add(consultant.getSpeciality());
         modelMap.addAttribute("categories", category);
         modelMap.addAttribute("titlePage", "Editare Consultant");
         return "consultant-details";

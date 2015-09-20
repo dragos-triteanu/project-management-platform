@@ -1,6 +1,6 @@
 package eu.accesa.crowdfund.repository.mappers;
 
-import eu.accesa.crowdfund.model.ConsultantCategory;
+import eu.accesa.crowdfund.model.ConsultantSpeciality;
 import eu.accesa.crowdfund.model.QuestionAndAnswer;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -32,17 +32,17 @@ public class Mappers {
 	}
 
 	/**
-	 * Mapper class for mapping a row in the 'consultant-category' SQL schema, to a {@link eu.accesa.crowdfund.model.ConsultantCategory} object.
+	 * Mapper class for mapping a row in the 'consultant-category' SQL schema, to a {@link eu.accesa.crowdfund.model.ConsultantSpeciality} object.
 	 * @author dragos.triteanu
 	 *
 	 */
-	private static final class ConsultantCategoryMapper implements RowMapper<ConsultantCategory>{
+	private static final class ConsultantCategoryMapper implements RowMapper<ConsultantSpeciality>{
 
 		@Override
-		public ConsultantCategory mapRow(ResultSet rs, int rowNum) throws SQLException {
-			ConsultantCategory consultantCategory = new ConsultantCategory();
-			consultantCategory.setId(rs.getString("id"));
-			consultantCategory.setName(rs.getString("name"));
+		public ConsultantSpeciality mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ConsultantSpeciality consultantCategory = new ConsultantSpeciality();
+			consultantCategory.setSpecialityId(rs.getString("specialityId"));
+			consultantCategory.setSpecialityName(rs.getString("specialityName"));
 			return consultantCategory;
 		}
 	}
@@ -51,5 +51,5 @@ public class Mappers {
 		return new QuestionAndAnswerMapper();
 	}
 
-	public static final RowMapper<ConsultantCategory> consultantCategoryMapper(){return new ConsultantCategoryMapper();}
+	public static final RowMapper<ConsultantSpeciality> consultantCategoryMapper(){return new ConsultantCategoryMapper();}
 }

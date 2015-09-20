@@ -17,12 +17,12 @@
                     <td>${consultant.firstName}</td>
                     <td>${consultant.phoneNumber}</td>
                     <td>${consultant.mail}</td>
-                    <td>${consultant.category.name}</td>
-                    <td>${consultant.numerOfActiveProjects}</td>
+                    <td>${consultant.speciality.specialityName}</td>
+                    <td>${consultant.numberOfActiveProjects}</td>
                     <td>
-                        <form class="details-button-qaa-${consultant.uid}" action="./consultant-details" method="GET">
-                            <input type="hidden" name="uid" value="${consultant.uid}" />
-                            <button id="edit${consultant.uid}" type="submit" class="btn details-button">Detatlii</button>
+                        <form class="details-button-qaa-${consultant.id}" action="./consultant-details" method="GET">
+                            <input type="hidden" name="uid" value="${consultant.id}" />
+                            <button id="edit${consultant.id}" type="submit" class="btn details-button">Detatlii</button>
                         </form>
                     </td>
                 </tr>

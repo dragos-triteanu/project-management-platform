@@ -4,7 +4,7 @@
 	    <#import "*/components/navbar.ftl" as navbarRenderer/>
 		<#import "*/components/consultant-form.ftl" as consultantformRenderer />   
     	<#import "*/components/category-table.ftl" as categoryRenderer />
-		<link rel="stylesheet" type="text/css" href="./resources/css/create-consultant.css" />
+		<link rel="stylesheet" type="text/css" href="./resources/css/createConsultant.css" />
 	</head>
 
     <body>

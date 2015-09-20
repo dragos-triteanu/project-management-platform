@@ -1,6 +1,6 @@
 package eu.accesa.crowdfund.repository;
 
-import eu.accesa.crowdfund.model.ConsultantCategory;
+import eu.accesa.crowdfund.model.ConsultantSpeciality;
 import eu.accesa.crowdfund.repository.mappers.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,36 +20,36 @@ public class ConsultantCategoryRepository {
     private static final Logger LOG = LoggerFactory.getLogger(FAQRepository.class);
 
     @Resource(name = "crowdfundingJdbcTemplate")
-    private JdbcTemplate faqJdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     /**
-     *Insert  a new {@link eu.accesa.crowdfund.model.ConsultantCategory} in the 'consultant-category' DB schema.
-     * @param consultantCategory the to be added {@link eu.accesa.crowdfund.model.ConsultantCategory}.
+     *Insert  a new {@link eu.accesa.crowdfund.model.ConsultantSpeciality} in the 'consultant-category' DB schema.
+     * @param consultantCategory the to be added {@link eu.accesa.crowdfund.model.ConsultantSpeciality}.
      */
-    public void insertCategory(ConsultantCategory consultantCategory) {
-        LOG.debug("Inserting category with categoryId={}", consultantCategory.getId());
-        int update = faqJdbcTemplate.update(INSERT_CONSULTANT_CATEGORY, new Object[]{consultantCategory.getId(), consultantCategory.getName()});
+    public void insertCategory(ConsultantSpeciality consultantCategory) {
+        LOG.debug("Inserting category with categoryId={}", consultantCategory.getSpecialityId());
+        int update = jdbcTemplate.update(INSERT_CONSULTANT_CATEGORY, new Object[]{consultantCategory.getSpecialityId(), consultantCategory.getSpecialityName()});
         LOG.debug("Number of rows modified by insert : {}",update);
     }
 
     /**
-     * Retrieves all {@link eu.accesa.crowdfund.model.ConsultantCategory}s in the 'consultant-category' DB schema.
+     * Retrieves all {@link eu.accesa.crowdfund.model.ConsultantSpeciality}s in the 'consultant-category' DB schema.
      * @return
      */
-    public List<ConsultantCategory> retrieveAllCategories(){
+    public List<ConsultantSpeciality> retrieveAllCategories(){
         LOG.debug("Retrieving all categories of consultants");
-        List<ConsultantCategory> categories = faqJdbcTemplate.query(RETRIEVE_ALL_CATEGORIES, Mappers.consultantCategoryMapper());
+        List<ConsultantSpeciality> categories = jdbcTemplate.query(RETRIEVE_ALL_CATEGORIES, Mappers.consultantCategoryMapper());
         LOG.debug("Retrieved a list of {} categories",categories.size());
          return categories;
     }
 
     /**
-     * Retrieves all {@link eu.accesa.crowdfund.model.ConsultantCategory}s in the 'consultant-category' DB schema.
+     * Retrieves all {@link eu.accesa.crowdfund.model.ConsultantSpeciality}s in the 'consultant-category' DB schema.
      * @return
      */
     public void deleteCategoryById(final String id){
         LOG.debug("Deleting category with categoryId={}",id);
-        int update = faqJdbcTemplate.update(DELETE_CONSULTANT_CATEGORY_BY_ID, new Object[]{id});
+        int update = jdbcTemplate.update(DELETE_CONSULTANT_CATEGORY_BY_ID, new Object[]{id});
         LOG.debug("Number of rows modified by delete : {}", update);
     }
 }

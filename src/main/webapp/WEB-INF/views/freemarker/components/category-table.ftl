@@ -9,17 +9,17 @@
                 <tbody>
                     <#list categories as category>
                     <tr>
-                       <td class="table-data"><p class="categoryName">${category.name}</p>
-                           <input type="hidden" class="categoryId" value="${category.id}"/></td>
+                       <td class="table-data"><p class="categoryName">${category.specialityName}</p>
+                           <input type="hidden" class="categoryId" value="${category.specialityId}"/></td>
                        <td>
-                           <button class="btn btn-default removeCategory" deleteId="${category.id}">
+                           <button class="btn btn-default removeCategory" deleteId="${category.specialityId}">
                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                            </button>
                        </td>
                     </tr>
                     </#list>
                     <tr>
-                        <td><input type="text" name="name" class="newCategoryNameInput" placeholder="Categorie noua" /></td>
+                        <td><input type="text" name="speciality" class="newCategoryNameInput" placeholder="Categorie noua" /></td>
                         <td>
                             <button class="btn btn-primary addCategoryBtn" type="submit">Adauga</button>
                         </td>

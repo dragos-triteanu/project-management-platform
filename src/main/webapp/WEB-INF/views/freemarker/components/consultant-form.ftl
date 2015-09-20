@@ -2,9 +2,9 @@
 <div id ="consultant-details">
     <#if consultant?has_content>
         <form class="edit-form form-horizontal" role="form" action="./projectdetails/update" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="uid" value="${consultant.uid}"/>
+        <input type="hidden" name="uid" value="${consultant.id}"/>
     <#else>
-        <form class="create-form form-horizontal" role="form" action="./projectdetails/create" method="POST" enctype="multipart/form-data">
+        <form class="create-form form-horizontal" role="form" action="./createConsultant" method="POST" enctype="multipart/form-data">
     </#if>
     <div class="form-group">
         <h2>${titlePage}</h2>
@@ -16,9 +16,9 @@
         </div>
         <div class="col-md-6 col-xs-6">
             <#if consultant?has_content>
-                <input type="text" class="form-control" id="consultantLastName" value="${consultant.lastName!''}" name="lastNameName" placeholder="Introduceti numele consultantului.">
+                <input type="text" class="form-control" id="consultantLastName" value="${consultant.lastName!''}" name="lastName" placeholder="Introduceti numele consultantului.">
             <#else>
-                <input type="text" class="form-control" id="consultantLastName"  name="lastNameName" placeholder="Introduceti numele consultantului.">
+                <input type="text" class="form-control" id="consultantLastName"  name="lastName" placeholder="Introduceti numele consultantului.">
             </#if>
         </div>
     </div>
@@ -31,7 +31,7 @@
             <#if consultant?has_content>
                 <input type="text" class="form-control" id="consultantFirstName" value="${consultant.firstName!''}" name="consultantFirstName" placeholder="Introduceti prenumele consultantului." required>
             <#else>
-                <input type="text" class="form-control" id="consultantFirstName"  name="consultantFirstName" placeholder="Introduceti prenumele consultantului." required>
+                <input type="text" class="form-control" id="consultantFirstName"  name="firstName" placeholder="Introduceti prenumele consultantului." required>
             </#if>
         </div>
     </div>
@@ -42,9 +42,9 @@
          </div>
          <div class="col-md-6 col-xs-6">
              <#if consultant?has_content>
-                 <input type="email" class="form-control" id="consultantEmail" value="${consultant.mail!''}" name="consultantEmail" placeholder="Introduceti adresa de email a consultantului." required>
+                 <input type="email" class="form-control" id="consultantEmail" value="${consultant.mail!''}" name="mail" placeholder="Introduceti adresa de email a consultantului." required>
              <#else>
-                <input type="email" class="form-control" id="consultantEmail"  name="consultantEmail" placeholder="Introduceti adresa de email a consultantului" required>
+                <input type="email" class="form-control" id="consultantEmail"  name="mail" placeholder="Introduceti adresa de email a consultantului" required>
             </#if>
          </div>
     </div>
@@ -55,9 +55,9 @@
         </div>
         <div class="col-md-6 col-xs-6">
             <#if consultant?has_content>
-                <input type="number" class="form-control" id="consultantPhoneNumber" value="${consultant.phoneNumer!''}" name="consultantPhoneNumber" placeholder="Introduceti numarul de telefon a consultantului." required>
+                <input type="number" class="form-control" id="consultantPhoneNumber" value="${consultant.phoneNumer!''}" name="phoneNumber" placeholder="Introduceti numarul de telefon a consultantului." required>
             <#else>
-                <input type="number" class="form-control" id="consultantPhoneNumber"  name="consultantPhoneNumber" placeholder="Introduceti numarul de telefon a consultantului" required>
+                <input type="number" class="form-control" id="consultantPhoneNumber"  name="phoneNumber" placeholder="Introduceti numarul de telefon a consultantului" required>
             </#if>
         </div>
     </div>
@@ -68,9 +68,9 @@
         </div>
         <div class="col-md-6 col-xs-6">
             <#if consultant?has_content>
-                <input type="text" class="form-control" id="consultantAddress" value="${consultant.address!''}" name="consultantAddress" placeholder="Introduceti adresa consultantului." required>
+                <input type="text" class="form-control" id="consultantAddress" value="${consultant.address!''}" name="address" placeholder="Introduceti adresa consultantului." required>
             <#else>
-                <input type="text" class="form-control" id="consultantAddress"  name="consultantAddress" placeholder="Introduceti adresa consultantului" required>
+                <input type="text" class="form-control" id="consultantAddress"  name="address" placeholder="Introduceti adresa consultantului" required>
             </#if>
         </div>
     </div>
@@ -81,9 +81,9 @@
         </div>
         <div class="col-md-6 col-xs-6">
             <#if consultant?has_content>
-                <input type="text" class="form-control" id="consultantSchool" value="${consultant.school!''}" name="consultantSchool" placeholder="Introduceti ultima scoala absolvita de consultantului." required>
+                <input type="text" class="form-control" id="consultantSchool" value="${consultant.school!''}" name="studies" placeholder="Introduceti ultima scoala absolvita de consultantului." required>
             <#else>
-                <input type="text" class="form-control" id="consultantSchool"  name="consultantSchool" placeholder="Introduceti ultima scoala absolvita de consultantului." required>
+                <input type="text" class="form-control" id="consultantSchool"  name="studies" placeholder="Introduceti ultima scoala absolvita de consultantului." required>
             </#if>
         </div>
     </div>
@@ -94,9 +94,9 @@
         </div>
         <div class="col-md-6 col-xs-6">
              <#if consultant?has_content>
-                 <input type="text" class="form-control" id="consultantIBAN" value="${consultant.ibanCode!''}" name="consultantIBAN" placeholder="Introduceti IBAN-ul consultantului." required>
+                 <input type="text" class="form-control" id="consultantIBAN" value="${consultant.ibanCode!''}" name="ibanCode" placeholder="Introduceti IBAN-ul consultantului." required>
              <#else>
-                <input type="text" class="form-control" id="consultantIBAN"  name="consultantIBAN" placeholder="Introduceti IBAN-ulconsultantului." required>
+                <input type="text" class="form-control" id="consultantIBAN"  name="ibanCode" placeholder="Introduceti IBAN-ulconsultantului." required>
              </#if>
          </div>
     </div>
@@ -109,7 +109,7 @@
             <#if consultant?has_content>
                 <a href=""> ${consultant.firstName} ${consultant.lastName} </a>
             <#else>
-                <input type="file" class="form-control">
+                <input type="file" name="cvFile" class="form-control">
             </#if>
         </div>
     </div>
@@ -119,13 +119,13 @@
             <label for="category-consultant" class="control-label">Specialitate:</label>
         </div>
         <div class="col-md-4 col-xs-4" id="all-categories">
-            <select id="category-dropdown" class="form-control">
+            <select id="category-dropdown" name="specialityId" class="form-control">
                 <#if categories??>
                     <#list categories as category>
                         <#if consultant?has_content>
-                            <option  value="${category.id}" <#if (category.id == consultant.category.id)> selected="selected" </#if>> ${category.name}</option>
+                            <option  value="${category.specialityId}" name="specialityId" <#if (category.id == consultant.speciality.specialityId)> selected="selected" </#if>> ${category.specialityName}</option>
                         <#else>
-                            <option  value="${category.id}"> ${category.name}</option>
+                            <option  value="${category.specialityId}" name="specialityId" > ${category.specialityName}</option>
                         </#if>
                     </#list>
                 </#if>

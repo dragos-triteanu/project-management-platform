@@ -24,10 +24,10 @@ var loadCategoryEvents = function(){
             alert("BOOM");
         }else{
             var params = new Object();
-            params["name"] = categoryName;
+            params["specialityName"] = categoryName;
 
             $.ajax({
-                url:"./createConsultant/createCategory",
+                url:"/consultants/createCategory",
                 method:"POST",
                 data: params
             }).success(function(data){
@@ -48,7 +48,7 @@ var loadCategoryEvents = function(){
         params["deleteId"] = deleteId;
 
         $.ajax({
-            url:"./createConsultant/deleteCategory",
+            url:"./consultants/deleteCategory",
             method:"POST",
             data: params
         }).success(function(data){

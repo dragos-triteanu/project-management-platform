@@ -24,7 +24,7 @@
          </div>
         <div class="row">
             <div class="col-md-6 col-xs-6 col-md-offset-5 col-xs-offset-1">
-                <a href="./createConsultant"><button type="submit" class="btn btn-primary">Creeaza Consultant</button></a>
+                <a href="/createConsultant"><button type="submit" class="btn btn-primary">Creeaza Consultant</button></a>
             </div>
         </div>
         <#else>

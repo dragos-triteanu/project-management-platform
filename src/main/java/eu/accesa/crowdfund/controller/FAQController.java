@@ -1,7 +1,6 @@
 package eu.accesa.crowdfund.controller;
 
 import eu.accesa.crowdfund.model.QuestionAndAnswer;
-import eu.accesa.crowdfund.repository.FAQRepository;
 import eu.accesa.crowdfund.services.FAQService;
 import eu.accesa.crowdfund.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
