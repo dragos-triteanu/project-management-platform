@@ -1,12 +1,12 @@
 package eu.accesa.crowdfund.services;
 
-import eu.accesa.crowdfund.model.Consultant;
-import eu.accesa.crowdfund.repository.ConsultantRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import eu.accesa.crowdfund.model.Consultant;
+import eu.accesa.crowdfund.repository.ConsultantRepository;
 
 /**
  * Created by Dragos on 9/13/2015.

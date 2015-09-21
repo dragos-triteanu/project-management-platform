@@ -1,12 +1,12 @@
 package eu.accesa.crowdfund.services;
 
-import eu.accesa.crowdfund.model.ConsultantSpeciality;
-import eu.accesa.crowdfund.repository.ConsultantCategoryRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import eu.accesa.crowdfund.model.ConsultantSpeciality;
+import eu.accesa.crowdfund.repository.ConsultantCategoryRepository;
 
 /**
  * Service class meant for managing operations regarding consultant categories.
