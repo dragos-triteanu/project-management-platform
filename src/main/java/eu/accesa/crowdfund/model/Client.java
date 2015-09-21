@@ -11,11 +11,11 @@ public class Client {
     private String lastName;
     private String email;
 
-    public int getUid() {
+    public int getId() {
         return id;
     }
 
-    public void setUid(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

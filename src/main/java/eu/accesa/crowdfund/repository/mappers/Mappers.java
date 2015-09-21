@@ -1,12 +1,14 @@
 package eu.accesa.crowdfund.repository.mappers;
 
+import eu.accesa.crowdfund.model.Client;
 import eu.accesa.crowdfund.model.ConsultantSpeciality;
+import eu.accesa.crowdfund.model.Order;
 import eu.accesa.crowdfund.model.QuestionAndAnswer;
+import eu.accesa.crowdfund.utils.OrderStatus;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.UUID;
 
 /**
  * Utility class for housing {@link RowMapper}s for various application's DAO's.
@@ -48,9 +50,34 @@ public class Mappers {
 		}
 	}
 
+	/**
+	 * Mapper class for mapping a row in the 'order' SQL schema, to a {@link eu.accesa.crowdfund.model.Order} object.
+	 */
+	private static final class OrderMapper implements RowMapper<Order>
+	{
+		public Order mapRow (ResultSet rs,int rowNum) throws SQLException{
+			Order order= new Order();
+			order.setId(rs.getInt("id"));
+			order.setDomain(rs.getString("speciality"));
+			order.setSubject(rs.getString("subject"));
+			order.setNrOfPages(rs.getInt("nrOfPages"));
+			order.setTableOfContents(rs.getString("tableOfContents"));
+			order.setBibliography(rs.getString("bibliography"));
+			order.setAnnexes(rs.getBytes("annexes"));
+			order.setMessage(rs.getString("message"));
+			order.setOrderStatus(OrderStatus.values()[rs.getInt("status")]);
+			Client client = new Client();
+			client.setId(rs.getInt("clientId"));
+			order.setClient(client);
+
+			return order;
+		}
+	}
 	public static final RowMapper<QuestionAndAnswer> questionAndAnswerMapper(){
 		return new QuestionAndAnswerMapper();
 	}
 
 	public static final RowMapper<ConsultantSpeciality> consultantCategoryMapper(){return new ConsultantCategoryMapper();}
+
+	public static final RowMapper<Order> orderMaper(){ return new OrderMapper(); }
 }

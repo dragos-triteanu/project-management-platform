@@ -13,7 +13,7 @@ class JDBCQueries {
 	 */
 	public static final String UPDATE_WYSIWYG_HTML = "UPDATE home SET html=? where id=? ";
 	public static final String RETRIEVE_HTML_FOR_WYSIWYG = "SELECT html FROM home where id=?";
-	
+
 	/**
 	 * {@link FAQRepository} queries.
 	 */
@@ -30,4 +30,10 @@ class JDBCQueries {
 
 	public static final String INSERT_CONSULTANT = "INSERT INTO consultants(lastname,firstname,email,phoneNumber,address,studies,IBAN,CV,specialityId) VALUES(?,?,?,?,?,?,?,?,?)";
 	public static final String RETRIEVE_ALL_CONSULTANTS = "SELECT * FROM consultants consultants JOIN consultantCategories categories ON consultants.categoryId = categories.Id ";
+
+	/**
+	 * {@link OrderRepository} queries.
+	 */
+	public static final String RETRIEVE_ORDERS_BY_STATUS = "Select * from orders WHERE status=?";
+	public static final String RETRIEVE_ORDER_BY_ID = "Select * from orders WHERE id=?";
 }

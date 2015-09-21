@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultants` (
   `studies` varchar(1000) NOT NULL,
   `IBAN` varchar(34) NOT NULL,
   `CV` LONGBLOB,
-  `specialityId` varchar(36) NOT NULL,
+  `specialityId` INT(16) NOT NULL,
   PRIMARY KEY  (`id`)
 );
 
@@ -38,3 +38,17 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultantSpecialities` (
   PRIMARY KEY  (`specialityId`)
 );
 INSERT INTO consultantSpecialities(specialityId,specialityName) VALUES('1','Medicine');
+
+CREATE TABLE IF NOT EXISTS `projectManagementDB`.`orders` (
+  `id` INT(16) NOT NULL AUTO_INCREMENT,
+  `speciality` varchar(1000) NOT NULL,
+  `subject` varchar(1000) NOT NULL,
+  `nrOfPages` INT(4) NOT NULL,
+  `tableOfContents` varchar(5000) NOT NULL,
+  `bibliography` varchar(5000) NOT NULL,
+  `annexes` LONGBLOB,
+  `message` varchar(5000) NOT NULL,
+  `status` int(2) NOT NULL,
+  `clientId` INT(16) NOT NULL,
+  PRIMARY KEY  (`id`)
+);

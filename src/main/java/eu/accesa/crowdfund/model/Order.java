@@ -2,8 +2,6 @@ package eu.accesa.crowdfund.model;
 
 import eu.accesa.crowdfund.utils.OrderStatus;
 
-import java.util.UUID;
-
 /**
  * Created by Dragos on 9/19/2015.
  */
@@ -13,18 +11,18 @@ public class Order {
     private String subject;
     private long nrOfPages;
     private String tableOfContents;
-    private String bibliografy;
-    private byte[] anexes;
-    private String messages;
+    private String bibliography;
+    private byte[] annexes;
+    private String message;
     private Client client;
     private OrderStatus orderStatus;
 
-    public int getUid() {
+    public int getId() {
         return id;
     }
 
-    public void setUid(int uid) {
-        this.id = uid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDomain() {
@@ -59,28 +57,28 @@ public class Order {
         this.tableOfContents = tableOfContents;
     }
 
-    public String getBibliografy() {
-        return bibliografy;
+    public String getBibliography() {
+        return bibliography;
     }
 
-    public void setBibliografy(String bibliografy) {
-        this.bibliografy = bibliografy;
+    public void setBibliography(String bibliography) {
+        this.bibliography = bibliography;
     }
 
-    public byte[] getAnexes() {
-        return anexes;
+    public byte[] getAnnexes() {
+        return annexes;
     }
 
-    public void setAnexes(byte[] anexes) {
-        this.anexes = anexes;
+    public void setAnnexes(byte[] annexes) {
+        this.annexes = annexes;
     }
 
-    public String getMessages() {
-        return messages;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMessages(String messages) {
-        this.messages = messages;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Client getClient() {

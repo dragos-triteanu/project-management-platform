@@ -1,37 +1,32 @@
 package eu.accesa.crowdfund.controller;
 
 import eu.accesa.crowdfund.model.Order;
-import eu.accesa.crowdfund.model.QuestionAndAnswer;
-import eu.accesa.crowdfund.services.FAQService;
 import eu.accesa.crowdfund.services.OrderService;
-import eu.accesa.crowdfund.utils.OrderStatus;
 import eu.accesa.crowdfund.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * Created by Dragos on 9/17/2015.
+ * Created by Dragos on 9/21/2015.
  */
 @Controller
-@RequestMapping("/orders")
-public class OderController {
+@RequestMapping("/orderDetails")
+public class OrderDetailsController {
 
     @Autowired
     private OrderService orderService;
 
     @RequestMapping(method = RequestMethod.GET)
-         public String getAllApprovedOrders(ModelMap modelMap){
-
+    public String getAllApprovedOrders(@RequestParam("id") int id, ModelMap modelMap) {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
-        List<Order> orders = orderService.getOrdersByStatus(OrderStatus.APPROVED);
-        modelMap.addAttribute("ordersList", orders);
 
-        return "orders";
+        Order order = orderService.getOrderByUId(id);
+        modelMap.addAttribute("order", order);
+        modelMap.addAttribute("titlePage", "Detalii Comanda");
+        return "orderDetails";
     }
-
 }

@@ -22,7 +22,7 @@
                     <td>
                         <form class="details-button-qaa-${consultant.id}" action="./consultant-details" method="GET">
                             <input type="hidden" name="uid" value="${consultant.id}" />
-                            <button id="edit${consultant.id}" type="submit" class="btn details-button">Detatlii</button>
+                            <button id="edit${consultant.id}" type="submit" class="btn details-button">Detalii</button>
                         </form>
                     </td>
                 </tr>

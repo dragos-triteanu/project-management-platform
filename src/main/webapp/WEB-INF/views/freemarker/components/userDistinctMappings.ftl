@@ -26,6 +26,11 @@
             "name": "FAQ",
             "url": "./faq",
             "id": "faq"
+        },
+        {
+            "name": "Comenzi",
+            "url" : "./orders",
+            "id" : "orders"
         }
     ],
     "CLIENT": [
