@@ -12,7 +12,7 @@
 		<@navbarRenderer.renderNavbar userRole "consultants" />
     	<div class="container">
 			<div class="col-md-9 col-xs-7">
-				<@consultantformRenderer.renderForm "Creeaza consultant" />
+				<@consultantformRenderer.renderForm "Creeaza consultant" "" categories />
             </div>
 			<div class="col-md-3 col-xs-3">
                 <btn class="btn btn-default toggleCategories">Gestioneaza categorii</btn>

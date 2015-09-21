@@ -1,9 +1,6 @@
 package eu.accesa.crowdfund.repository.mappers;
 
-import eu.accesa.crowdfund.model.Client;
-import eu.accesa.crowdfund.model.ConsultantSpeciality;
-import eu.accesa.crowdfund.model.Order;
-import eu.accesa.crowdfund.model.QuestionAndAnswer;
+import eu.accesa.crowdfund.model.*;
 import eu.accesa.crowdfund.utils.OrderStatus;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -49,6 +46,27 @@ public class Mappers {
 			return consultantCategory;
 		}
 	}
+	
+	private static final class ConsultantMapper implements RowMapper<Consultant>{
+
+		public Consultant mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Consultant consultant = new Consultant();
+			consultant.setId(rs.getInt("id"));
+			consultant.setLastName(rs.getString("lastName"));
+			consultant.setFirstName(rs.getString("firstName"));
+			consultant.setMail(rs.getString("email"));
+			consultant.setPhoneNumber(rs.getString("phoneNumber"));
+			consultant.setAddress(rs.getString("address"));
+			consultant.setStudies(rs.getString("studies"));
+			consultant.setIbanCode(rs.getString("IBAN"));
+			ConsultantSpeciality speciality = new ConsultantSpeciality();
+			speciality.setSpecialityId(rs.getInt("specialityId"));
+			speciality.setSpecialityName(rs.getString("specialityName"));
+			consultant.setSpeciality(speciality);
+			return consultant;
+		}
+	}
+
 
 	/**
 	 * Mapper class for mapping a row in the 'order' SQL schema, to a {@link eu.accesa.crowdfund.model.Order} object.
@@ -73,11 +91,17 @@ public class Mappers {
 			return order;
 		}
 	}
+
+
 	public static final RowMapper<QuestionAndAnswer> questionAndAnswerMapper(){
 		return new QuestionAndAnswerMapper();
 	}
 
 	public static final RowMapper<ConsultantSpeciality> consultantCategoryMapper(){return new ConsultantCategoryMapper();}
+	
+	
+	public static final RowMapper<Consultant> consultantMapper(){return new ConsultantMapper();}
+	
 
 	public static final RowMapper<Order> orderMaper(){ return new OrderMapper(); }
 }

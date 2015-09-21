@@ -24,9 +24,8 @@ public class ConsultantService {
         return consultantList;
     }
 
-    public Consultant getConsultantByUid(UUID uid)
-    {
-        Consultant consultant = consultantRepository.retrieveConsultantByUid(uid);
+    public Consultant getConsultantById(int id){
+        Consultant consultant = consultantRepository.retrieveConsultantByUid(id);
         return consultant;
     }
 
