@@ -64,6 +64,7 @@ public class Mappers {
 			speciality.setSpecialityName(rs.getString("specialityName"));
 			consultant.setSpeciality(speciality);
 			consultant.setCv(rs.getBytes("cv"));
+			consultant.setCvURL("/api/service/cv?id="+consultant.getId());
 			return consultant;
 		}
 	}

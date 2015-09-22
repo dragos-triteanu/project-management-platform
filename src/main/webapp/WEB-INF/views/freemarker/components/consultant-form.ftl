@@ -107,7 +107,9 @@
         </div>
         <div class="col-md-6 col-xs-6">
             <#if consultant?has_content>
-                <a href=""> ${consultant.firstName} ${consultant.lastName} </a>
+                <#if consultant.cvURL??>
+                <a href="${consultant.cvURL}"> ${consultant.firstName} ${consultant.lastName} </a>
+            	</#if>
             <#else>
                 <input type="file" name="cvFile" class="form-control">
             </#if>
