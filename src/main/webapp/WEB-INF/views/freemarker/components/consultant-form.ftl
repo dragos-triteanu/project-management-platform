@@ -1,8 +1,8 @@
 <#macro renderForm titlePage consultant="" categories="" >
 <div id ="consultant-details">
     <#if consultant?has_content>
-        <form class="edit-form form-horizontal" role="form" action="./projectdetails/update" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="uid" value="${consultant.id}"/>
+        <form class="edit-form form-horizontal" role="form" action="./consultantDetails/update" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="${consultant.id}"/>
     <#else>
         <form class="create-form form-horizontal" role="form" action="./createConsultant" method="POST" enctype="multipart/form-data">
     </#if>
@@ -29,7 +29,7 @@
         </div>
         <div class="col-md-6 col-xs-6">
             <#if consultant?has_content>
-                <input type="text" class="form-control" id="consultantFirstName" value="${consultant.firstName!''}" name="consultantFirstName"  placeholder="Introduceti prenumele consultantului." required>
+                <input type="text" class="form-control" id="consultantFirstName" value="${consultant.firstName!''}" name="firstName"  placeholder="Introduceti prenumele consultantului." required>
             <#else>
                 <input type="text" class="form-control" id="consultantFirstName" value="Lungu" name="firstName" placeholder="Introduceti prenumele consultantului." required>
             </#if>
@@ -83,7 +83,7 @@
             <#if consultant?has_content>
                 <input type="text" class="form-control" id="consultantSchool" value="${consultant.studies!''}" name="studies" placeholder="Introduceti ultima scoala absolvita de consultantului." required>
             <#else>
-                <input type="text" class="form-control" id="consultantSchool"  value ="studii"name="studies" placeholder="Introduceti ultima scoala absolvita de consultantului." required>
+                <input type="text" class="form-control" id="consultantSchool"  value ="studii" name="studies" placeholder="Introduceti ultima scoala absolvita de consultantului." required>
             </#if>
         </div>
     </div>
@@ -125,9 +125,9 @@
                 <#if categories?has_content>
                     <#list categories as speciality>
                         <#if consultant?has_content>
-                            <option  value="${speciality.specialityId}" name="specialityId" > ${speciality.specialityName}</option>
+                            <option  value="${speciality.specialityId}" name="specialityId" ${(consultant.speciality.specialityId == speciality.specialityId)?string('selected','')} > ${speciality.specialityName}</option>
                         <#else>
-                            <option  value="${speciality.specialityId}" name="specialityId" selected="Medicine" > ${speciality.specialityName}</option>
+                            <option  value="${speciality.specialityId}" name="specialityId" ${(consultant.speciality.specialityId == speciality.specialityId)?string('selected','')} > ${speciality.specialityName}</option>
                         </#if>
                     </#list>
                 </#if>

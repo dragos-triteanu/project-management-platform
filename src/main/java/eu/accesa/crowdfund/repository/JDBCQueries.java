@@ -27,11 +27,20 @@ class JDBCQueries {
 	public static final String INSERT_CONSULTANT_CATEGORY = "INSERT INTO consultantSpecialities(specialityName) VALUES(?)";
 	public static final String RETRIEVE_ALL_CATEGORIES = "SELECT * FROM consultantSpecialities";
 	public static final String DELETE_CONSULTANT_CATEGORY_BY_ID = "DELETE FROM consultantSpecialities WHERE specialityId=?";
-
+	
 	public static final String INSERT_CONSULTANT = "INSERT INTO consultants(lastname,firstname,email,phoneNumber,address,studies,IBAN,CV,specialityId) VALUES(?,?,?,?,?,?,?,?,?)";
 	public static final String RETRIEVE_ALL_CONSULTANTS = "SELECT * FROM consultants consultants JOIN consultantSpecialities specialities ON consultants.specialityId = specialities.specialityId";
 	public static final String RETRIEVE_CONSULTANT_BY_ID = "SELECT * FROM consultants consultants JOIN consultantSpecialities specialities ON consultants.specialityId = specialities.specialityId WHERE id=?";
-
+	public static final String UPDATE_CONSULTANT = "UPDATE consultants SET lastName=?,"
+																	     + "firstName=?,"
+																	     + "email=?,"
+																	     + "phoneNumber=?,"	
+																	     + "address=?,"
+																	     + "studies=?,"
+																	     + "IBAN=?,"
+																	     + "specialityId=?"
+																	     + " WHERE id=?";
+																	     
 	/**
 	 * {@link OrderRepository} queries.
 	 */

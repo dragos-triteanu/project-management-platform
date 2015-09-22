@@ -32,4 +32,8 @@ public class ConsultantService {
     public void createConsultant(Consultant consultant){
         consultantRepository.insertConsultant(consultant);
     }
+
+	public void updateConsultant(Consultant consultant) {
+		consultantRepository.updateConsultant(consultant);
+	}
 }
