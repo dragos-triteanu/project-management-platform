@@ -60,7 +60,7 @@ public class ConsultantRepository {
     }
 
 	public void updateConsultant(Consultant consultant) {
-		LOG.info("Updating details for consultant wit consultantId={}",consultant.getId());
+		LOG.info("Updating details for consultant wit consultantId={}",consultant.getConsultantId());
 		int update = jdbcTemplate.update(JDBCQueries.UPDATE_CONSULTANT,new Object[]{
 																	   consultant.getLastName(),
 																	   consultant.getFirstName(),
@@ -70,7 +70,7 @@ public class ConsultantRepository {
 																	   consultant.getStudies(),
 																	   consultant.getIbanCode(),
 																	   consultant.getSpeciality().getSpecialityId(),
-																	   consultant.getId()});
+																	   consultant.getConsultantId()});
 		LOG.debug("Number of rows affected by update={}",update);
 	}
 }
