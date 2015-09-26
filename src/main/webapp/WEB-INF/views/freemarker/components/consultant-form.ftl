@@ -1,8 +1,8 @@
 <#macro renderForm titlePage consultant="" categories="" >
 <div id ="consultant-details">
     <#if consultant?has_content>
-        <form class="edit-form form-horizontal" role="form" action="./projectdetails/update" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="uid" value="${consultant.consultantId}"/>
+        <form class="edit-form form-horizontal" role="form" action="./consultantDetails/update" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="consultantId" value="${consultant.consultantId}"/>
     <#else>
         <form class="create-form form-horizontal" role="form" action="./createConsultant" method="POST" enctype="multipart/form-data">
     </#if>
@@ -127,7 +127,7 @@
                         <#if consultant?has_content>
                             <option  value="${speciality.specialityId}" name="specialityId" ${(consultant.speciality.specialityId == speciality.specialityId)?string('selected','')} > ${speciality.specialityName}</option>
                         <#else>
-                            <option  value="${speciality.specialityId}" name="specialityId" ${(consultant.speciality.specialityId == speciality.specialityId)?string('selected','')} > ${speciality.specialityName}</option>
+                            <option  value="${speciality.specialityId}" name="specialityId"> ${speciality.specialityName}</option>
                         </#if>
                     </#list>
                 </#if>
@@ -138,7 +138,7 @@
     <div class="form-group">
         <div class="col-md-4 col-xs-4 col-md-offset-5">
              <button class="btn btn-default btn-save" type="submit">Salveaza</button>
-             <button class="btn btn-default" type="button" id="cancel-btn">Anuleaza</button>
+             <a href="/consultants"><button class="btn btn-default" type="button" id="cancel-btn">Anuleaza</button></a>
         </div>
     </div>
     </form>
