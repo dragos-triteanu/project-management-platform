@@ -46,6 +46,7 @@ class JDBCQueries {
 	 */
 	public static final String RETRIEVE_ORDERS_BY_STATUS = "Select * from orders WHERE status=?";
 	public static final String RETRIEVE_ORDER_BY_ID = "Select * from orders WHERE id=?";
+	public static final String CREATE_ORDER = "INSERT INTO orders(speciality,subject,numberOfPages,tableOfContents,bibliography,annexes,message,status) VALUES(?,?,?,?,?,?,?,?)";
 
 	/**
 	 * {@link eu.accesa.crowdfund.repository.BidRepository} queries

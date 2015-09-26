@@ -28,5 +28,9 @@ public class OrderService {
     public Order getOrderByUId(int id) {
         return orderRepository.getOrderById(id);
     }
+
+	public void placeOrder(Order order) {
+		orderRepository.createOrder(order);
+	}
 }
 

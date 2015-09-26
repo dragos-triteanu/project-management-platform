@@ -47,4 +47,21 @@ public class OrderRepository {
         Order order = orderJdbcTemplate.queryForObject(JDBCQueries.RETRIEVE_ORDER_BY_ID, new Object[]{id}, Mappers.orderMaper());
         return order;
     }
+    
+    /**
+     * Method that creates a {@link Order} in the 'orders' SQL table.
+     * @param order
+     */
+	public void createOrder(Order order) {
+		LOG.info("Creating order with orderSubject={}",order.getSubject());
+		int update = orderJdbcTemplate.update(JDBCQueries.CREATE_ORDER,new Object[]{order.getDomain(),
+																	   order.getSubject(),
+																	   order.getNrOfPages(),
+																	   order.getTableOfContents(),
+																	   order.getBibliography(),
+																	   order.getAnnexes(),
+																	   order.getMessage(),
+																	   order.getOrderStatus()});
+		LOG.debug("Number of rows modified by insert:{}",update);
+	}
 }
