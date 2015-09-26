@@ -58,4 +58,19 @@ public class ConsultantRepository {
                                                                                      consultant.getSpeciality().getSpecialityId()});
         LOG.debug("Number of rows modified by update: {}",update);
     }
+
+	public void updateConsultant(Consultant consultant) {
+		LOG.info("Updating details for consultant wit consultantId={}",consultant.getId());
+		int update = jdbcTemplate.update(JDBCQueries.UPDATE_CONSULTANT,new Object[]{
+																	   consultant.getLastName(),
+																	   consultant.getFirstName(),
+																	   consultant.getMail(),
+																	   consultant.getPhoneNumber(),
+																	   consultant.getAddress(),
+																	   consultant.getStudies(),
+																	   consultant.getIbanCode(),
+																	   consultant.getSpeciality().getSpecialityId(),
+																	   consultant.getId()});
+		LOG.debug("Number of rows affected by update={}",update);
+	}
 }

@@ -1,20 +1,20 @@
 package eu.accesa.crowdfund.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import eu.accesa.crowdfund.model.Consultant;
 import eu.accesa.crowdfund.model.ConsultantSpeciality;
 import eu.accesa.crowdfund.repository.ConsultantCategoryRepository;
 import eu.accesa.crowdfund.services.ConsultantService;
 import eu.accesa.crowdfund.utils.SessionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by Dragos on 9/13/2015.
@@ -39,4 +39,11 @@ public class ConsultantDetailsController {
         modelMap.addAttribute("titlePage", "Editare Consultant");
         return "consultant-details";
     }
+    
+    @RequestMapping(value="/update",method = RequestMethod.POST)
+    public String updateConsultant(@ModelAttribute("Consultant") Consultant consultant){
+    	consultantService.updateConsultant(consultant);
+    	return "redirect:/consultants";
+    }
+    
 }

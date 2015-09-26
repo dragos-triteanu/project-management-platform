@@ -1,11 +1,12 @@
 package eu.accesa.crowdfund.services;
 
-import eu.accesa.crowdfund.model.QuestionAndAnswer;
-import eu.accesa.crowdfund.repository.FAQRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import eu.accesa.crowdfund.model.QuestionAndAnswer;
+import eu.accesa.crowdfund.repository.FAQRepository;
 
 /**
  * Service class meant for handling operations with the {@link eu.accesa.crowdfund.repository.FAQRepository}.

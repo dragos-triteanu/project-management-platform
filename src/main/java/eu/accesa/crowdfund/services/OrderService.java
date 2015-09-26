@@ -1,12 +1,13 @@
 package eu.accesa.crowdfund.services;
 
-import eu.accesa.crowdfund.model.Order;
-import eu.accesa.crowdfund.repository.OrderRepository;
-import eu.accesa.crowdfund.utils.OrderStatus;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import eu.accesa.crowdfund.model.Order;
+import eu.accesa.crowdfund.repository.OrderRepository;
+import eu.accesa.crowdfund.utils.OrderStatus;
 
 /**
  * Created by Dragos on 9/20/2015.
