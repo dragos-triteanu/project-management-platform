@@ -6,7 +6,7 @@ import eu.accesa.crowdfund.utils.OrderStatus;
  * Created by Dragos on 9/19/2015.
  */
 public class Order {
-    private int id;
+    private int orderId;
     private String domain;
     private String subject;
     private long nrOfPages;
@@ -16,14 +16,6 @@ public class Order {
     private String message;
     private Client client;
     private OrderStatus orderStatus;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getDomain() {
         return domain;
@@ -95,5 +87,13 @@ public class Order {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 }

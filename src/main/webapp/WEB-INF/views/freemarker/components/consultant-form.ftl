@@ -1,8 +1,8 @@
 <#macro renderForm titlePage consultant="" categories="" >
-<div id ="consultant-details">
+<div consultantId ="consultant-details">
     <#if consultant?has_content>
         <form class="edit-form form-horizontal" role="form" action="./projectdetails/update" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="uid" value="${consultant.id}"/>
+        <input type="hidden" name="uid" value="${consultant.consultantId}"/>
     <#else>
         <form class="create-form form-horizontal" role="form" action="./createConsultant" method="POST" enctype="multipart/form-data">
     </#if>

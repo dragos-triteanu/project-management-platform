@@ -51,7 +51,7 @@ public class Mappers {
 
 		public Consultant mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Consultant consultant = new Consultant();
-			consultant.setId(rs.getInt("id"));
+			consultant.setConsultantId(rs.getInt("id"));
 			consultant.setLastName(rs.getString("lastName"));
 			consultant.setFirstName(rs.getString("firstName"));
 			consultant.setMail(rs.getString("email"));
@@ -75,7 +75,7 @@ public class Mappers {
 	{
 		public Order mapRow (ResultSet rs,int rowNum) throws SQLException{
 			Order order= new Order();
-			order.setId(rs.getInt("id"));
+			order.setOrderId(rs.getInt("id"));
 			order.setDomain(rs.getString("speciality"));
 			order.setSubject(rs.getString("subject"));
 			order.setNrOfPages(rs.getInt("nrOfPages"));

@@ -4,7 +4,7 @@ package eu.accesa.crowdfund.model;
  * Created by Dragos on 9/12/2015.
  */
 public class Consultant {
-    private int id;
+    private int consultantId;
     private String lastName;
     private String firstName;
     private String mail;
@@ -22,12 +22,12 @@ public class Consultant {
         speciality = new ConsultantSpeciality();
     }
 
-    public int getId() {
-        return id;
+    public int getConsultantId() {
+        return consultantId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setConsultantId(int consultantId) {
+        this.consultantId = consultantId;
     }
 
     public String getFirstName() {

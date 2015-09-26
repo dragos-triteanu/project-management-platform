@@ -46,7 +46,7 @@ public class ConsultantRepository {
      * @param consultant the to be added {@link eu.accesa.crowdfund.model.Consultant}.
      */
     public void insertConsultant(final Consultant consultant){
-        LOG.info("Inserting consultant with consultantId={}",consultant.getId());
+        LOG.info("Inserting consultant with consultantId={}",consultant.getConsultantId());
         int update = jdbcTemplate.update(JDBCQueries.INSERT_CONSULTANT, new Object[]{consultant.getLastName(),
                                                                                      consultant.getFirstName(),
                                                                                      consultant.getMail(),

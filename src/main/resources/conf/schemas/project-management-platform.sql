@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`faq` (
 );
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultants` (
-  `id` INT(16) NOT NULL AUTO_INCREMENT,
+  `consultantId` INT(16) NOT NULL AUTO_INCREMENT,
   `lastname` VARCHAR(36) NOT NULL ,
   `firstname` varchar(1000) NOT NULL,
   `email` varchar(1000) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultants` (
   `IBAN` varchar(34) NOT NULL,
   `CV` LONGBLOB,
   `specialityId` INT(16) NOT NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`consultantId`)
 );
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultantSpecialities` (
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultantSpecialities` (
 INSERT INTO consultantSpecialities(specialityId,specialityName) VALUES('1','Medicine');
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`orders` (
-  `id` INT(16) NOT NULL AUTO_INCREMENT,
+  `orderId` INT(16) NOT NULL AUTO_INCREMENT,
   `speciality` varchar(1000) NOT NULL,
   `subject` varchar(1000) NOT NULL,
   `nrOfPages` INT(4) NOT NULL,
@@ -50,5 +50,13 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`orders` (
   `message` varchar(5000) NOT NULL,
   `status` int(2) NOT NULL,
   `clientId` INT(16) NOT NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`ordersId`)
 );
+
+CREATE TABLE IF NOT EXISTS `projectManagementDB`.`bids`(
+  `orderId` INT(16) NOT NULL,
+  `consultantId` INT(16) NOT NULL,
+  `cost` DECIMAL NOT NULL,
+  `nrOfDays` INT(2) NOT NULL,
+  PRIMARY KEY (`orderId`,`consultantId`)
+  );

@@ -37,4 +37,9 @@ class JDBCQueries {
 	 */
 	public static final String RETRIEVE_ORDERS_BY_STATUS = "Select * from orders WHERE status=?";
 	public static final String RETRIEVE_ORDER_BY_ID = "Select * from orders WHERE id=?";
+
+	/**
+	 * {@link eu.accesa.crowdfund.repository.BidRepository} queries
+	 */
+	public static final String INSERT_BID = "INSERT INTO bids(orderId,consultantId,cost,nrOfDays) VALUES(?,?,?,?);";
 }

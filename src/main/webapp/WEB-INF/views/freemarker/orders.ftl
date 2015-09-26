@@ -14,7 +14,7 @@
 <#if userRole == 'CONSULTANT'>
 <div class="container">
     <div class ="panel-group">
-        <div class="h2 consultantTitle" >
+        <div class="h2" >
             Comenzi noi
         </div>
         <div class="orders-table">

@@ -31,6 +31,11 @@
             "name": "Comenzi",
             "url" : "./orders",
             "id" : "orders"
+        },
+        {
+            "name":"Comenzile mele",
+            "url": "./myorders",
+            "id" : "myorders"
         }
     ],
     "CLIENT": [

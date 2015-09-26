@@ -1,3 +1,6 @@
 .orders-table tbody {
     text-align: left;
 }
+.bid{
+    display: none;
+}

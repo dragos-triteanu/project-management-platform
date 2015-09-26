@@ -1,10 +1,10 @@
-<#macro renderForm titlePage order="">
+<#macro renderForm titlePage userRole order="">
 
-<div id="consultant-details">
-    <#if consultant??>
+<div consultantId="consultant-details">
+    <#if order?has_content>
     <form class="edit-form form-horizontal" role="form" action="./orders/details" method="GET"
           enctype="multipart/form-data">
-        <input type="hidden" name="uid" value="${consultant.uid}"/>
+        <input type="hidden" name="consultantId" ide="orderId" value="${order.orderId}"/>
     <#else>
     <form class="create-form form-horizontal" role="form" action="./orders/create" method="POST"
           enctype="multipart/form-data">
@@ -13,6 +13,7 @@
         <h2>${titlePage}</h2>
     </div>
 
+  <#if userRole == 'ADMINISTRATOR'>
     <div class="form-group">
         <div class="col-md-2 col-xs-2">
             <label for="lastName" class="control-label">Nume:</label>
@@ -45,6 +46,7 @@
             </#if>
         </div>
     </div>
+  </#if>
 
     <div class="form-group">
         <div class="col-md-2 col-xs-2">
@@ -113,7 +115,7 @@
 
     <div class="form-group">
         <div class="col-md-2 col-xs-2">
-            <label for="annexes" class="control-label">Bibliografie:</label>
+            <label for="annexes" class="control-label">Anexa:</label>
         </div>
         <div class="col-md-6 col-xs-6">
             <#if order?has_content>
@@ -147,6 +149,6 @@
                 </div>
          </div>
     </#if>
-
+</form>
 </div>
 </#macro>

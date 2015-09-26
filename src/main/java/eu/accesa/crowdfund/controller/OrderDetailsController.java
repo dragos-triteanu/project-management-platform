@@ -21,7 +21,7 @@ public class OrderDetailsController {
     private OrderService orderService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getAllApprovedOrders(@RequestParam("id") int id, ModelMap modelMap) {
+    public String getAllApprovedOrders(@RequestParam("orderId") int id, ModelMap modelMap) {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
 
         Order order = orderService.getOrderByUId(id);
