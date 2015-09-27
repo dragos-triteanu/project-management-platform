@@ -1,15 +1,15 @@
 package eu.accesa.crowdfund.controller;
 
-import eu.accesa.crowdfund.model.Bid;
+import eu.accesa.crowdfund.model.ConsultantOrder;
 
 import eu.accesa.crowdfund.model.Consultant;
 import eu.accesa.crowdfund.model.Order;
 import eu.accesa.crowdfund.services.BidService;
+import eu.accesa.crowdfund.utils.OrderStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +28,7 @@ public class BidController {
     @RequestMapping(value="/placeBid", method = RequestMethod.POST)
     public String sendBid(@RequestParam("orderId") int orderId , @RequestParam("nrOfDays") int nrOfDays, @RequestParam("cost") double cost){
 
-        Bid bid = new Bid();
+        ConsultantOrder bid = new ConsultantOrder();
         bid.setCost(cost);
         bid.setNrOfDays(nrOfDays);
 
@@ -40,6 +40,7 @@ public class BidController {
         consultant.setConsultantId(1);
         bid.setConsultant(consultant);
 
+        bid.setStatus(OrderStatus.PENDING);
         bidService.addBid(bid);
         return "redirect:/orders";
     }

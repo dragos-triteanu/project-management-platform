@@ -4,11 +4,12 @@ package eu.accesa.crowdfund.utils;
  * Created by Dragos on 9/19/2015.
  */
 public enum OrderStatus {
-    NEW(1),
-    APPROVED(2),
-    ACCEPT(3),
-    DECLINE(4),
-    SEE_DETAILS(5);
+    NEW(0),
+    ACCEPTED(1),
+    PENDING(2),
+    APPROVED(3),
+    REJECTED(4),
+    DONE(5);
 
     private int status;
 
@@ -16,7 +17,7 @@ public enum OrderStatus {
         this.status = status;
     }
 
-    public int getOrder() {
+    public int getOrderStatus() {
         return this.status;
     }
 }

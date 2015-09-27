@@ -138,17 +138,14 @@
             </#if>
         </div>
     </div>
-
-    <#if !(order?has_content)>
-         <div class="form-group">
-            <div class="col-md-1 col-xs-1">
-                 <input type="checkbox" for="termAndCond" class="form-control"></input>
-            </div>
-                <div class="col-md-6 col-xs-6">
-                      <p class="form-control" id="termAndCond" name="termAndCond">Sunt de acord cu terminii si conditiile.</p>
-                </div>
-         </div>
-    </#if>
+    <div class="form-group">
+        <div class="col-md-2 col-xs-2">
+            <label for="status" class="control-label">Status:</label>
+        </div>
+        <div class="col-md-6 col-xs-6">
+                <p class="form-control-static" id="message" name="message">${order.orderStatus}</p>
+        </div>
+    </div>
 </form>
 </div>
 </#macro>

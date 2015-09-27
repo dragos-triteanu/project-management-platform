@@ -41,22 +41,23 @@ INSERT INTO consultantSpecialities(specialityId,specialityName) VALUES('1','Medi
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`orders` (
   `orderId` INT(16) NOT NULL AUTO_INCREMENT,
-  `speciality` varchar(1000) NOT NULL,
+  `domanin` varchar(1000) NOT NULL,
   `subject` varchar(1000) NOT NULL,
   `nrOfPages` INT(4) NOT NULL,
   `tableOfContents` varchar(5000) NOT NULL,
   `bibliography` varchar(5000) NOT NULL,
   `annexes` LONGBLOB,
   `message` varchar(5000) NOT NULL,
-  `status` int(2) NOT NULL,
+  `status` INT(2) NOT NULL,
   `clientId` INT(16) NOT NULL,
-  PRIMARY KEY  (`ordersId`)
+  PRIMARY KEY  (`orderId`)
 );
 
-CREATE TABLE IF NOT EXISTS `projectManagementDB`.`bids`(
+CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultantOrders`(
   `orderId` INT(16) NOT NULL,
   `consultantId` INT(16) NOT NULL,
   `cost` DECIMAL NOT NULL,
   `nrOfDays` INT(2) NOT NULL,
+  `status` INT(2),
   PRIMARY KEY (`orderId`,`consultantId`)
   );

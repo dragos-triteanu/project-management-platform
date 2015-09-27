@@ -1,10 +1,7 @@
 package eu.accesa.crowdfund.controller;
 
 import eu.accesa.crowdfund.model.Order;
-import eu.accesa.crowdfund.model.QuestionAndAnswer;
-import eu.accesa.crowdfund.services.FAQService;
 import eu.accesa.crowdfund.services.OrderService;
-import eu.accesa.crowdfund.utils.OrderStatus;
 import eu.accesa.crowdfund.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +25,7 @@ public class OderController {
          public String getAllApprovedOrders(ModelMap modelMap){
 
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
-        List<Order> orders = orderService.getOrdersByStatus(OrderStatus.APPROVED);
+        List<Order> orders = orderService.getConsultantOrders(1);
         modelMap.addAttribute("ordersList", orders);
 
         return "orders";

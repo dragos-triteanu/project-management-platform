@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import eu.accesa.crowdfund.model.Order;
 import eu.accesa.crowdfund.repository.OrderRepository;
-import eu.accesa.crowdfund.utils.OrderStatus;
 
 /**
  * Created by Dragos on 9/20/2015.
@@ -18,11 +17,11 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
     /**
-     Retrieves the list with orders filtered by status .
+     Retrieves the list with consultant orders.
     */
-    public List<Order> getOrdersByStatus(OrderStatus status)
+    public List<Order> getConsultantOrders(int consultantId)
     {
-        return orderRepository.getOrdersByStatus(status);
+        return orderRepository.getConsultantOrders(consultantId);
     }
 
     public Order getOrderByUId(int id) {

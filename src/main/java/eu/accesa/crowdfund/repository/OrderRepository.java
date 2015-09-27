@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 import java.util.List;
 
-import static eu.accesa.crowdfund.repository.JDBCQueries.RETRIEVE_ORDERS_BY_STATUS;
+import static eu.accesa.crowdfund.repository.JDBCQueries.RETRIEVE_CONSULTANT_ORDERS;
 
 /**
  * Created by Dragos on 9/20/2015.
@@ -25,14 +25,14 @@ public class OrderRepository {
     private JdbcTemplate orderJdbcTemplate;
 
     /**
-     * Retrieves a list of {@link Order} from the 'orders' SQL table filtered by status.
-     * @param status
+     * Retrieves a list of {@link Order} from the 'orders' SQL table.
+     * @param consultantId
      * @return
      */
-    public List<Order> getOrdersByStatus(OrderStatus status)
+    public List<Order> getConsultantOrders(int consultantId)
     {
-        LOG.debug("Retrieving list orders with status:"+status);
-        List<Order> orders = orderJdbcTemplate.query(RETRIEVE_ORDERS_BY_STATUS, new Object[]{status.getOrder()},Mappers.orderMaper());
+        LOG.debug("Retrieving list orders for consultant:"+consultantId);
+        List<Order> orders = orderJdbcTemplate.query(RETRIEVE_CONSULTANT_ORDERS, new Object[]{consultantId, OrderStatus.ACCEPTED.getOrderStatus()},Mappers.orderMaper());
         LOG.debug("Found :" + orders);
         return orders;
     }

@@ -44,11 +44,14 @@ class JDBCQueries {
 	/**
 	 * {@link OrderRepository} queries.
 	 */
-	public static final String RETRIEVE_ORDERS_BY_STATUS = "Select * from orders WHERE status=?";
+	public static final String RETRIEVE_CONSULTANT_ORDERS = "SELECT o.id,o.domain,o.subject,o.nrOfPages,o.tableOfContents,o.bibliography,o.annexes,o.message,o.clientId,co.status " +
+															"From orders o " +
+															"LEFT JOIN (SELECT * from consultantorders WHERE consultantId=?) co ON o.id=co.orderId " +
+															"WHERE o.status = ?";
 	public static final String RETRIEVE_ORDER_BY_ID = "Select * from orders WHERE id=?";
 
 	/**
 	 * {@link eu.accesa.crowdfund.repository.BidRepository} queries
 	 */
-	public static final String INSERT_BID = "INSERT INTO bids(orderId,consultantId,cost,nrOfDays) VALUES(?,?,?,?);";
+	public static final String INSERT_BID = "INSERT INTO consultantOrders(orderId,consultantId,cost,nrOfDays,status) VALUES(?,?,?,?,?);";
 }

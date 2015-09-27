@@ -1,7 +1,6 @@
 package eu.accesa.crowdfund.repository;
 
-import eu.accesa.crowdfund.model.Bid;
-import eu.accesa.crowdfund.model.Consultant;
+import eu.accesa.crowdfund.model.ConsultantOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,17 +19,18 @@ public class BidRepository {
     private JdbcTemplate jdbcTemplate;
 
     /**
-     * Method for inserting a {@link eu.accesa.crowdfund.model.Bid} into the 'bids' SQL schema.
-     * @param bid the to be added {@link eu.accesa.crowdfund.model.Bid}.
+     * Method for inserting a {@link eu.accesa.crowdfund.model.ConsultantOrder} into the 'bids' SQL schema.
+     * @param bid the to be added {@link eu.accesa.crowdfund.model.ConsultantOrder}.
      */
-    public void addBid(final Bid bid){
+    public void addBid(final ConsultantOrder bid){
         LOG.info("Inserting bid for orderId={} from consultantId={}",bid.getOrder().getOrderId(),bid.getConsultant().getConsultantId());
 
 
         int update = jdbcTemplate.update(JDBCQueries.INSERT_BID, new Object[]{bid.getOrder().getOrderId(),
                                                                               bid.getConsultant().getConsultantId(),
                                                                               bid.getCost(),
-                                                                              bid.getNrOfDays()  });
+                                                                              bid.getNrOfDays(),
+                                                                              bid.getStatus().getOrderStatus()});
         LOG.debug("Number of rows modified by update: {}",update);
     }
 }

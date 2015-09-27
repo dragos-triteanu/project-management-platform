@@ -78,14 +78,19 @@ public class Mappers {
 		public Order mapRow (ResultSet rs,int rowNum) throws SQLException{
 			Order order= new Order();
 			order.setOrderId(rs.getInt("id"));
-			order.setDomain(rs.getString("speciality"));
+			order.setDomain(rs.getString("domain"));
 			order.setSubject(rs.getString("subject"));
 			order.setNrOfPages(rs.getInt("nrOfPages"));
 			order.setTableOfContents(rs.getString("tableOfContents"));
 			order.setBibliography(rs.getString("bibliography"));
 			order.setAnnexes(rs.getBytes("annexes"));
 			order.setMessage(rs.getString("message"));
-			order.setOrderStatus(OrderStatus.values()[rs.getInt("status")]);
+			if(rs.getObject("status")!= null) {
+				order.setOrderStatus(OrderStatus.values()[rs.getInt("status")]);
+			}
+			else {
+				order.setOrderStatus(OrderStatus.ACCEPTED);
+			}
 			Client client = new Client();
 			client.setId(rs.getInt("clientId"));
 			order.setClient(client);
@@ -100,10 +105,8 @@ public class Mappers {
 	}
 
 	public static final RowMapper<ConsultantSpeciality> consultantCategoryMapper(){return new ConsultantCategoryMapper();}
-	
-	
+
 	public static final RowMapper<Consultant> consultantMapper(){return new ConsultantMapper();}
-	
 
 	public static final RowMapper<Order> orderMaper(){ return new OrderMapper(); }
 }

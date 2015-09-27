@@ -1,16 +1,20 @@
 package eu.accesa.crowdfund.model;
 
+import eu.accesa.crowdfund.utils.OrderStatus;
+
+
 /**
  * Created by Dragos on 9/21/2015.
  */
-public class Bid {
+public class ConsultantOrder {
     private int bidId;
     private Order order;
     private Consultant consultant;
     private int nrOfDays;
     private double cost;
+    private OrderStatus status;
 
-    public Bid(){
+    public ConsultantOrder(){
         order = new Order();
         consultant = new Consultant();
     }
@@ -53,5 +57,13 @@ public class Bid {
 
     public void setCost(double cost) {
         this.cost = cost;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 }
