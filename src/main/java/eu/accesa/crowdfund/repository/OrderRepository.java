@@ -70,7 +70,7 @@ public class OrderRepository {
 	        parameters.put("bibliography", order.getBibliography());
 	        parameters.put("annexes", order.getAnnexes());
 	        parameters.put("message", order.getMessage());
-	        parameters.put("status", order.getOrderStatus().getOrder());
+	        parameters.put("status", order.getOrderStatus().getOrderStatus());
 
 	        Number executeAndReturnKey = insert.executeAndReturnKey(new MapSqlParameterSource(parameters));
 	        return executeAndReturnKey.intValue();
