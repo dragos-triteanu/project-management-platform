@@ -39,9 +39,21 @@ class JDBCQueries {
 																	     + "studies=?,"
 																	     + "IBAN=?,"
 																	     + "specialityId=?"
-																	     + " WHERE id=?";
+																	     + " WHERE consultantId=?";
+	
+	public static final String UPDATE_CONSULTANT_WITH_CV = "UPDATE consultants SET lastName=?,"
+		     + "firstName=?,"
+		     + "email=?,"
+		     + "phoneNumber=?,"	
+		     + "address=?,"
+		     + "studies=?,"
+		     + "IBAN=?,"
+		     + "CV=?,"
+		     + "specialityId=?"
+		     + " WHERE consultantId=?";
 	public static final String DELETE_CONSULTANT_BY_ID = "DELETE FROM consultants WHERE consultantId=?";
 																	     
+	
 	/**
 	 * {@link OrderRepository} queries.
 	 */

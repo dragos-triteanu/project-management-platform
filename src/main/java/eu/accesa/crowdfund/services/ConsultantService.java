@@ -34,7 +34,11 @@ public class ConsultantService {
     }
 
 	public void updateConsultant(Consultant consultant) {
-		consultantRepository.updateConsultant(consultant);
+		if(consultant.getCv() != null && consultant.getCv().length > 0){
+			consultantRepository.updateConsultantWithCv(consultant);
+		}else{
+			consultantRepository.updateConsultant(consultant);
+		}
 	}
 
     public void removeConsultant(String consultantId) {

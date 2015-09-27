@@ -73,6 +73,23 @@ public class ConsultantRepository {
 																	   consultant.getConsultantId()});
         LOG.debug("Number of rows affected by update={}",update);
     }
+	
+	public void updateConsultantWithCv(Consultant consultant) {
+		LOG.info("Updating details for consultant wit consultantId={}",consultant.getConsultantId());
+        int update = jdbcTemplate.update(UPDATE_CONSULTANT_WITH_CV,new Object[]{
+																	   consultant.getLastName(),
+																	   consultant.getFirstName(),
+																	   consultant.getMail(),
+																	   consultant.getPhoneNumber(),
+																	   consultant.getAddress(),
+																	   consultant.getStudies(),
+																	   consultant.getIbanCode(),
+																	   consultant.getCv(),
+																	   consultant.getSpeciality().getSpecialityId(),
+																	   consultant.getConsultantId()});
+        LOG.debug("Number of rows affected by update={}",update);
+    }
+	
 
     public void deleteConsultant(String consultantId) {
         LOG.info("Deleting consultant with consultantId={}",consultantId);
