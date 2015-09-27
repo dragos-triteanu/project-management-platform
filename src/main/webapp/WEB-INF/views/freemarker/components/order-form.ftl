@@ -143,7 +143,7 @@
             <label for="status" class="control-label">Status:</label>
         </div>
         <div class="col-md-6 col-xs-6">
-                <p class="form-control-static" id="message" name="message">${order.orderStatus}</p>
+            <p class="form-control-static" id="message" name="message">${order.orderStatus}</p>
         </div>
     </div>
 </form>

@@ -36,7 +36,7 @@ public class OrderRepository {
      */
     public List<Order> getConsultantOrders(int consultantId)
     {
-        LOG.debug("Retrieving list orders for consultant:"+consultantId);
+        LOG.debug("Retrieving list of orders for consultant:"+consultantId);
         List<Order> orders = orderJdbcTemplate.query(RETRIEVE_CONSULTANT_ORDERS, new Object[]{consultantId, OrderStatus.ACCEPTED.getOrderStatus()},Mappers.orderMaper());
         LOG.debug("Found :" + orders);
         return orders;

@@ -9,7 +9,9 @@ public enum OrderStatus {
     PENDING(2),
     APPROVED(3),
     REJECTED(4),
-    DONE(5);
+    ASSIGNED(5),
+    INPROGRESS(6),
+    DONE(7);
 
     private int status;
 

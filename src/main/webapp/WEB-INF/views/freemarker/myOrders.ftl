@@ -4,21 +4,21 @@
 <#import "*/components/order-table.ftl" as order/>
 <html>
 <head>
-    <#include "*/includes.ftl">
+<#include "*/includes.ftl">
     <link rel="stylesheet" type="text/css" href="./resources/css/order.css">
 </head>
 <body>
 <input id="userRole" type="hidden" class="hidden" value="${userRole}" />
-<@navbarRenderer.renderNavbar userRole="${userRole}" activePage="orders"/>
+<@navbarRenderer.renderNavbar userRole="${userRole}" activePage="myorders"/>
 
 <#if userRole == 'CONSULTANT'>
 <div class="container">
     <div class ="panel-group">
         <div class="h2" >
-            Comenzi noi
+            Comenzile mele
         </div>
         <div class="orders-table">
-            <@order.renderTable ordersList userRole "Nici o comanda noua."/>
+            <@order.renderTable ordersList userRole "Nici o comanda activa."/>
         </div>
     </div>
 </div>

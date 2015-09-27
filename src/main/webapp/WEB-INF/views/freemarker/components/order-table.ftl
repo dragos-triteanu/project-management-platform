@@ -1,4 +1,4 @@
-<#macro renderTable ordersList userRole>
+<#macro renderTable ordersList userRole message>
 <table class="table">
     <#if ordersList?has_content>
     <thead>
@@ -25,7 +25,7 @@
             </tr>
         </#list>
     <#else>
-    Nici un comanda noua!
+     ${message}
     </#if>
     </tbody>
 </table>

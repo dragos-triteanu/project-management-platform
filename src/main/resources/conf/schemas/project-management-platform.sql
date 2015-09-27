@@ -52,6 +52,10 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`orders` (
   `clientId` INT(16) NOT NULL,
   PRIMARY KEY  (`orderId`)
 );
+INSERT INTO `projectmanagementdb`.`orders` (`orderId`, `speciality`, `subject`, `nrOfPages`, `tableOfContents`, `bibliography`, `message`, `status`, `clientId`) VALUES ('1', 'domain', 'subject', '23', 'tableOfContents', 'bibliography', 'message', '1', '1');
+INSERT INTO `projectmanagementdb`.`orders` (`orderId`, `speciality`, `subject`, `nrOfPages`, `tableOfContents`, `bibliography`, `message`, `status`, `clientId`) VALUES ('2', 'domain1', 'subject1', '20', 'tableOfContents1', 'bibliography1', 'message1', '1', '2');
+INSERT INTO `projectmanagementdb`.`orders` (`orderId`, `speciality`, `subject`, `nrOfPages`, `tableOfContents`, `bibliography`, `message`, `status`, `clientId`) VALUES ('3', 'domain2', 'subject2', '12', 'tableOfContents2', 'bibliography2', 'message2', '1', '3');
+
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultantOrders`(
   `orderId` INT(16) NOT NULL,
