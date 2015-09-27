@@ -6,10 +6,15 @@ import eu.accesa.crowdfund.utils.OrderStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static eu.accesa.crowdfund.repository.JDBCQueries.RETRIEVE_ORDERS_BY_STATUS;
 
@@ -52,16 +57,23 @@ public class OrderRepository {
      * Method that creates a {@link Order} in the 'orders' SQL table.
      * @param order
      */
-	public void createOrder(Order order) {
+	public int createOrder(Order order) {
 		LOG.info("Creating order with orderSubject={}",order.getSubject());
-		int update = orderJdbcTemplate.update(JDBCQueries.CREATE_ORDER,new Object[]{order.getDomain(),
-																	   order.getSubject(),
-																	   order.getNrOfPages(),
-																	   order.getTableOfContents(),
-																	   order.getBibliography(),
-																	   order.getAnnexes(),
-																	   order.getMessage(),
-																	   order.getOrderStatus()});
-		LOG.debug("Number of rows modified by insert:{}",update);
+		
+		SimpleJdbcInsert insert = new SimpleJdbcInsert(orderJdbcTemplate);
+		insert.withTableName("orders").usingGeneratedKeyColumns("orderId");
+	        Map<String, Object> parameters = new HashMap<String, Object>();
+	        parameters.put("subject", order.getSubject());
+	        parameters.put("speciality", order.getDomain());
+	        parameters.put("nrOfPages", order.getNrOfPages());
+	        parameters.put("tableOfContents", order.getTableOfContents());
+	        parameters.put("bibliography", order.getBibliography());
+	        parameters.put("annexes", order.getAnnexes());
+	        parameters.put("message", order.getMessage());
+	        parameters.put("status", order.getOrderStatus().getOrder());
+
+	        Number executeAndReturnKey = insert.executeAndReturnKey(new MapSqlParameterSource(parameters));
+	        return executeAndReturnKey.intValue();
 	}
+	
 }

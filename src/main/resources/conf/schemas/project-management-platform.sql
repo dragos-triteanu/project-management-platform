@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`orders` (
   `annexes` LONGBLOB,
   `message` varchar(5000) NOT NULL,
   `status` int(2) NOT NULL,
-  `clientId` INT(16) NOT NULL,
-  PRIMARY KEY  (`ordersId`)
+  `clientId` INT(16),
+  PRIMARY KEY  (`orderId`)
 );
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`bids`(

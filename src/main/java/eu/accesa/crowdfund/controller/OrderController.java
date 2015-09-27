@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,19 +39,21 @@ public class OrderController {
     }
     
     @RequestMapping(value = "/placeOrder" ,method= RequestMethod.POST)
-    public void placeOrder(@RequestParam("domain") String domain,
+    public ResponseEntity<Integer> placeOrder(@RequestParam("domain") String domain,
     		               @RequestParam("subject") String subject,
     		               @RequestParam("nrOfPages") long nrOfPages,
     		               @RequestParam("tableOfContents") String tableOfContents,
     		               @RequestParam("bibliography") String bibliography,
     		               @RequestParam("message") String message,
     		               @RequestParam("annexes") MultipartFile annexes) throws Exception{
-	
-    Order order = buildOrderFromParams(domain, subject, nrOfPages, tableOfContents, bibliography, message, annexes);
-    		
-    	orderService.placeOrder(order);
+    	//TODO validate
+    	Order order = buildOrderFromParams(domain, subject, nrOfPages, tableOfContents, bibliography, message, annexes);
+    	
+    	int placedOrder = orderService.placeOrder(order);
+    	return new ResponseEntity<>(placedOrder,HttpStatus.CREATED);
     }
 
+    
 	private Order buildOrderFromParams(String domain, String subject, long nrOfPages, String tableOfContents, String bibliography,
 			String message, MultipartFile annexes) throws IOException {
 		Order order = new Order();
@@ -61,6 +64,7 @@ public class OrderController {
 		order.setBibliography(bibliography);
 		order.setMessage(message);
 		order.setAnnexes(annexes.getBytes());
+		order.setOrderStatus(OrderStatus.NEW);
 		return order;
 	}
 }
