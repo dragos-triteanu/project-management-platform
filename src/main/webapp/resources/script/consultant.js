@@ -19,4 +19,20 @@ $(document).ready(function() {
     $('#cancel-btn').on('click', function() {
         window.location="/CrowdfundingApp/consultants"
     });
+
+
+    $(".delete-consultant-button").on("click",function(){
+        deleteOnSubmit();
+    });
 });
+
+var deleteOnSubmit = function(){
+    bootbox.confirm("Esti sigur bosz?", function(result) {
+        if(!result){
+            bootbox.hideAll();
+        }else{
+            $(".delete-consultant-form").submit();
+        }
+    });
+};
+

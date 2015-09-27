@@ -136,11 +136,17 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-4 col-xs-4 col-md-offset-5">
+        <div class="col-md-4 col-xs-4">
              <button class="btn btn-default btn-save" type="submit">Salveaza</button>
              <a href="/consultants"><button class="btn btn-default" type="button" id="cancel-btn">Anuleaza</button></a>
         </div>
     </div>
     </form>
+    <#if consultant?has_content>
+        <form class="delete-consultant-form" method="post" action="./consultantDetails/delete">
+            <input type="hidden" name="consultantId" value="${consultant.consultantId}" />
+            <button class="btn btn-danger delete-consultant-button" type="button">Sterge consultant</button>
+        </form>
+    </#if>
 </div>
 </#macro>

@@ -6,3 +6,4 @@
 <script src="./webjars/jquery/1.9.1/jquery.min.js"></script>
 <script src="./webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="./webjars/jquery-ui/1.11.4/jquery-ui.js"></script>
+<script src="./resources/script/bootbox.min.js"></script>

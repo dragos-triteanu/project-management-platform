@@ -36,4 +36,8 @@ public class ConsultantService {
 	public void updateConsultant(Consultant consultant) {
 		consultantRepository.updateConsultant(consultant);
 	}
+
+    public void removeConsultant(String consultantId) {
+        consultantRepository.deleteConsultant(consultantId);
+    }
 }

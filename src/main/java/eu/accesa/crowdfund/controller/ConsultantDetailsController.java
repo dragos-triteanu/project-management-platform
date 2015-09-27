@@ -45,5 +45,11 @@ public class ConsultantDetailsController {
     	consultantService.updateConsultant(consultant);
     	return "redirect:/consultants";
     }
-    
+
+    @RequestMapping(value="/delete", method=RequestMethod.POST)
+    public String deleteConsultant(@RequestParam("consultantId") final String consultantId){
+        consultantService.removeConsultant(consultantId);
+        return "redirect:/consultants";
+    }
+
 }

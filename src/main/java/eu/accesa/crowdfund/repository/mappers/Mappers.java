@@ -51,7 +51,7 @@ public class Mappers {
 
 		public Consultant mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Consultant consultant = new Consultant();
-			consultant.setConsultantId(rs.getInt("id"));
+			consultant.setConsultantId(rs.getInt("consultantId"));
 			consultant.setLastName(rs.getString("lastName"));
 			consultant.setFirstName(rs.getString("firstName"));
 			consultant.setMail(rs.getString("email"));
