@@ -102,18 +102,7 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-2 col-xs-2">
-            <label for="consultant"class="control-label">CV:</label>
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <#if consultant?has_content>
-                <#if consultant.cvURL??>
-                <a href="${consultant.cvURL}"> ${consultant.firstName} ${consultant.lastName} </a>
-            	</#if>
-            <#else>
-                <input type="file" name="cvFile" class="form-control">
-            </#if>
-        </div>
+	    <#include "*/components/file-container.ftl">
     </div>
 
     <div class="form-group">

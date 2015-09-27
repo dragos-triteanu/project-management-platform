@@ -23,6 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	  http.authorizeRequests()
 		.antMatchers("/home**").access("hasAnyRole('ADMINISTRATOR','CONSULTANT')")
 		.antMatchers("/faq**").access("hasAnyRole('ADMINISTRATOR','CONSULTANT')")
+		.antMatchers("/consultants**").access("hasRole('ADMINISTRATOR')")
+		.antMatchers("/consultantDetails**").access("hasRole('ADMINISTRATOR')")
 		.and().formLogin().loginPage("/login").failureUrl("/login?loginError=true")
 		.and().exceptionHandling().accessDeniedPage("/denied")
 		.and().logout().logoutUrl("/logout").and().csrf().disable();

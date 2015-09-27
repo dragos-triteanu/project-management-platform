@@ -4,3 +4,6 @@
 .consultants-table tbody {
     text-align: left;
 }
+.hidden{
+	display:none;
+}

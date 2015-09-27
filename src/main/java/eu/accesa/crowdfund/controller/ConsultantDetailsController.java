@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import eu.accesa.crowdfund.model.Consultant;
 import eu.accesa.crowdfund.model.ConsultantSpeciality;
@@ -41,14 +42,16 @@ public class ConsultantDetailsController {
     }
     
     @RequestMapping(value="/update",method = RequestMethod.POST)
-    public String updateConsultant(@ModelAttribute("Consultant") Consultant consultant){
+    public String updateConsultant(@ModelAttribute("Consultant") Consultant consultant,
+    							   @RequestParam(value="cvFile", required = false) MultipartFile cvFile) throws Exception{
+    	consultant.setCv(cvFile.getBytes());
     	consultantService.updateConsultant(consultant);
     	return "redirect:/consultants";
     }
 
     @RequestMapping(value="/delete", method=RequestMethod.POST)
     public String deleteConsultant(@RequestParam("consultantId") final String consultantId){
-        consultantService.removeConsultant(consultantId);
+    	consultantService.removeConsultant(consultantId);
         return "redirect:/consultants";
     }
 

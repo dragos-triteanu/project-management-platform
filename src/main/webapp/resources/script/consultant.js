@@ -24,6 +24,11 @@ $(document).ready(function() {
     $(".delete-consultant-button").on("click",function(){
         deleteOnSubmit();
     });
+    
+    $(".uploadNewCVButton").on("click",function(){
+    	$(".fileContainer").replaceWith($(".fileContainerBackup"));
+    	$(".fileContainerBackup").removeClass("hidden");
+    });
 });
 
 var deleteOnSubmit = function(){
