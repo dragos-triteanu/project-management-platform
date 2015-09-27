@@ -49,6 +49,7 @@ class JDBCQueries {
 															"LEFT JOIN (SELECT * from consultantorders WHERE consultantId=?) co ON o.id=co.orderId " +
 															"WHERE o.status = ?";
 	public static final String RETRIEVE_ORDER_BY_ID = "Select * from orders WHERE id=?";
+	public static final String CREATE_ORDER = "INSERT INTO orders(speciality,subject,nrOfPages,tableOfContents,bibliography,annexes,message,status) VALUES(?,?,?,?,?,?,?,?)";
 
 	/**
 	 * {@link eu.accesa.crowdfund.repository.BidRepository} queries

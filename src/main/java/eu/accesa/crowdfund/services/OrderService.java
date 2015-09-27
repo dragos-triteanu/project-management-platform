@@ -27,5 +27,14 @@ public class OrderService {
     public Order getOrderByUId(int id) {
         return orderRepository.getOrderById(id);
     }
+    
+    /**
+     * Service method for used by anonymous clients in order to place an {@link Order}. 
+     * @param order
+     */
+    
+	public int placeOrder(Order order) {
+		return orderRepository.createOrder(order);
+	}
 }
 

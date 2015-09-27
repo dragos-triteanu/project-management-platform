@@ -14,6 +14,11 @@
             "name": "Consultanti",
             "url": "./consultants",
             "id": "consultants"
+        },
+        {
+        	"name": "Orders",
+        	"url": "./orders",
+        	"id": "orders"
         }
     ],
     "CONSULTANT": [

@@ -41,7 +41,7 @@ INSERT INTO consultantSpecialities(specialityId,specialityName) VALUES('1','Medi
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`orders` (
   `orderId` INT(16) NOT NULL AUTO_INCREMENT,
-  `domanin` varchar(1000) NOT NULL,
+  `speciality` varchar(1000) NOT NULL,
   `subject` varchar(1000) NOT NULL,
   `nrOfPages` INT(4) NOT NULL,
   `tableOfContents` varchar(5000) NOT NULL,

@@ -30,9 +30,9 @@ public class ConsultantDetailsController {
     private ConsultantCategoryRepository consultantCategoryRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getConsultantDetails(@RequestParam("id") int id, ModelMap modelMap) {
+    public String getConsultantDetails(@RequestParam("consultantId") int consultantId, ModelMap modelMap) {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
-        Consultant consultant = consultantService.getConsultantById(id);
+        Consultant consultant = consultantService.getConsultantById(consultantId);
         modelMap.addAttribute("consultant", consultant);
         List<ConsultantSpeciality> category = consultantCategoryRepository.retrieveAllCategories();
         modelMap.addAttribute("categories", category);
