@@ -78,7 +78,7 @@ public class Mappers {
 		public Order mapRow (ResultSet rs,int rowNum) throws SQLException{
 			Order order= new Order();
 			order.setOrderId(rs.getInt("id"));
-			order.setDomain(rs.getString("domain"));
+			order.setDomain(rs.getString("speciality"));
 			order.setSubject(rs.getString("subject"));
 			order.setNrOfPages(rs.getInt("nrOfPages"));
 			order.setTableOfContents(rs.getString("tableOfContents"));

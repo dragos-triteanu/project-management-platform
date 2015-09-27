@@ -29,10 +29,10 @@ public class OrderController {
     private OrderService orderService;
 
     @RequestMapping(method = RequestMethod.GET)
-         public String getAllApprovedOrders(ModelMap modelMap){
+		public String getConsultantOrders(ModelMap modelMap){
 
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
-        List<Order> orders = orderService.getOrdersByStatus(OrderStatus.APPROVED);
+        List<Order> orders = orderService.getConsultantOrders(1);
         modelMap.addAttribute("ordersList", orders);
 
         return "orders";
