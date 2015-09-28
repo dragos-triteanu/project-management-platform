@@ -68,8 +68,10 @@ class JDBCQueries {
 	public static final String RETRIEVE_ORDER_BY_ID = "Select * from orders WHERE orderId=?";
 	public static final String CREATE_ORDER = "INSERT INTO orders(speciality,subject,nrOfPages,tableOfContents,bibliography,annexes,message,status) VALUES(?,?,?,?,?,?,?,?)";
 
+
 	/**
 	 * {@link eu.accesa.crowdfund.repository.BidRepository} queries
 	 */
 	public static final String INSERT_BID = "INSERT INTO consultantOrders(orderId,consultantId,cost,nrOfDays,status) VALUES(?,?,?,?,?);";
+	public static final String DELETE_BID = "DELETE FROM consultantOrders WHERE consultantId=? and orderId=?";
 }

@@ -33,4 +33,11 @@ public class BidRepository {
                                                                               bid.getStatus().getOrderStatus()});
         LOG.debug("Number of rows modified by update: {}",update);
     }
+
+    public  void deleteBid(final int consultantId, final int orderId)
+    {
+        LOG.info("Deleting bid for orderId={} from consultantId={}",orderId,consultantId);
+        int update = jdbcTemplate.update(JDBCQueries.DELETE_BID,new Object[]{consultantId,orderId});
+        LOG.debug("Number of rows modified by update: {}",update);
+    }
 }

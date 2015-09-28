@@ -44,4 +44,11 @@ public class BidController {
         bidService.addBid(bid);
         return "redirect:/orders";
     }
+
+    @RequestMapping(value="/deleteBid", method = RequestMethod.POST)
+    public String deleteBid(@RequestParam("orderId") int orderId)
+    {
+        bidService.deleteBid(1,orderId);
+        return "redirect:/myorders";
+    }
 }

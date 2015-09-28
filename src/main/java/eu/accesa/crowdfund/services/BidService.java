@@ -18,4 +18,9 @@ public class BidService {
 
         bidRepository.addBid(bid);
     }
+
+    public void deleteBid(final int consultantId, final int orderId)
+    {
+        bidRepository.deleteBid(consultantId,orderId);
+    }
 }
