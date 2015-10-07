@@ -74,4 +74,9 @@ class JDBCQueries {
 	 */
 	public static final String INSERT_BID = "INSERT INTO consultantOrders(orderId,consultantId,cost,nrOfDays,status) VALUES(?,?,?,?,?);";
 	public static final String DELETE_BID = "DELETE FROM consultantOrders WHERE consultantId=? and orderId=?";
+
+	/**
+	 * {@link eu.accesa.crowdfund.repository.MessageRepository} queries
+	 */
+	public static final String RETRIEVE_ORDER_CHAT_MESSAGES = "SELECT * FROM messages WHERE orderId=? ORDER BY dateTime";
 }

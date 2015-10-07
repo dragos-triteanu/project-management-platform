@@ -65,3 +65,13 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultantOrders`(
   `status` INT(2),
   PRIMARY KEY (`orderId`,`consultantId`)
   );
+
+CREATE TABLE IF NOT EXISTS `projectManagementDB`.`messages` (
+  `messageId` INT(16) NOT NULL AUTO_INCREMENT,
+  `clientId` INT(16)  NULL,
+  `orderId` INT(16)  NULL,
+  `consultantId` INT(16) NOT NULL,
+  `message` nvarchar(60000) NULL,
+  `dateTime` datetime  NULL,
+  PRIMARY KEY  (`messageId`)
+);
