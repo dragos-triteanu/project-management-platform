@@ -105,7 +105,7 @@ public class Mappers {
      * Mapper class for mapping a row in the 'message' SQL schema, to a {@link eu.accesa.crowdfund.model.Message} object
      */
     private static final class MessageMapper implements RowMapper<Message> {
-        public Message mapRow(ResultSet rs, int rowNuma) throws SQLException {
+        public Message mapRow(ResultSet rs, int rowNum) throws SQLException {
             int clientId, consultantId;
             Message message = new Message();
             Client client = new Client();

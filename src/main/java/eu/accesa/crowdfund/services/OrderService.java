@@ -1,7 +1,9 @@
 package eu.accesa.crowdfund.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import eu.accesa.crowdfund.utils.CategoryOrderSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +38,11 @@ public class OrderService {
 	public int placeOrder(Order order) {
 		return orderRepository.createOrder(order);
 	}
+
+    public List<Order> getOrderResultSearch(int consultantId,String searchText, CategoryOrderSearch selectedCategory) {
+         if(selectedCategory==null)
+            return new ArrayList<>();
+        return orderRepository.getOrderResultSearch(consultantId,searchText,selectedCategory);
+    }
 }
 

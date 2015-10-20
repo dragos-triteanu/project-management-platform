@@ -2,6 +2,7 @@ package eu.accesa.crowdfund.repository;
 
 import eu.accesa.crowdfund.model.Order;
 import eu.accesa.crowdfund.repository.mappers.Mappers;
+import eu.accesa.crowdfund.utils.CategoryOrderSearch;
 import eu.accesa.crowdfund.utils.OrderStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,12 +13,14 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static eu.accesa.crowdfund.repository.JDBCQueries.RETRIEVE_CONSULTANT_ORDERS;
-
+import static eu.accesa.crowdfund.repository.JDBCQueries.ORDER_DOMAIN_SEARCH;
+import static eu.accesa.crowdfund.repository.JDBCQueries.ORDER_SUBJECT_SEARCH;
 /**
  * Created by Dragos on 9/20/2015.
  */
@@ -75,5 +78,20 @@ public class OrderRepository {
 	        Number executeAndReturnKey = insert.executeAndReturnKey(new MapSqlParameterSource(parameters));
 	        return executeAndReturnKey.intValue();
 	}
-	
+
+    public List<Order> getOrderResultSearch(int consultantId, String searchText, CategoryOrderSearch categorySearch) {
+        LOG.info("Searching for orders that contain the word={}",searchText);
+        List<Order> orders = new ArrayList<>();
+        switch (categorySearch)
+        {
+            case DOMAIN:
+                orders = orderJdbcTemplate.query(ORDER_DOMAIN_SEARCH, new Object[]{consultantId, OrderStatus.ACCEPTED.getOrderStatus(),"%" + searchText + "%"}, Mappers.orderMaper());
+                break;
+            case SUBJECT:
+                orders = orderJdbcTemplate.query(ORDER_SUBJECT_SEARCH, new Object[]{consultantId, OrderStatus.ACCEPTED.getOrderStatus(),"%" + searchText + "%"}, Mappers.orderMaper());
+                break;
+        }
+        LOG.debug("Found :" + orders);
+        return orders;
+    }
 }

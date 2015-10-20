@@ -61,13 +61,33 @@ class JDBCQueries {
 															"FROM orders o " +
 															"LEFT JOIN (SELECT * from consultantorders WHERE consultantId=?) co ON o.orderId=co.orderId " +
 															"WHERE o.status = ?";
-	public static final String RETRIEVE_CONSULTANT_ASSIGNED_ORDERS =  "SELECT o.orderId,o.speciality,o.subject,o.nrOfPages,o.tableOfContents,o.bibliography,o.annexes,o.message,o.clientId,co.status " +
-			                                                       "FROM consultantorders co "+
-			                                                       "JOIN orders o ON o.orderId=co.orderId "+
-	                                                               "WHERE co.consultantId=? AND o.status=?";
+	public static final String RETRIEVE_CONSULTANT_ASSIGNED_ORDERS = "SELECT o.orderId,o.speciality,o.subject,o.nrOfPages,o.tableOfContents,o.bibliography,o.annexes,o.message,o.clientId,co.status " +
+			                                                         "FROM consultantorders co "+
+			                                                         "JOIN orders o ON o.orderId=co.orderId "+
+	                                                                 "WHERE co.consultantId=? AND o.status=?";
 	public static final String RETRIEVE_ORDER_BY_ID = "Select * from orders WHERE orderId=?";
+
 	public static final String CREATE_ORDER = "INSERT INTO orders(speciality,subject,nrOfPages,tableOfContents,bibliography,annexes,message,status) VALUES(?,?,?,?,?,?,?,?)";
 
+	public static final String ORDER_DOMAIN_SEARCH = "SELECT o.orderId,o.speciality,o.subject,o.nrOfPages,o.tableOfContents,o.bibliography,o.annexes,o.message,o.clientId,co.status " +
+			                                         "FROM orders o " +
+			                                         "LEFT JOIN (SELECT * from consultantorders WHERE consultantId=?) co ON o.orderId=co.orderId " +
+		                                           	 "WHERE o.status = ? AND speciality LIKE ?";
+
+	public static final String ORDER_SUBJECT_SEARCH = "SELECT o.orderId,o.speciality,o.subject,o.nrOfPages,o.tableOfContents,o.bibliography,o.annexes,o.message,o.clientId,co.status " +
+													  "FROM orders o " +
+			                                          "LEFT JOIN (SELECT * from consultantorders WHERE consultantId=?) co ON o.orderId=co.orderId " +
+			                                          "WHERE o.status = ? AND subject LIKE ?";
+
+	public static final String MY_ORDERS_DOMAIN_SEARCH = "SELECT o.orderId,o.speciality,o.subject,o.nrOfPages,o.tableOfContents,o.bibliography,o.annexes,o.message,o.clientId,co.status " +
+														 "FROM consultantorders co "+
+			                                             "JOIN orders o ON o.orderId=co.orderId "+
+			                                             "WHERE co.consultantId=? AND o.status=? AND speciality LIKE ?";
+
+	public static final String MY_ORDERS_SUBJECT_SEARCH = "SELECT o.orderId,o.speciality,o.subject,o.nrOfPages,o.tableOfContents,o.bibliography,o.annexes,o.message,o.clientId,co.status " +
+			                                              "FROM consultantorders co "+
+			                                              "JOIN orders o ON o.orderId=co.orderId "+
+			                                              "WHERE co.consultantId=? AND o.status=? AND subject LIKE ?";
 
 	/**
 	 * {@link eu.accesa.crowdfund.repository.BidRepository} queries

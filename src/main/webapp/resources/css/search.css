@@ -1,0 +1,18 @@
+.float {
+    float:left;
+}
+.category-search{
+    float:left;
+    height: 25px;
+    border: none;
+}
+.btn-search{
+    float:left;
+    border: none;
+    background-color: white;
+}
+.group-search{
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}

@@ -1,8 +1,11 @@
 package eu.accesa.crowdfund.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import eu.accesa.crowdfund.utils.CategoryOrderSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,42 +32,50 @@ public class OrderController {
     private OrderService orderService;
 
     @RequestMapping(method = RequestMethod.GET)
-		public String getConsultantOrders(ModelMap modelMap){
+    public String getConsultantOrders(@RequestParam(value = "searchText", required = false) String searchText,
+                                      @RequestParam(value = "selectedSearchCategory", required = false) String selectedCategory, ModelMap modelMap) {
 
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
-        List<Order> orders = orderService.getConsultantOrders(1);
+        List<Order> orders;
+        if (searchText == null || searchText.isEmpty()) {
+            orders = orderService.getConsultantOrders(1);
+        } else {
+            orders = orderService.getOrderResultSearch(1, searchText, CategoryOrderSearch.getKey(selectedCategory));
+        }
+
         modelMap.addAttribute("ordersList", orders);
+        modelMap.addAttribute("categoryForSearch", CategoryOrderSearch.valuesAsString());
 
         return "orders";
     }
-    
-    @RequestMapping(value = "/placeOrder" ,method= RequestMethod.POST)
+
+    @RequestMapping(value = "/placeOrder", method = RequestMethod.POST)
     public ResponseEntity<Integer> placeOrder(@RequestParam("domain") String domain,
-    		               @RequestParam("subject") String subject,
-    		               @RequestParam("nrOfPages") long nrOfPages,
-    		               @RequestParam("tableOfContents") String tableOfContents,
-    		               @RequestParam("bibliography") String bibliography,
-    		               @RequestParam("message") String message,
-    		               @RequestParam("annexes") MultipartFile annexes) throws Exception{
-    	//TODO validate
-    	Order order = buildOrderFromParams(domain, subject, nrOfPages, tableOfContents, bibliography, message, annexes);
-    	
-    	int placedOrder = orderService.placeOrder(order);
-    	return new ResponseEntity<>(placedOrder,HttpStatus.CREATED);
+                                              @RequestParam("subject") String subject,
+                                              @RequestParam("nrOfPages") long nrOfPages,
+                                              @RequestParam("tableOfContents") String tableOfContents,
+                                              @RequestParam("bibliography") String bibliography,
+                                              @RequestParam("message") String message,
+                                              @RequestParam("annexes") MultipartFile annexes) throws Exception {
+        //TODO validate
+        Order order = buildOrderFromParams(domain, subject, nrOfPages, tableOfContents, bibliography, message, annexes);
+
+        int placedOrder = orderService.placeOrder(order);
+        return new ResponseEntity<>(placedOrder, HttpStatus.CREATED);
     }
 
-    
-	private Order buildOrderFromParams(String domain, String subject, long nrOfPages, String tableOfContents, String bibliography,
-			String message, MultipartFile annexes) throws IOException {
-		Order order = new Order();
-		order.setDomain(domain);
-		order.setSubject(subject);
-		order.setNrOfPages(nrOfPages);
-		order.setTableOfContents(tableOfContents);
-		order.setBibliography(bibliography);
-		order.setMessage(message);
-		order.setAnnexes(annexes.getBytes());
-		order.setOrderStatus(OrderStatus.NEW);
-		return order;
-	}
+
+    private Order buildOrderFromParams(String domain, String subject, long nrOfPages, String tableOfContents, String bibliography,
+                                       String message, MultipartFile annexes) throws IOException {
+        Order order = new Order();
+        order.setDomain(domain);
+        order.setSubject(subject);
+        order.setNrOfPages(nrOfPages);
+        order.setTableOfContents(tableOfContents);
+        order.setBibliography(bibliography);
+        order.setMessage(message);
+        order.setAnnexes(annexes.getBytes());
+        order.setOrderStatus(OrderStatus.NEW);
+        return order;
+    }
 }
