@@ -1,5 +1,7 @@
 package eu.accesa.crowdfund.model;
 
+import eu.accesa.crowdfund.security.Authority;
+
 /**
  * Created by Dragos on 9/12/2015.
  */
@@ -19,7 +21,7 @@ public class User {
     private String cvURL;
     private String username;
 	private String password;
-    private String role;
+    private Authority role;
 
     public User(){
         speciality = new ConsultantSpeciality();
@@ -149,11 +151,11 @@ public class User {
 		this.password = password;
 	}
 
-	public String getRole() {
-		return role;
-	}
+    public Authority getRole() {
+        return role;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public void setRole(Authority role) {
+        this.role = role;
+    }
 }

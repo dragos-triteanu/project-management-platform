@@ -22,7 +22,7 @@ class JDBCQueries {
 	public static final String DELETE_QAA_BY_ID = "DELETE FROM faq WHERE id=?";
 
 	/**
-	 * {@link eu.accesa.crowdfund.repository.ConsultantRepository} queries.
+	 * {@link eu.accesa.crowdfund.repository.UserRepository} queries.
 	 */
 	public static final String INSERT_CONSULTANT_CATEGORY = "INSERT INTO consultantSpecialities(specialityName) VALUES(?)";
 	public static final String RETRIEVE_ALL_CATEGORIES = "SELECT * FROM consultantSpecialities";
@@ -101,4 +101,9 @@ class JDBCQueries {
 	 * {@link eu.accesa.crowdfund.repository.MessageRepository} queries
 	 */
 	public static final String RETRIEVE_ORDER_CHAT_MESSAGES = "SELECT * FROM messages WHERE orderId=? ORDER BY dateTime";
+
+	/**
+	 * Used for retrieving users from the database.
+	 */
+	public static final String RETRIEVE_USER_BY_CREDENTIALS = "SELECT user.userId,user.username,user.password,user.role from users user WHERE username=? AND password=?";
 }

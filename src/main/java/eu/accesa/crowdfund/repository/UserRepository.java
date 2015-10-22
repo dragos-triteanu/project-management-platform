@@ -18,7 +18,7 @@ import static eu.accesa.crowdfund.repository.JDBCQueries.*;
  * Created by Dragos on 9/13/2015.
  */
 @Repository
-public class ConsultantRepository {
+public class UserRepository {
     private static final Logger LOG = LoggerFactory.getLogger(FAQRepository.class);
 
     @Resource(name="crowdfundingJdbcTemplate")
@@ -26,7 +26,7 @@ public class ConsultantRepository {
 
     public List<User> retrieveConsultants(){
         LOG.debug("Retrieving list of all Consultant objects");
-        List<User> consultants = jdbcTemplate.query(RETRIEVE_ALL_CONSULTANTS,Mappers.consultantMapper());
+        List<User> consultants = jdbcTemplate.query(RETRIEVE_ALL_CONSULTANTS,Mappers.userMapper());
         LOG.debug("Found {} consultants",consultants.size());
         return consultants;
     }
@@ -35,7 +35,7 @@ public class ConsultantRepository {
         LOG.debug("Retrieving the Consultant with id :" + id);
         User queryForObject = null;
         try{
-        queryForObject = jdbcTemplate.queryForObject(RETRIEVE_CONSULTANT_BY_ID, new Object[]{id},Mappers.consultantMapper());
+        queryForObject = jdbcTemplate.queryForObject(RETRIEVE_CONSULTANT_BY_ID, new Object[]{id},Mappers.userMapper());
         }catch(Exception e){
         	LOG.error("Error while retrieving consultant with id={]",id,e);
         	return null;
@@ -100,5 +100,15 @@ public class ConsultantRepository {
         LOG.info("Deleting consultant with consultantId={}",consultantId);
         int update = jdbcTemplate.update(DELETE_CONSULTANT_BY_ID, new Object[]{consultantId});
         LOG.debug("Number of rows affected by delete = {}",update);
+    }
+
+    public User getUserForCredentials(final String username, final String password){
+        User user = null;
+        try {
+            user = jdbcTemplate.queryForObject(RETRIEVE_USER_BY_CREDENTIALS, new Object[]{username, password}, Mappers.authUserMapper());
+        }catch(Exception e){
+            LOG.info("Could not retrieve details for user with username={}",username);
+        }
+        return user;
     }
 }

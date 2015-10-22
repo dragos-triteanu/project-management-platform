@@ -1,13 +1,12 @@
 package eu.accesa.crowdfund.repository.mappers;
 
 import eu.accesa.crowdfund.model.*;
+import eu.accesa.crowdfund.security.Authority;
 import eu.accesa.crowdfund.utils.OrderStatus;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Utility class for housing {@link RowMapper}s for various application's DAO's.
@@ -49,7 +48,7 @@ public class Mappers {
         }
     }
 
-    private static final class ConsultantMapper implements RowMapper<User> {
+    private static final class ConsultantUserMapper implements RowMapper<User> {
 
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             User consultant = new User();
@@ -70,7 +69,22 @@ public class Mappers {
                 consultant.setCvURL("/api/service/cv?id=" + consultant.getConsultantId());
             }
             consultant.setUsername(rs.getString("username"));
+            consultant.setPassword(rs.getString("password"));
+            consultant.setRole(Authority.valueOf(rs.getString("role")));
             return consultant;
+        }
+    }
+
+    private static final class AuthenticationUserMapper implements RowMapper<User>{
+
+        @Override
+        public User mapRow(ResultSet resultSet, int i) throws SQLException {
+            User authUser = new User();
+            authUser.setConsultantId(resultSet.getInt("userId"));
+            authUser.setUsername(resultSet.getString("username"));
+            authUser.setPassword(resultSet.getString("password"));
+            authUser.setRole(Authority.valueOf(resultSet.getString("role")));
+            return authUser;
         }
     }
 
@@ -135,8 +149,8 @@ public class Mappers {
         return new ConsultantCategoryMapper();
     }
 
-    public static final RowMapper<User> consultantMapper() {
-        return new ConsultantMapper();
+    public static final RowMapper<User> userMapper() {
+        return new ConsultantUserMapper();
     }
 
     public static final RowMapper<Order> orderMaper() {
@@ -146,4 +160,6 @@ public class Mappers {
     public static final RowMapper<Message> messageMapper() {
         return new MessageMapper();
     }
+
+    public static final RowMapper<User> authUserMapper() {return new AuthenticationUserMapper();}
 }
