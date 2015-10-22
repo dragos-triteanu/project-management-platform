@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.lowagie.text.DocumentException;
 
 import eu.accesa.crowdfund.api.exceptions.ResourceNotFoundException;
-import eu.accesa.crowdfund.model.Consultant;
+import eu.accesa.crowdfund.model.User;
 import eu.accesa.crowdfund.repository.ConsultantRepository;
 
 @Controller
@@ -31,7 +31,7 @@ public class FileService {
 	@RequestMapping(value="/cv", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> getPDF(@RequestParam("id") final int id) throws IOException, DocumentException {
 		
-		Consultant consultant = consultantRepository.retrieveConsultantByUid(id);
+		User consultant = consultantRepository.retrieveConsultantByUid(id);
 		if(consultant == null){
 			throw new ResourceNotFoundException();
 		}

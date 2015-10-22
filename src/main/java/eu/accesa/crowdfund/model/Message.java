@@ -11,7 +11,7 @@ public class Message {
     private int messageId;
     private Order order;
     private Client client;
-    private Consultant consultant;
+    private User consultant;
     private String message;
     private Date dateTime;
 
@@ -39,11 +39,11 @@ public class Message {
         this.client = client;
     }
 
-    public Consultant getConsultant() {
+    public User getConsultant() {
         return consultant;
     }
 
-    public void setConsultant(Consultant consultant) {
+    public void setConsultant(User consultant) {
         this.consultant = consultant;
     }
 

@@ -18,19 +18,24 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`faq` (
   PRIMARY KEY  (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultants` (
-  `consultantId` INT(16) NOT NULL AUTO_INCREMENT,
-  `lastname` VARCHAR(36) NOT NULL ,
-  `firstname` varchar(1000) NOT NULL,
-  `email` varchar(1000) NOT NULL,
-  `phoneNumber` int(10) NOT NULL,
-  `address` varchar(1000) NOT NULL,
-  `studies` varchar(1000) NOT NULL,
-  `IBAN` varchar(34) NOT NULL,
+CREATE TABLE IF NOT EXISTS `projectManagementDB`.`users` (
+  `userId` INT(16) NOT NULL AUTO_INCREMENT,
+  `lastname` VARCHAR(36) ,
+  `firstname` varchar(1000) ,
+  `email` varchar(1000) ,
+  `phoneNumber` int(10) ,
+  `address` varchar(1000) ,
+  `studies` varchar(1000) ,
+  `IBAN` varchar(34) ,
   `CV` LONGBLOB,
-  `specialityId` INT(16) NOT NULL,
-  PRIMARY KEY  (`consultantId`)
+  `specialityId` INT(16),
+  `username` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `role` varchar(13) NOT NULL,
+  PRIMARY KEY  (`userId`)
 );
+INSERT INTO `projectmanagementdb`.`users` (`username`, `password`, `role`) VALUES ('admin', 'admin', 'ADMINISTRATOR');
+
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultantSpecialities` (
   `specialityId` INT(16) NOT NULL AUTO_INCREMENT,
@@ -71,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`messages` (
   `clientId` INT(16)  NULL,
   `orderId` INT(16)  NULL,
   `consultantId` INT(16) NOT NULL,
-  `message` nvarchar(60000) NULL,
+  `message` nvarchar(1000) NULL,
   `dateTime` datetime  NULL,
   PRIMARY KEY  (`messageId`)
 );

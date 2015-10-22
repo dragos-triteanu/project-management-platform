@@ -28,20 +28,22 @@ class JDBCQueries {
 	public static final String RETRIEVE_ALL_CATEGORIES = "SELECT * FROM consultantSpecialities";
 	public static final String DELETE_CONSULTANT_CATEGORY_BY_ID = "DELETE FROM consultantSpecialities WHERE specialityId=?";
 	
-	public static final String INSERT_CONSULTANT = "INSERT INTO consultants(lastname,firstname,email,phoneNumber,address,studies,IBAN,CV,specialityId) VALUES(?,?,?,?,?,?,?,?,?)";
-	public static final String RETRIEVE_ALL_CONSULTANTS = "SELECT * FROM consultants consultants JOIN consultantSpecialities specialities ON consultants.specialityId = specialities.specialityId";
-	public static final String RETRIEVE_CONSULTANT_BY_ID = "SELECT * FROM consultants consultants JOIN consultantSpecialities specialities ON consultants.specialityId = specialities.specialityId WHERE consultantId=?";
-	public static final String UPDATE_CONSULTANT = "UPDATE consultants SET lastName=?,"
-																	     + "firstName=?,"
-																	     + "email=?,"
-																	     + "phoneNumber=?,"	
-																	     + "address=?,"
-																	     + "studies=?,"
-																	     + "IBAN=?,"
-																	     + "specialityId=?"
-																	     + " WHERE consultantId=?";
+	public static final String INSERT_CONSULTANT = "INSERT INTO users(lastname,firstname,email,phoneNumber,address,studies,IBAN,CV,specialityId,username,password,role) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+	public static final String RETRIEVE_ALL_CONSULTANTS = "SELECT * FROM users users JOIN consultantSpecialities specialities ON users.specialityId = specialities.specialityId WHERE role='CONSULTANT'";
+	public static final String RETRIEVE_CONSULTANT_BY_ID = "SELECT * FROM users users JOIN consultantSpecialities specialities ON users.specialityId = specialities.specialityId WHERE userId=?";
+	public static final String UPDATE_CONSULTANT = "UPDATE users SET "
+			 + "lastName=?,"
+		     + "firstName=?,"
+		     + "email=?,"
+		     + "phoneNumber=?,"	
+		     + "address=?,"
+		     + "studies=?,"
+		     + "IBAN=?,"
+		     + "specialityId=?"
+		     + " WHERE userId=?";
 	
-	public static final String UPDATE_CONSULTANT_WITH_CV = "UPDATE consultants SET lastName=?,"
+	public static final String UPDATE_CONSULTANT_WITH_CV = "UPDATE users SET "
+			 + "lastName=?,"
 		     + "firstName=?,"
 		     + "email=?,"
 		     + "phoneNumber=?,"	
@@ -50,8 +52,8 @@ class JDBCQueries {
 		     + "IBAN=?,"
 		     + "CV=?,"
 		     + "specialityId=?"
-		     + " WHERE consultantId=?";
-	public static final String DELETE_CONSULTANT_BY_ID = "DELETE FROM consultants WHERE consultantId=?";
+		     + " WHERE userId=?";
+	public static final String DELETE_CONSULTANT_BY_ID = "DELETE FROM users WHERE userId=?";
 																	     
 	
 	/**

@@ -2,7 +2,7 @@ package eu.accesa.crowdfund.controller;
 
 import eu.accesa.crowdfund.model.ConsultantOrder;
 
-import eu.accesa.crowdfund.model.Consultant;
+import eu.accesa.crowdfund.model.User;
 import eu.accesa.crowdfund.model.Order;
 import eu.accesa.crowdfund.services.BidService;
 import eu.accesa.crowdfund.utils.OrderStatus;
@@ -36,7 +36,7 @@ public class BidController {
         order.setOrderId(orderId);
         bid.setOrder(order);
 
-        Consultant consultant = new Consultant();
+        User consultant = new User();
         consultant.setConsultantId(1);
         bid.setConsultant(consultant);
 

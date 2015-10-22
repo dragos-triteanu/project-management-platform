@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import eu.accesa.crowdfund.model.Consultant;
+import eu.accesa.crowdfund.model.User;
 import eu.accesa.crowdfund.repository.ConsultantRepository;
 
 /**
@@ -15,25 +15,27 @@ import eu.accesa.crowdfund.repository.ConsultantRepository;
 @Service
 public class ConsultantService {
 
-    @Autowired
+    private static final String CHANGEME_123 = "changeme123";
+	@Autowired
     private ConsultantRepository consultantRepository;
 
-    public List<Consultant> getAllConsultants()
+    public List<User> getAllConsultants()
     {
-        List<Consultant> consultantList = consultantRepository.retrieveConsultants();
+        List<User> consultantList = consultantRepository.retrieveConsultants();
         return consultantList;
     }
 
-    public Consultant getConsultantById(int id){
-        Consultant consultant = consultantRepository.retrieveConsultantByUid(id);
+    public User getConsultantById(int id){
+        User consultant = consultantRepository.retrieveConsultantByUid(id);
         return consultant;
     }
 
-    public void createConsultant(Consultant consultant){
+    public void createConsultant(User consultant){
+    	consultant.setPassword(CHANGEME_123);
         consultantRepository.insertConsultant(consultant);
     }
 
-	public void updateConsultant(Consultant consultant) {
+	public void updateConsultant(User consultant) {
 		if(consultant.getCv() != null && consultant.getCv().length > 0){
 			consultantRepository.updateConsultantWithCv(consultant);
 		}else{

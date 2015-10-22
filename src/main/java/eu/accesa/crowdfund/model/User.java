@@ -3,7 +3,7 @@ package eu.accesa.crowdfund.model;
 /**
  * Created by Dragos on 9/12/2015.
  */
-public class Consultant {
+public class User {
     private int consultantId;
     private String lastName;
     private String firstName;
@@ -17,8 +17,11 @@ public class Consultant {
     private ConsultantSpeciality speciality;
     private int numberOfActiveProjects;
     private String cvURL;
+    private String username;
+	private String password;
+    private String role;
 
-    public Consultant(){
+    public User(){
         speciality = new ConsultantSpeciality();
     }
 
@@ -128,5 +131,29 @@ public class Consultant {
 
 	public void setCvURL(String cvURL) {
 		this.cvURL = cvURL;
+	}
+	
+    public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }
