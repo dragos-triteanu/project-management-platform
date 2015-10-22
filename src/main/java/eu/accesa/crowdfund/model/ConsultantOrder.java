@@ -9,14 +9,14 @@ import eu.accesa.crowdfund.utils.OrderStatus;
 public class ConsultantOrder {
     private int bidId;
     private Order order;
-    private Consultant consultant;
+    private User consultant;
     private int nrOfDays;
     private double cost;
     private OrderStatus status;
 
     public ConsultantOrder(){
         order = new Order();
-        consultant = new Consultant();
+        consultant = new User();
     }
 
     public int getBidId() {
@@ -35,11 +35,11 @@ public class ConsultantOrder {
         this.order = order;
     }
 
-    public Consultant getConsultant() {
+    public User getConsultant() {
         return consultant;
     }
 
-    public void setConsultant(Consultant consultant) {
+    public void setConsultant(User consultant) {
         this.consultant = consultant;
     }
 

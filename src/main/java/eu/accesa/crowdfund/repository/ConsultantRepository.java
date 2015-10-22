@@ -1,7 +1,9 @@
 package eu.accesa.crowdfund.repository;
 
-import eu.accesa.crowdfund.model.Consultant;
+import eu.accesa.crowdfund.model.User;
 import eu.accesa.crowdfund.repository.mappers.Mappers;
+import eu.accesa.crowdfund.security.Authority;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,16 +24,16 @@ public class ConsultantRepository {
     @Resource(name="crowdfundingJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
 
-    public List<Consultant> retrieveConsultants(){
+    public List<User> retrieveConsultants(){
         LOG.debug("Retrieving list of all Consultant objects");
-        List<Consultant> consultants = jdbcTemplate.query(RETRIEVE_ALL_CONSULTANTS,Mappers.consultantMapper());
+        List<User> consultants = jdbcTemplate.query(RETRIEVE_ALL_CONSULTANTS,Mappers.consultantMapper());
         LOG.debug("Found {} consultants",consultants.size());
         return consultants;
     }
 
-    public Consultant retrieveConsultantByUid(int id){
+    public User retrieveConsultantByUid(int id){
         LOG.debug("Retrieving the Consultant with id :" + id);
-        Consultant queryForObject = null;
+        User queryForObject = null;
         try{
         queryForObject = jdbcTemplate.queryForObject(RETRIEVE_CONSULTANT_BY_ID, new Object[]{id},Mappers.consultantMapper());
         }catch(Exception e){
@@ -42,10 +44,10 @@ public class ConsultantRepository {
     }
 
     /**
-     * Method for inserting a {@link eu.accesa.crowdfund.model.Consultant} into the 'consultants' SQL schema.
-     * @param consultant the to be added {@link eu.accesa.crowdfund.model.Consultant}.
+     * Method for inserting a {@link eu.accesa.crowdfund.model.User} into the 'consultants' SQL schema.
+     * @param consultant the to be added {@link eu.accesa.crowdfund.model.User}.
      */
-    public void insertConsultant(final Consultant consultant){
+    public void insertConsultant(final User consultant){
         LOG.info("Inserting consultant with consultantId={}",consultant.getConsultantId());
         int update = jdbcTemplate.update(INSERT_CONSULTANT, new Object[]{consultant.getLastName(),
                                                                                      consultant.getFirstName(),
@@ -55,11 +57,14 @@ public class ConsultantRepository {
                                                                                      consultant.getStudies(),
                                                                                      consultant.getIbanCode(),
                                                                                      consultant.getCv(),
-                                                                                     consultant.getSpeciality().getSpecialityId()});
+                                                                                     consultant.getSpeciality().getSpecialityId(),
+                                                                                     consultant.getUsername(),
+                                                                                     consultant.getPassword(),
+                                                                                     Authority.CONSULTANT.getRole()});
         LOG.debug("Number of rows modified by update: {}",update);
     }
 
-	public void updateConsultant(Consultant consultant) {
+	public void updateConsultant(User consultant) {
 		LOG.info("Updating details for consultant wit consultantId={}",consultant.getConsultantId());
         int update = jdbcTemplate.update(UPDATE_CONSULTANT,new Object[]{
 																	   consultant.getLastName(),
@@ -74,7 +79,7 @@ public class ConsultantRepository {
         LOG.debug("Number of rows affected by update={}",update);
     }
 	
-	public void updateConsultantWithCv(Consultant consultant) {
+	public void updateConsultantWithCv(User consultant) {
 		LOG.info("Updating details for consultant wit consultantId={}",consultant.getConsultantId());
         int update = jdbcTemplate.update(UPDATE_CONSULTANT_WITH_CV,new Object[]{
 																	   consultant.getLastName(),

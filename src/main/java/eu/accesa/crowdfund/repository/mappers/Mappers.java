@@ -49,11 +49,11 @@ public class Mappers {
         }
     }
 
-    private static final class ConsultantMapper implements RowMapper<Consultant> {
+    private static final class ConsultantMapper implements RowMapper<User> {
 
-        public Consultant mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Consultant consultant = new Consultant();
-            consultant.setConsultantId(rs.getInt("consultantId"));
+        public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+            User consultant = new User();
+            consultant.setConsultantId(rs.getInt("userId"));
             consultant.setLastName(rs.getString("lastName"));
             consultant.setFirstName(rs.getString("firstName"));
             consultant.setMail(rs.getString("email"));
@@ -69,6 +69,7 @@ public class Mappers {
             if (consultant.getCv() != null && consultant.getCv().length > 0) {
                 consultant.setCvURL("/api/service/cv?id=" + consultant.getConsultantId());
             }
+            consultant.setUsername(rs.getString("username"));
             return consultant;
         }
     }
@@ -109,7 +110,7 @@ public class Mappers {
             int clientId, consultantId;
             Message message = new Message();
             Client client = new Client();
-            Consultant consultant = new Consultant();
+            User consultant = new User();
 
             clientId = rs.getObject("clientId") != null ? rs.getInt("clientId") : 0;
             consultantId = rs.getObject("consultantId") != null ? rs.getInt("consultantId") : 0;
@@ -134,7 +135,7 @@ public class Mappers {
         return new ConsultantCategoryMapper();
     }
 
-    public static final RowMapper<Consultant> consultantMapper() {
+    public static final RowMapper<User> consultantMapper() {
         return new ConsultantMapper();
     }
 

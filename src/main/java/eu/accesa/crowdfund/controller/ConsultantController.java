@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import eu.accesa.crowdfund.model.Consultant;
+import eu.accesa.crowdfund.model.User;
 import eu.accesa.crowdfund.model.ConsultantSpeciality;
 import eu.accesa.crowdfund.services.ConsultantCategoryService;
 import eu.accesa.crowdfund.services.ConsultantService;
@@ -38,7 +38,7 @@ public class ConsultantController {
     public String getAllConsultants(ModelMap modelMap) {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
 
-        List<Consultant> consultants = consultantService.getAllConsultants();
+        List<User> consultants = consultantService.getAllConsultants();
         modelMap.addAttribute("consultantsList", consultants);
         return "consultants";
     }
@@ -53,7 +53,7 @@ public class ConsultantController {
     }
 
     @RequestMapping(value="createConsultant",method = RequestMethod.POST)
-    public String createConsultant(@ModelAttribute("consultant") Consultant consultant,
+    public String createConsultant(@ModelAttribute("consultant") User consultant,
                                    @RequestParam("cvFile") MultipartFile cvFile){
 
         try {

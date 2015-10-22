@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import eu.accesa.crowdfund.model.Consultant;
+import eu.accesa.crowdfund.model.User;
 import eu.accesa.crowdfund.model.ConsultantSpeciality;
 import eu.accesa.crowdfund.repository.ConsultantCategoryRepository;
 import eu.accesa.crowdfund.services.ConsultantService;
@@ -33,7 +33,7 @@ public class ConsultantDetailsController {
     @RequestMapping(method = RequestMethod.GET)
     public String getConsultantDetails(@RequestParam("consultantId") int consultantId, ModelMap modelMap) {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
-        Consultant consultant = consultantService.getConsultantById(consultantId);
+        User consultant = consultantService.getConsultantById(consultantId);
         modelMap.addAttribute("consultant", consultant);
         List<ConsultantSpeciality> category = consultantCategoryRepository.retrieveAllCategories();
         modelMap.addAttribute("categories", category);
@@ -42,7 +42,7 @@ public class ConsultantDetailsController {
     }
     
     @RequestMapping(value="/update",method = RequestMethod.POST)
-    public String updateConsultant(@ModelAttribute("Consultant") Consultant consultant,
+    public String updateConsultant(@ModelAttribute("Consultant") User consultant,
     							   @RequestParam(value="cvFile", required = false) MultipartFile cvFile) throws Exception{
     	consultant.setCv(cvFile.getBytes());
     	consultantService.updateConsultant(consultant);
