@@ -21,7 +21,7 @@
         <div class="search">
             <@search.search "newOrders" categoryForSearch />
         </div>
-        <div class="orders-table">
+        <div class="orders-table generic-table">
             <@order.renderTable ordersList userRole "Nici o comanda noua."/>
         </div>
     </div>

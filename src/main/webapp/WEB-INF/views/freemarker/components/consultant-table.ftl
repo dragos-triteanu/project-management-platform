@@ -1,18 +1,18 @@
 <#macro renderTable consultantsList>
     <table class="table">
+        <#if consultantsList??>
+        <#list consultantsList as consultant>
         <thead>
-             <th class="table-header">Nume</th>
-             <th class="table-header">Prenume</th>
-             <th class="table-header">Numar Telefon</th>
-             <th class="table-header">Adresa e-mail</th>
-             <th class="table-header">Specialitate</th>
-             <th class="table-header">Nr. Proiecte Active</th>
-             <th class="table-header">Detalii</th>
+            <th class="table-header">Nume</th>
+            <th class="table-header">Prenume</th>
+            <th class="table-header">Numar Telefon</th>
+            <th class="table-header">Adresa e-mail</th>
+            <th class="table-header">Specialitate</th>
+            <th class="table-header">Nr. Proiecte Active</th>
+            <th class="table-header">Detalii</th>
         </thead>
         <tbody>
-        <#if consultantsList??>
-            <#list consultantsList as consultant>
-                <tr class="tableRow">
+        <tr class="tableRow">
                     <td>${consultant.lastName}</td>
                     <td>${consultant.firstName}</td>
                     <td>${consultant.phoneNumber}</td>
