@@ -1,8 +1,11 @@
 package eu.accesa.crowdfund.repository.mappers;
 
 import eu.accesa.crowdfund.model.*;
+import eu.accesa.crowdfund.repository.FAQRepository;
 import eu.accesa.crowdfund.security.Authority;
 import eu.accesa.crowdfund.utils.OrderStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -14,6 +17,8 @@ import java.sql.SQLException;
  * @author dragos.triteanu
  */
 public class Mappers {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FAQRepository.class);
 
     /**
      * Mapper class for mapping a row in the 'faq' SQL schema, to a {@link QuestionAndAnswer} object.
@@ -68,20 +73,20 @@ public class Mappers {
             if (consultant.getCv() != null && consultant.getCv().length > 0) {
                 consultant.setCvURL("/api/service/cv?id=" + consultant.getConsultantId());
             }
-            consultant.setUsername(rs.getString("username"));
             consultant.setPassword(rs.getString("password"));
             consultant.setRole(Authority.valueOf(rs.getString("role")));
+            consultant.setLastLogin(rs.getObject("lastLogin") != null ? rs.getTimestamp("lastLogin") : null);
             return consultant;
         }
     }
 
-    private static final class AuthenticationUserMapper implements RowMapper<User>{
+    private static final class AuthenticationUserMapper implements RowMapper<User> {
 
         @Override
         public User mapRow(ResultSet resultSet, int i) throws SQLException {
             User authUser = new User();
             authUser.setConsultantId(resultSet.getInt("userId"));
-            authUser.setUsername(resultSet.getString("username"));
+            authUser.setMail(resultSet.getString("email"));
             authUser.setPassword(resultSet.getString("password"));
             authUser.setRole(Authority.valueOf(resultSet.getString("role")));
             return authUser;
@@ -108,10 +113,16 @@ public class Mappers {
             } else {
                 order.setOrderStatus(OrderStatus.ACCEPTED);
             }
-            Client client = new Client();
-            client.setId(rs.getInt("clientId"));
+            User client = new User();
+            client.setConsultantId(rs.getInt("clientId"));
+            try {
+                client.setFirstName(rs.getString("firstName"));
+                client.setLastName(rs.getString("lastName"));
+                client.setMail(rs.getString("email"));
+            } catch (Exception ex) {
+                LOG.info("When current user is consultant the information about client are not available. These information are retrieved from database only for administrator.");
+            }
             order.setClient(client);
-
             return order;
         }
     }
@@ -161,5 +172,7 @@ public class Mappers {
         return new MessageMapper();
     }
 
-    public static final RowMapper<User> authUserMapper() {return new AuthenticationUserMapper();}
+    public static final RowMapper<User> authUserMapper() {
+        return new AuthenticationUserMapper();
+    }
 }

@@ -3,6 +3,7 @@ package eu.accesa.crowdfund.controller;
 import java.io.IOException;
 import java.util.List;
 
+import eu.accesa.crowdfund.security.Authority;
 import eu.accesa.crowdfund.utils.CategoryConsultantSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,14 +27,13 @@ import eu.accesa.crowdfund.utils.SessionUtils;
  */
 @Controller
 public class ConsultantController {
-	private static final Logger LOG = LoggerFactory.getLogger(ConsultantController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConsultantController.class);
 
     @Autowired
     private ConsultantService consultantService;
-    
+
     @Autowired
     private ConsultantCategoryService consultantCategoryService;
-	
 
     @RequestMapping(value = "consultants", method = RequestMethod.GET)
     public String getAllConsultants(@RequestParam(value = "searchText", required = false) String searchText,
@@ -44,7 +44,7 @@ public class ConsultantController {
         if (searchText == null || searchText.isEmpty()) {
             consultants = consultantService.getAllConsultants();
         } else {
-            consultants = consultantService.getConsultantsResultSearch(1, searchText, CategoryConsultantSearch.getKey(selectedCategory));
+            consultants = consultantService.getConsultantsResultSearch(searchText, CategoryConsultantSearch.getKey(selectedCategory));
         }
 
         modelMap.addAttribute("consultantsList", consultants);
@@ -52,31 +52,29 @@ public class ConsultantController {
 
         return "consultants";
     }
-    
-    @RequestMapping(value = "createConsultant",method = RequestMethod.GET)
-    public String loadCreateConsultantPage(ModelMap modelMap){
+
+    @RequestMapping(value = "createConsultant", method = RequestMethod.GET)
+    public String loadCreateConsultantPage(ModelMap modelMap) {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
 
         List<ConsultantSpeciality> categories = consultantCategoryService.retrieveAllConsultantCategories();
-        modelMap.put("categories",categories);
+        modelMap.put("categories", categories);
         return "createConsultant";
     }
 
-    @RequestMapping(value="createConsultant",method = RequestMethod.POST)
+    @RequestMapping(value = "createConsultant", method = RequestMethod.POST)
     public String createConsultant(@ModelAttribute("consultant") User consultant,
-                                   @RequestParam("cvFile") MultipartFile cvFile){
+                                   @RequestParam("cvFile") MultipartFile cvFile) {
 
         try {
             consultant.setCv(cvFile.getBytes());
         } catch (IOException e) {
-            LOG.error("Could not add CV file to consultant",e);
+            LOG.error("Could not add CV file to consultant", e);
         }
 
-        consultantService.createConsultant(consultant);
+        consultant.setRole(Authority.CONSULTANT);
+        consultantService.createUser(consultant);
 
         return "redirect:/consultants";
     }
-
-    
-    
 }

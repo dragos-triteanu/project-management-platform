@@ -29,12 +29,12 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`users` (
   `IBAN` varchar(34) ,
   `CV` LONGBLOB,
   `specialityId` INT(16),
-  `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
   `role` varchar(13) NOT NULL,
+  `lastLogin` datetime  NULL,
   PRIMARY KEY  (`userId`)
 );
-INSERT INTO `projectmanagementdb`.`users` (`username`, `password`, `role`) VALUES ('admin', 'admin', 'ADMINISTRATOR');
+INSERT INTO `projectmanagementdb`.`users` (`email`, `password`, `role`) VALUES ('admin', 'admin', 'ADMINISTRATOR');
 
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultantSpecialities` (

@@ -1,5 +1,6 @@
 package eu.accesa.crowdfund.utils;
 
+import eu.accesa.crowdfund.model.User;
 import eu.accesa.crowdfund.security.Authority;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,31 +12,32 @@ import java.util.Collection;
 /**
  * Utility class for managing session attributes and populating model
  * attributes.
- * 
- * @author dragos.triteanu
  *
+ * @author dragos.triteanu
  */
 public class SessionUtils {
-	private static final String ROLE_PREFIX = "ROLE_";
-	private static final String USER_ROLE_ATTRIBUTE = "userRole";
+    private static final String ROLE_PREFIX = "ROLE_";
+    private static final String USER_ROLE_ATTRIBUTE = "userRole";
 
+    public static void populateModelWithAuthenticatedRole(ModelMap modelMap) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        if (authorities.size() == 1) {
+            for (GrantedAuthority authority : authorities) {
+                String authorityString = authority.getAuthority();
+                if (authorityString.startsWith(ROLE_PREFIX)) {
+                    authorityString = authorityString.substring(ROLE_PREFIX.length());
+                }
+                modelMap.addAttribute(USER_ROLE_ATTRIBUTE, authorityString);
+                return;
+            }
+        } else {
+            modelMap.addAttribute(USER_ROLE_ATTRIBUTE, Authority.CONSULTANT.getRole());
+        }
+    }
 
-
-	public static void populateModelWithAuthenticatedRole(ModelMap modelMap) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-		if (authorities.size() == 1) {
-			for (GrantedAuthority authority : authorities) {
-				String authorityString = authority.getAuthority();
-				if (authorityString.startsWith(ROLE_PREFIX)) {
-					authorityString = authorityString.substring(ROLE_PREFIX.length());
-				}
-				modelMap.addAttribute(USER_ROLE_ATTRIBUTE, authorityString);
-				return;
-			}
-		} else {
-			modelMap.addAttribute(USER_ROLE_ATTRIBUTE, Authority.CONSULTANT.getRole());
-		}
-	}
-
+    public static User GetCurrentUser() {
+        User details = (User) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        return details;
+    }
 }

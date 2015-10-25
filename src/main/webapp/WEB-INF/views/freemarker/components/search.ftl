@@ -12,10 +12,5 @@
             </#list>
         </select>
     </div>
-    <div class="float">
-        <button class="btn-search" type="button">
-            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-       </button>
-    </div>
 </div>
 </#macro>

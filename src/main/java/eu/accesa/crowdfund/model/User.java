@@ -2,6 +2,8 @@ package eu.accesa.crowdfund.model;
 
 import eu.accesa.crowdfund.security.Authority;
 
+import java.sql.Timestamp;
+
 /**
  * Created by Dragos on 9/12/2015.
  */
@@ -19,11 +21,11 @@ public class User {
     private ConsultantSpeciality speciality;
     private int numberOfActiveProjects;
     private String cvURL;
-    private String username;
-	private String password;
+    private String password;
+    private Timestamp lastLogin;
     private Authority role;
 
-    public User(){
+    public User() {
         speciality = new ConsultantSpeciality();
     }
 
@@ -107,7 +109,7 @@ public class User {
         this.speciality = speciality;
     }
 
-    public void setSpecialityId(final int specialityId){
+    public void setSpecialityId(final int specialityId) {
         this.speciality.setSpecialityId(specialityId);
     }
 
@@ -127,29 +129,21 @@ public class User {
         this.studies = studies;
     }
 
-	public String getCvURL() {
-		return cvURL;
-	}
+    public String getCvURL() {
+        return cvURL;
+    }
 
-	public void setCvURL(String cvURL) {
-		this.cvURL = cvURL;
-	}
-	
-    public String getUsername() {
-		return username;
-	}
+    public void setCvURL(String cvURL) {
+        this.cvURL = cvURL;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Authority getRole() {
         return role;
@@ -157,5 +151,13 @@ public class User {
 
     public void setRole(Authority role) {
         this.role = role;
+    }
+
+    public Timestamp getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Timestamp lastLogin) {
+        this.lastLogin = lastLogin;
     }
 }
