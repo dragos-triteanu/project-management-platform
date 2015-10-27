@@ -3,7 +3,7 @@ package eu.accesa.crowdfund.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.accesa.crowdfund.utils.CategoryOrderSearch;
+import eu.accesa.crowdfund.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,31 +18,30 @@ public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
     /**
-     Retrieves the list with consultant orders.
-    */
-    public List<Order> getConsultantOrders(int consultantId)
-    {
-        return orderRepository.getConsultantOrders(consultantId);
+     * Retrieves the list with consultant orders.
+     */
+    public List<Order> getOrders(User curentUser) {
+        return orderRepository.getOrders(curentUser);
     }
 
     public Order getOrderByUId(int id) {
         return orderRepository.getOrderById(id);
     }
-    
+
     /**
-     * Service method for used by anonymous clients in order to place an {@link Order}. 
+     * Service method for used by anonymous clients in order to place an {@link Order}.
+     *
      * @param order
      */
-    
-	public int placeOrder(Order order) {
-		return orderRepository.createOrder(order);
-	}
 
-    public List<Order> getOrderResultSearch(int consultantId,String searchText, CategoryOrderSearch selectedCategory) {
-         if(selectedCategory==null)
-            return new ArrayList<>();
-        return orderRepository.getOrderResultSearch(consultantId,searchText,selectedCategory);
+    public int placeOrder(User client, Order order) {
+        return orderRepository.createOrder(client, order);
+    }
+
+    public List<Order> getSearchedOrders(User currentUser, String searchText, String selectedCategory) {
+        return orderRepository.getSearchedOrders(currentUser, searchText, selectedCategory);
     }
 }
 

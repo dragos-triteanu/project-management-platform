@@ -12,7 +12,7 @@
 <input id="userRole" type="hidden" class="hidden" value="${userRole}" />
 <@navbarRenderer.renderNavbar userRole="${userRole}" activePage="orders"/>
 
-<#if userRole == 'CONSULTANT'>
+<#if userRole == "CONSULTANT" || userRole == "ADMINISTRATOR">
 <div class="container">
     <div class ="panel-group">
         <div class="h2" >
@@ -21,7 +21,7 @@
         <div class="search">
             <@search.search "newOrders" categoryForSearch />
         </div>
-        <div class="orders-table">
+        <div class="orders-table generic-table">
             <@order.renderTable ordersList userRole "Nici o comanda noua."/>
         </div>
     </div>

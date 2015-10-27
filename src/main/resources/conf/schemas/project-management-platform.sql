@@ -29,13 +29,15 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`users` (
   `IBAN` varchar(34) ,
   `CV` LONGBLOB,
   `specialityId` INT(16),
-  `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
   `role` varchar(13) NOT NULL,
+  `lastLogin` datetime  NULL,
   PRIMARY KEY  (`userId`)
 );
-INSERT INTO `projectmanagementdb`.`users` (`username`, `password`, `role`) VALUES ('admin', 'admin', 'ADMINISTRATOR');
-
+INSERT INTO `projectmanagementdb`.`users` (`email`, `password`, `role`) VALUES ('admin', 'admin', 'ADMINISTRATOR');
+INSERT INTO `projectmanagementdb`.`users` (`firstName`,`lastName`,`email`, `password`, `role`) VALUES ('testClient', 'testClient','testClient','changeme123','CLIENT');
+INSERT INTO `projectmanagementdb`.`users` (`firstName`,`lastName`,`email`, `password`, `role`) VALUES ('vasilescu', 'ana','vasilescu.ana@mail.com','changeme123','CLIENT');
+INSERT INTO `projectmanagementdb`.`users` (`firstName`,`lastName`,`email`, `password`, `role`) VALUES ('craciun', 'irina','craciun.irina@mail.com','changeme123','CLIENT');
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultantSpecialities` (
   `specialityId` INT(16) NOT NULL AUTO_INCREMENT,
@@ -57,9 +59,9 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`orders` (
   `clientId` INT(16) NOT NULL,
   PRIMARY KEY  (`orderId`)
 );
-INSERT INTO `projectmanagementdb`.`orders` (`orderId`, `speciality`, `subject`, `nrOfPages`, `tableOfContents`, `bibliography`, `message`, `status`, `clientId`) VALUES ('1', 'domain', 'subject', '23', 'tableOfContents', 'bibliography', 'message', '1', '1');
-INSERT INTO `projectmanagementdb`.`orders` (`orderId`, `speciality`, `subject`, `nrOfPages`, `tableOfContents`, `bibliography`, `message`, `status`, `clientId`) VALUES ('2', 'domain1', 'subject1', '20', 'tableOfContents1', 'bibliography1', 'message1', '1', '2');
-INSERT INTO `projectmanagementdb`.`orders` (`orderId`, `speciality`, `subject`, `nrOfPages`, `tableOfContents`, `bibliography`, `message`, `status`, `clientId`) VALUES ('3', 'domain2', 'subject2', '12', 'tableOfContents2', 'bibliography2', 'message2', '1', '3');
+INSERT INTO `projectmanagementdb`.`orders` (`orderId`, `speciality`, `subject`, `nrOfPages`, `tableOfContents`, `bibliography`, `message`, `status`, `clientId`) VALUES ('1', 'domain', 'subject', '23', 'tableOfContents', 'bibliography', 'message', '1', '2');
+INSERT INTO `projectmanagementdb`.`orders` (`orderId`, `speciality`, `subject`, `nrOfPages`, `tableOfContents`, `bibliography`, `message`, `status`, `clientId`) VALUES ('2', 'domain1', 'subject1', '20', 'tableOfContents1', 'bibliography1', 'message1', '1', '3');
+INSERT INTO `projectmanagementdb`.`orders` (`orderId`, `speciality`, `subject`, `nrOfPages`, `tableOfContents`, `bibliography`, `message`, `status`, `clientId`) VALUES ('3', 'domain2', 'subject2', '12', 'tableOfContents2', 'bibliography2', 'message2', '1', '4');
 
 
 CREATE TABLE IF NOT EXISTS `projectManagementDB`.`consultantOrders`(

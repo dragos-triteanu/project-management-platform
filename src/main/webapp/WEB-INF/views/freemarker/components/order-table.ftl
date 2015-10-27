@@ -1,7 +1,11 @@
 <#macro renderTable ordersList userRole message>
+    <#import "*/components/statusRow.ftl" as statusRow />
 <table class="table">
     <#if ordersList?has_content>
     <thead>
+         <#if userRole == "ADMINISTRATOR">
+            <th class="table-header">Client</th>
+         </#if>
          <th class="table-header">Domeniu</th>
          <th class="table-header">Subiect</th>
          <th class="table-header">Nr. de pagini</th>
@@ -11,10 +15,13 @@
     <tbody>
         <#list ordersList as order>
             <tr class="tableRow">
+                    <#if userRole == "ADMINISTRATOR">
+                        <td><a href="./clientDetails?userId=${order.client.consultantId}"> ${order.client.firstName} ${order.client.lastName}</a></td>
+                    </#if>
                     <td>${order.domain}</td>
                     <td>${order.subject}</td>
                     <td>${order.nrOfPages}</td>
-                    <td>${order.orderStatus}</td>
+                    <td><@statusRow.renderRow order.orderStatus/></td>
                     <td>
                      <#if  order.orderStatus == "REJECTED">
                          <form class="details-button-qaa-${order.orderId}" action="./deleteBid" method="POST">

@@ -2,9 +2,6 @@ package eu.accesa.crowdfund.api.service;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,20 +15,20 @@ import com.lowagie.text.DocumentException;
 
 import eu.accesa.crowdfund.api.exceptions.ResourceNotFoundException;
 import eu.accesa.crowdfund.model.User;
-import eu.accesa.crowdfund.repository.ConsultantRepository;
+import eu.accesa.crowdfund.repository.UserRepository;
 
 @Controller
 @RequestMapping("api/service")
 public class FileService {
 
 	@Autowired
-	private ConsultantRepository consultantRepository;
+	private UserRepository userRepository;
 	
 	
 	@RequestMapping(value="/cv", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> getPDF(@RequestParam("id") final int id) throws IOException, DocumentException {
 		
-		User consultant = consultantRepository.retrieveConsultantByUid(id);
+		User consultant = userRepository.retrieveConsultantByUid(id);
 		if(consultant == null){
 			throw new ResourceNotFoundException();
 		}

@@ -18,6 +18,8 @@ $(document).ready(function(){
                 case "myOrders":
                     url = "/myorders";
                     break;
+                case "consultants":
+                    url="/consultants"
             }
 
             $.ajax({
@@ -26,7 +28,7 @@ $(document).ready(function(){
                 data: params
             }).success(function(data) {
                 console.log(data);
-                $(".orders-table").replaceWith($(data).find(".orders-table"));
+                $(".generic-table").replaceWith($(data).find(".generic-table"));
             });
       });
 });

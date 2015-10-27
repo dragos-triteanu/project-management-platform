@@ -14,7 +14,7 @@ public class Order {
     private String bibliography;
     private byte[] annexes;
     private String message;
-    private Client client;
+    private User client;
     private OrderStatus orderStatus;
 
     public String getDomain() {
@@ -73,11 +73,11 @@ public class Order {
         this.message = message;
     }
 
-    public Client getClient() {
+    public User getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(User client) {
         this.client = client;
     }
 

@@ -2,6 +2,7 @@
 <#assign userRole = "${userRole}">
 <#import "*/components/navbar.ftl" as navbarRenderer/>
 <#import "*/components/consultant-table.ftl" as consultantTableRenderer/>
+<#import "*/components/search.ftl" as search/>
 <html>
     <header>
         <#include "*/includes.ftl">
@@ -17,7 +18,10 @@
             <div class="h2 consultantTitle" >
                 Consultanti
             </div>
-            <div class="consultants-table">
+             <div class="search">
+                 <@search.search "consultants" categoryForSearch />
+             </div>
+            <div class="consultants-table generic-table">
                 <@consultantTableRenderer.renderTable consultantsList/>
             </div>
           </div>
@@ -30,5 +34,6 @@
         <#else>
          Access Denied.
         </#if>
+        <script src="./resources/script/search.js"></script>
     </body>
 </html>
