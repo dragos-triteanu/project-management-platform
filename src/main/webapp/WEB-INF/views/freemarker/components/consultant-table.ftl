@@ -1,5 +1,6 @@
 <#macro renderTable consultantsList>
     <table class="table">
+        <#if consultantsList??>
         <thead>
              <th class="table-header">Nume</th>
              <th class="table-header">Prenume</th>
