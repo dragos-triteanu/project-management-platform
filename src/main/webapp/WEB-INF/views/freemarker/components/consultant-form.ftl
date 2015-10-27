@@ -123,20 +123,6 @@
             </select>
         </div>
     </div>
-    
-    <div class="form-group">
-    	<div class="col-md-2 col-xs-2">
-            <label for="username"class="control-label">Username:</label>
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <#if consultant?has_content>
-                <input type="text" class="form-control" id="consultantUsername" value="${consultant.username!''}" name="username" placeholder="Introduceti un username" disabled>
-            <#else>
-                <input type="text" class="form-control" id="consultantUsername"  value="consultant" name="username" placeholder="Introduceti un username" required>
-            </#if>
-        </div>
-    </div>
-
     <div class="form-group">
         <div class="col-md-4 col-xs-4">
              <button class="btn btn-default btn-save" type="submit">Salveaza</button>

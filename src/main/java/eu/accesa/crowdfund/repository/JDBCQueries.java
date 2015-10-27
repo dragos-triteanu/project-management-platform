@@ -72,7 +72,13 @@ class JDBCQueries {
 			                                                         "FROM consultantorders co "+
 			                                                         "JOIN orders o ON o.orderId=co.orderId "+
 	                                                                 "WHERE co.consultantId=? AND o.status=?";
-	public static final String RETRIEVE_ORDER_BY_ID = "Select * from orders WHERE orderId=?";
+
+	public static final String RETRIEVE_ORDER_BY_ID_FOR_CONSULTANT= "Select o.orderId,o.speciality,o.subject,o.nrOfPages,o.tableOfContents,o.bibliography,o.annexes,o.message,o.clientId,co.status " +
+			                                                         "FROM orders o " +
+																	 "LEFT JOIN (SELECT orderId,consultantId,status FROM consultantorders WHERE consultantId=?) co ON o.orderId=co.orderId " +
+			                                                         "WHERE o.orderId=?";
+
+	public static final String RETRIEVE_ORDER_BY_ID_FOR_ADMIN = "Select * from orders o JOIN users u ON u.userId = o.clientId WHERE o.orderId=?";
 
 	public static final String CREATE_ORDER = "INSERT INTO orders(speciality,subject,nrOfPages,tableOfContents,bibliography,annexes,message,status) VALUES(?,?,?,?,?,?,?,?)";
 
@@ -98,12 +104,21 @@ class JDBCQueries {
 	public static final String ALL_ORDERS_DOMAIN_SEARCH = "SELECT * FROM orders o JOIN users u ON u.userId = o.clientId WHERE o.speciality LIKE ?";
 	public static final String ALL_ORDERS_SUBJECT_SEARCH ="SELECT * FROM orders o JOIN users u ON u.userId = o.clientId WHERE o.subject LIKE ?";
 	public static final String ALL_ORDERS_CLIENT_SEARCH = "SELECT * FROM orders o JOIN users u ON u.userId = o.clientId WHERE  CONCAT(u.lastname,' ',u.firstname) LIKE ? OR CONCAT(u.firstName,' ',u.lastName) LIKE ?";
+	public static final String ORDER_UPDATE = "UPDATE orders SET speciality=?," +
+																"subject=?," +
+																"nrOfPages=?," +
+																"tableOfContents=?,"+
+																"bibliography=?,"+
+											                    "message=?,"+
+																"status=?" +
+			                                    " WHERE orderId=?";
 
 	/**
 	 * {@link eu.accesa.crowdfund.repository.BidRepository} queries
 	 */
 	public static final String INSERT_BID = "INSERT INTO consultantOrders(orderId,consultantId,cost,nrOfDays,status) VALUES(?,?,?,?,?);";
 	public static final String DELETE_BID = "DELETE FROM consultantOrders WHERE consultantId=? and orderId=?";
+	public static final String RETRIEVE_BID = "SELECT * FROM consultantOrders WHERE consultantId=? and orderId=?";
 
 	/**
 	 * {@link eu.accesa.crowdfund.repository.MessageRepository} queries

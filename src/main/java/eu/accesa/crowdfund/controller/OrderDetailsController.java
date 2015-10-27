@@ -1,7 +1,10 @@
 package eu.accesa.crowdfund.controller;
 
+import eu.accesa.crowdfund.model.ConsultantOrder;
 import eu.accesa.crowdfund.model.Order;
+import eu.accesa.crowdfund.services.BidService;
 import eu.accesa.crowdfund.services.OrderService;
+import eu.accesa.crowdfund.utils.OrderStatus;
 import eu.accesa.crowdfund.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +23,18 @@ public class OrderDetailsController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private BidService bidService;
+
     @RequestMapping(method = RequestMethod.GET)
-    public String getAllApprovedOrders(@RequestParam("orderId") int id, ModelMap modelMap) {
+    public String getOrderDetails(@RequestParam("orderId") int id, ModelMap modelMap) {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
 
         Order order = orderService.getOrderByUId(id);
+        if(order.getOrderStatus().equals(OrderStatus.PENDING)){
+            ConsultantOrder  bid = bidService.getBid(id,SessionUtils.GetCurrentUser().getConsultantId());
+            modelMap.addAttribute("bid",bid);
+        }
         modelMap.addAttribute("order", order);
         modelMap.addAttribute("titlePage", "Detalii Comanda");
         return "orderDetails";

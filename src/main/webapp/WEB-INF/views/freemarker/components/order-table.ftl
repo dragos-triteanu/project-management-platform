@@ -5,10 +5,16 @@
     <thead>
          <#if userRole == "ADMINISTRATOR">
             <th class="table-header">Client</th>
+            <th class="table-header">Consultant</th>
          </#if>
          <th class="table-header">Domeniu</th>
          <th class="table-header">Subiect</th>
-         <th class="table-header">Nr. de pagini</th>
+         <#if userRole == "CONSULTANT">
+             <th class="table-header">Nr.pagini</th>
+         <#else>
+             <th class="table-header">Nr. licitatii</th>
+         </#if>
+
          <th class="table-header">Status </th>
          <th class="table-header">Detalii</th>
     </thead>
@@ -20,7 +26,9 @@
                     </#if>
                     <td>${order.domain}</td>
                     <td>${order.subject}</td>
-                    <td>${order.nrOfPages}</td>
+                    <#if userRole == "CONSULTANT">
+                        <td>${order.nrOfPages}</td>
+                    </#if>
                     <td><@statusRow.renderRow order.orderStatus/></td>
                     <td>
                      <#if  order.orderStatus == "REJECTED">

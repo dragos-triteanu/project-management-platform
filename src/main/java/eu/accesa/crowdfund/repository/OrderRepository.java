@@ -7,6 +7,7 @@ import eu.accesa.crowdfund.security.Authority;
 import eu.accesa.crowdfund.utils.AdminCategoryOrderSearch;
 import eu.accesa.crowdfund.utils.CategoryOrderSearch;
 import eu.accesa.crowdfund.utils.OrderStatus;
+import eu.accesa.crowdfund.utils.SessionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,9 +46,9 @@ public class OrderRepository {
         LOG.debug("Retrieving list of orders for user id={}:" + currentUser.getConsultantId());
         List<Order> orders;
         if (currentUser.getRole().equals(Authority.CONSULTANT)) {
-            orders = orderJdbcTemplate.query(RETRIEVE_CONSULTANT_ORDERS, new Object[]{currentUser.getConsultantId(), OrderStatus.ACCEPTED.getOrderStatus()}, Mappers.orderMaper());
+            orders = orderJdbcTemplate.query(RETRIEVE_CONSULTANT_ORDERS, new Object[]{currentUser.getConsultantId(), OrderStatus.ACCEPTED.getOrderStatus()}, Mappers.orderMapper());
         } else {
-            orders = orderJdbcTemplate.query(RETRIEVE_ALL_ORDERS, Mappers.orderMaper());
+            orders = orderJdbcTemplate.query(RETRIEVE_ALL_ORDERS, Mappers.orderMapper());
         }
         LOG.debug("Found :" + orders);
         return orders;
@@ -56,12 +56,18 @@ public class OrderRepository {
 
     /**
      * Method that retrieves a {@link eu.accesa.crowdfund.model.Order} from the 'orders' SQL table based on it's Id.
+     *
      * @param id the id of the order.
      * @return the found {@link eu.accesa.crowdfund.model.Order}.
      */
     public Order getOrderById(int id) {
         LOG.debug("Retrieving order with orderId={}", id);
-        Order order = orderJdbcTemplate.queryForObject(JDBCQueries.RETRIEVE_ORDER_BY_ID, new Object[]{id}, Mappers.orderMaper());
+        Order order;
+        if(SessionUtils.GetCurrentUser().getRole().equals(Authority.CONSULTANT)) {
+            order = orderJdbcTemplate.queryForObject(JDBCQueries.RETRIEVE_ORDER_BY_ID_FOR_CONSULTANT, new Object[]{SessionUtils.GetCurrentUser().getConsultantId(),id}, Mappers.orderMapper());
+        }else{
+            order = orderJdbcTemplate.queryForObject(JDBCQueries.RETRIEVE_ORDER_BY_ID_FOR_ADMIN, new Object[]{id}, Mappers.orderMapper());
+        }
         return order;
     }
 
@@ -115,14 +121,27 @@ public class OrderRepository {
         return orders;
     }
 
+
+    public void updateOrder(Order order) {
+        LOG.info("Updating the order with id= {}", order.getOrderId());
+        int update=0;
+        try {
+            update = orderJdbcTemplate.update(ORDER_UPDATE, new Object[]{order.getDomain(), order.getSubject(), order.getNrOfPages(), order.getTableOfContents(), order.getBibliography(),
+                    order.getMessage(), order.getOrderStatus().getOrderStatus(), order.getOrderId()});
+        }catch (Exception ex) {
+            LOG.debug("Something went wrong. by Microsoft");
+        }
+        LOG.debug("Number of rows affected by update={}", update);
+    }
+
     private List<Order> getSearchedOrdersForAdministrator(String searchText, AdminCategoryOrderSearch categorySearch) {
         switch (categorySearch) {
             case DOMAIN:
-                return orderJdbcTemplate.query(ALL_ORDERS_DOMAIN_SEARCH, new Object[]{"%" + searchText + "%"}, Mappers.orderMaper());
+                return orderJdbcTemplate.query(ALL_ORDERS_DOMAIN_SEARCH, new Object[]{"%" + searchText + "%"}, Mappers.orderMapper());
             case SUBJECT:
-                return orderJdbcTemplate.query(ALL_ORDERS_SUBJECT_SEARCH, new Object[]{"%" + searchText + "%"}, Mappers.orderMaper());
+                return orderJdbcTemplate.query(ALL_ORDERS_SUBJECT_SEARCH, new Object[]{"%" + searchText + "%"}, Mappers.orderMapper());
             case CLIENT:
-                return orderJdbcTemplate.query(ALL_ORDERS_CLIENT_SEARCH, new Object[]{"%" + searchText + "%", "%" + searchText + "%"}, Mappers.orderMaper());
+                return orderJdbcTemplate.query(ALL_ORDERS_CLIENT_SEARCH, new Object[]{"%" + searchText + "%", "%" + searchText + "%"}, Mappers.orderMapper());
         }
         return null;
     }
@@ -130,9 +149,9 @@ public class OrderRepository {
     private List<Order> getSearchedOrdersForConsultant(int consultantId, String searchText, CategoryOrderSearch categorySearch) {
         switch (categorySearch) {
             case DOMAIN:
-                return orderJdbcTemplate.query(ORDER_DOMAIN_SEARCH, new Object[]{consultantId, OrderStatus.ACCEPTED.getOrderStatus(), "%" + searchText + "%"}, Mappers.orderMaper());
+                return orderJdbcTemplate.query(ORDER_DOMAIN_SEARCH, new Object[]{consultantId, OrderStatus.ACCEPTED.getOrderStatus(), "%" + searchText + "%"}, Mappers.orderMapper());
             case SUBJECT:
-                return orderJdbcTemplate.query(ORDER_SUBJECT_SEARCH, new Object[]{consultantId, OrderStatus.ACCEPTED.getOrderStatus(), "%" + searchText + "%"}, Mappers.orderMaper());
+                return orderJdbcTemplate.query(ORDER_SUBJECT_SEARCH, new Object[]{consultantId, OrderStatus.ACCEPTED.getOrderStatus(), "%" + searchText + "%"}, Mappers.orderMapper());
         }
         return null;
     }

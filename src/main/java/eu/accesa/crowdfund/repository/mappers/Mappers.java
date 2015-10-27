@@ -93,7 +93,6 @@ public class Mappers {
         }
     }
 
-
     /**
      * Mapper class for mapping a row in the 'order' SQL schema, to a {@link eu.accesa.crowdfund.model.Order} object.
      */
@@ -151,6 +150,22 @@ public class Mappers {
         }
     }
 
+    private static final class BidMapper implements RowMapper<ConsultantOrder>{
+        public ConsultantOrder mapRow(ResultSet rs, int rowNum) throws SQLException{
+            ConsultantOrder consultantOrder = new ConsultantOrder();
+            Order order = new Order();
+            order.setOrderId(rs.getInt("orderId"));
+            User consultant=new User();
+            consultant.setConsultantId(rs.getInt("consultantId"));
+            consultantOrder.setConsultant(consultant);
+            consultantOrder.setOrder(order);
+            consultantOrder.setCost(rs.getDouble("cost"));
+            consultantOrder.setNrOfDays(rs.getInt("nrOfDays"));
+            consultantOrder.setStatus(OrderStatus.values()[rs.getInt("status")]);
+
+            return consultantOrder;
+        }
+    }
 
     public static final RowMapper<QuestionAndAnswer> questionAndAnswerMapper() {
         return new QuestionAndAnswerMapper();
@@ -164,7 +179,7 @@ public class Mappers {
         return new ConsultantUserMapper();
     }
 
-    public static final RowMapper<Order> orderMaper() {
+    public static final RowMapper<Order> orderMapper() {
         return new OrderMapper();
     }
 
@@ -175,4 +190,7 @@ public class Mappers {
     public static final RowMapper<User> authUserMapper() {
         return new AuthenticationUserMapper();
     }
+
+    public static final RowMapper<ConsultantOrder> bidMapper() { return new BidMapper();}
+
 }

@@ -43,5 +43,9 @@ public class OrderService {
     public List<Order> getSearchedOrders(User currentUser, String searchText, String selectedCategory) {
         return orderRepository.getSearchedOrders(currentUser, searchText, selectedCategory);
     }
+
+    public void updateOrder(Order order) {
+        orderRepository.updateOrder(order);
+    }
 }
 

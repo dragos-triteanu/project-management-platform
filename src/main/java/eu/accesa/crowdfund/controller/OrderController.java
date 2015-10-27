@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,8 +72,14 @@ public class OrderController {
         return new ResponseEntity<>(placedOrder, HttpStatus.CREATED);
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String updateOrder(@ModelAttribute("order") Order order){
+        orderService.updateOrder(order);
+        return "redirect:/orders";
+    }
 
-    private User buildUserFromParams(String firstName, String lastName, String email) {
+
+        private User buildUserFromParams(String firstName, String lastName, String email) {
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);

@@ -1,6 +1,7 @@
 package eu.accesa.crowdfund.services;
 
 import eu.accesa.crowdfund.model.ConsultantOrder;
+import eu.accesa.crowdfund.model.User;
 import eu.accesa.crowdfund.repository.BidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,9 @@ public class BidService {
     public void deleteBid(final int consultantId, final int orderId)
     {
         bidRepository.deleteBid(consultantId,orderId);
+    }
+
+    public ConsultantOrder getBid(int orderId, int userId) {
+        return bidRepository.getBid(orderId,userId);
     }
 }

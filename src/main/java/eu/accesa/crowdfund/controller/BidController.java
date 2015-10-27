@@ -6,6 +6,7 @@ import eu.accesa.crowdfund.model.User;
 import eu.accesa.crowdfund.model.Order;
 import eu.accesa.crowdfund.services.BidService;
 import eu.accesa.crowdfund.utils.OrderStatus;
+import eu.accesa.crowdfund.utils.SessionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,7 @@ public class BidController {
         Order order=new Order();
         order.setOrderId(orderId);
         bid.setOrder(order);
-
-        User consultant = new User();
-        consultant.setConsultantId(1);
-        bid.setConsultant(consultant);
+        bid.setConsultant(SessionUtils.GetCurrentUser());
 
         bid.setStatus(OrderStatus.PENDING);
         bidService.addBid(bid);
@@ -48,7 +46,7 @@ public class BidController {
     @RequestMapping(value="/deleteBid", method = RequestMethod.POST)
     public String deleteBid(@RequestParam("orderId") int orderId)
     {
-        bidService.deleteBid(1,orderId);
+        bidService.deleteBid(SessionUtils.GetCurrentUser().getConsultantId(),orderId);
         return "redirect:/myorders";
     }
 }

@@ -17,6 +17,7 @@
 </div>
 
 <#if userRole=="CONSULTANT">
+<#if order.orderStatus == "ACCEPTED">
 <button type="button" id="bidBtn" class="btn btn-default col-md-offset-4">Liciteaza</button>
 <form id="bid" class="create-form bid" role="form" action="/placeBid" method="POST" >
     <input type="hidden" name="orderId" id="orderId" value="${order.orderId}"/>
@@ -37,6 +38,18 @@
         <button id="cancelBid" type="button" class="btn btn-default">Anuleaza</button>
     </div>
 </form>
+<#elseif order.orderStatus == "PENDING" >
+<form id="viewBid" role="form" action="/getBid" method="GET">
+    <input type="hidden" name="orderId" id="orderId" value="${order.orderId}"/>
+    <div class="alert alert-success container" role="alert">
+        <span>Ai aplicat deja pentru acesta comanda.<br/>
+              Numar de zile : ${bid.nrOfDays} <br/>
+              Cost : ${bid.cost} RON
+          </span>
+    </div>
+</form>
+
+</#if>
 </#if>
 <script src="./resources/script/order.js"></script>
 </body>

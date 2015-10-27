@@ -15,6 +15,8 @@ public class Order {
     private byte[] annexes;
     private String message;
     private User client;
+    private User consultant;
+    private int nrOfAuctions;
     private OrderStatus orderStatus;
 
     public String getDomain() {
@@ -95,5 +97,21 @@ public class Order {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+    public User getConsultant() {
+        return consultant;
+    }
+
+    public void setConsultant(User consultant) {
+        this.consultant = consultant;
+    }
+
+    public int getNrOfAuctions() {
+        return nrOfAuctions;
+    }
+
+    public void setNrOfAuctions(int nrOfAuctions) {
+        this.nrOfAuctions = nrOfAuctions;
     }
 }

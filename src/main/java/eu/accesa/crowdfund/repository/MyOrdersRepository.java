@@ -35,7 +35,7 @@ public class MyOrdersRepository {
     public List<Order> getConsultantAssignedOrders(int consultantId)
     {
         LOG.debug("Retrieving list of active orders for consultant:"+consultantId);
-        List<Order> orders = orderJdbcTemplate.query(RETRIEVE_CONSULTANT_ASSIGNED_ORDERS, new Object[]{consultantId,OrderStatus.ASSIGNED.getOrderStatus()}, Mappers.orderMaper());
+        List<Order> orders = orderJdbcTemplate.query(RETRIEVE_CONSULTANT_ASSIGNED_ORDERS, new Object[]{consultantId,OrderStatus.ASSIGNED.getOrderStatus()}, Mappers.orderMapper());
         LOG.debug("Found :" + orders);
         return orders;
     }
@@ -46,10 +46,10 @@ public class MyOrdersRepository {
         switch (selectedCategory)
         {
             case DOMAIN:
-                orders = orderJdbcTemplate.query(MY_ORDERS_DOMAIN_SEARCH, new Object[]{consultantId, OrderStatus.ASSIGNED.getOrderStatus(),"%" + searchText + "%"}, Mappers.orderMaper());
+                orders = orderJdbcTemplate.query(MY_ORDERS_DOMAIN_SEARCH, new Object[]{consultantId, OrderStatus.ASSIGNED.getOrderStatus(),"%" + searchText + "%"}, Mappers.orderMapper());
                 break;
             case SUBJECT:
-                orders = orderJdbcTemplate.query(MY_ORDERS_SUBJECT_SEARCH, new Object[]{consultantId, OrderStatus.ASSIGNED.getOrderStatus(),"%" + searchText + "%"}, Mappers.orderMaper());
+                orders = orderJdbcTemplate.query(MY_ORDERS_SUBJECT_SEARCH, new Object[]{consultantId, OrderStatus.ASSIGNED.getOrderStatus(),"%" + searchText + "%"}, Mappers.orderMapper());
                 break;
         }
         LOG.debug("Found :" + orders);
