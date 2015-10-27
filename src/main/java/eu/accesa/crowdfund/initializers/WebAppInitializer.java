@@ -1,4 +1,4 @@
-package eu.accesa.crowdfund.context;
+package eu.accesa.crowdfund.initializers;
 
 import java.nio.charset.StandardCharsets;
 import eu.accesa.crowdfund.context.ServiceAppContext;

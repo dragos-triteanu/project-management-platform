@@ -1,4 +1,4 @@
-package eu.accesa.crowdfund.context;
+package eu.accesa.crowdfund.initializers;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
