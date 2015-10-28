@@ -7,7 +7,6 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
@@ -15,11 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ChatController {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
-
-  @RequestMapping(method = RequestMethod.GET)
-  public String viewApplication() {
-    return "index";
-  }
 
   @MessageMapping("/conversation")
   @SendTo("/topic/message")
