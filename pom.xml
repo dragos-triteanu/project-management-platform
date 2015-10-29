@@ -29,6 +29,7 @@
 		<commons.fileupload.version>1.2.2</commons.fileupload.version>
 		<commons.io.version>1.3.2</commons.io.version>
 		<flying.saucer.pdf.version>9.0.8</flying.saucer.pdf.version>
+        <hibernate.version>5.0.3.Final</hibernate.version>
 	</properties>
 	
 	<dependencies>
@@ -173,9 +174,14 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.connector.version}</version>
 		</dependency>
-				
-		
-		<!-- Utils -->			
+        <!-- Hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <!-- Utils -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -202,23 +208,6 @@
 			<version>${flying.saucer.pdf.version}</version>
 		</dependency>
 				
-		
-		<!-- Webjars -->
-	    <dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>${twitter.bootstrap.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery</artifactId>
-			<version>${jquery.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery-ui</artifactId>
-			<version>${jquery.ui.version}</version>
-		</dependency>
 	</dependencies>
 	
     <build>

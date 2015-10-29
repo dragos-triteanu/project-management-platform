@@ -1,4 +1,4 @@
 {
-    "directory": "src/main/webapp/resources/externals",
+    "directory": "src/main/webapp/resources/libs",
     "json": "bower.json"
 }

@@ -4,7 +4,7 @@
 <#import "*/components/consultant-form.ftl" as consultantForm/>
 <head>
     <#include "*/includes.ftl">
-        <link rel="stylesheet" type="text/css" href="./resources/css/consultant.css"/>
+    <link rel="stylesheet" type="text/css" href="./resources/css/consultant.css"/>
 </head>
 <body>
     <input id="userRole" type="hidden" value="${userRole}">

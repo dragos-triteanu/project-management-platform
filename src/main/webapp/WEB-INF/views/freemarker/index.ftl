@@ -20,10 +20,10 @@
     </p>
 </div>
 
-<script src="resources/externals/sockjs/sockjs.min.js" type="text/javascript"></script>
-<script src="resources/externals/stomp-websocket/lib/stomp.min.js" type="text/javascript"></script>
-<script src="resources/externals/angular/angular.min.js"></script>
-<script src="resources/externals/lodash/lodash.min.js"></script>
+<script src="resources/libs/sockjs/sockjs.min.js" type="text/javascript"></script>
+<script src="resources/libs/stomp-websocket/lib/stomp.min.js" type="text/javascript"></script>
+<script src="resources/libs/angular/angular.min.js"></script>
+<script src="resources/libs/lodash/lodash.min.js"></script>
 <script src="resources/script/angular/app.js" type="text/javascript"></script>
 <script src="resources/script/angular/controllers.js" type="text/javascript"></script>
 <script src="resources/script/angular/services.js" type="text/javascript"></script>
