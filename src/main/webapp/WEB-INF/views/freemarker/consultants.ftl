@@ -18,9 +18,11 @@
             <div class="h2 consultantTitle" >
                 Consultanti
             </div>
-             <div class="search">
+            <#if consultantsList?has_content>
+                <div class="search">
                  <@search.search "consultants" categoryForSearch />
-             </div>
+                </div>
+            </#if>
             <div class="consultants-table generic-table">
                 <@consultantTableRenderer.renderTable consultantsList/>
             </div>
