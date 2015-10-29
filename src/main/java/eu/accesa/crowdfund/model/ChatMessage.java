@@ -10,7 +10,7 @@ public class ChatMessage {
     private int id;
     private String content;
     private Date date;
-
+    private int to;
 
     public int getId() {
         return id;
@@ -34,5 +34,13 @@ public class ChatMessage {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getTo() {
+        return to;
+    }
+
+    public void setTo(int to) {
+        this.to = to;
     }
 }

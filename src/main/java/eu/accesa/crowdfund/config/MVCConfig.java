@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.WebContentInterceptor;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
@@ -27,7 +28,18 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 		beansWrapper.setExposeFields(true);
 		return beansWrapper;
 	}
-	
+
+    @Bean
+    public WebContentInterceptor webContentInterceptor() {
+        WebContentInterceptor interceptor = new WebContentInterceptor();
+        interceptor.setCacheSeconds(0);
+        interceptor.setUseExpiresHeader(true);
+        interceptor.setUseCacheControlHeader(true);
+        interceptor.setUseCacheControlNoStore(true);
+        return interceptor;
+    }
+
+
 	@Bean
 	public FreeMarkerConfigurer freemarkerConfig(){
 		FreeMarkerConfigurer freemarkerConfig = new FreeMarkerConfigurer();
