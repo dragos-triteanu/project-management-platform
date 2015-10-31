@@ -6,6 +6,7 @@ import eu.accesa.crowdfund.context.MVCAppContext;
 
 import javax.servlet.*;
 
+import org.springframework.orm.hibernate5.support.OpenSessionInViewFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -34,6 +35,6 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
   @Override
   protected Filter[] getServletFilters() {
-    return null;
+      return null;
   }
 }

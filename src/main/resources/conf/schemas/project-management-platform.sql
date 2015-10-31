@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `projectManagementDB`.`messages` (
   `clientId` INT(16)  NULL,
   `orderId` INT(16)  NULL,
   `consultantId` INT(16) NOT NULL,
-  `message` nvarchar(1000) NULL,
+  `message` varchar(1000) NULL,
   `dateTime` datetime  NULL,
   PRIMARY KEY  (`messageId`)
 );

@@ -1,32 +1,27 @@
 package eu.accesa.crowdfund.repository;
 
-import static eu.accesa.crowdfund.repository.JDBCQueries.*;
-
-import java.nio.ByteBuffer;
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Resource;
-
+import eu.accesa.crowdfund.model.entities.QuestionAndAnswer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import eu.accesa.crowdfund.model.QuestionAndAnswer;
-import eu.accesa.crowdfund.repository.mappers.Mappers;
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
- * Repository class for managing QuestionAndAnswer data objects.
- *
- * @author dragos.triteanu
- */
+* Repository class for managing QuestionAndAnswer data objects.
+*
+* @author dragos.triteanu
+*/
 @Repository
+@Transactional(readOnly = false)
 public class FAQRepository {
     private static final Logger LOG = LoggerFactory.getLogger(FAQRepository.class);
 
-    @Resource(name = "crowdfundingJdbcTemplate")
-    private JdbcTemplate faqJdbcTemplate;
+    @Resource
+    private HibernateTemplate hibernateTemplate;
 
     /**
      * Retrieves a list of {@link QuestionAndAnswer} from the 'faq' SQL table.
@@ -35,9 +30,9 @@ public class FAQRepository {
      */
     public List<QuestionAndAnswer> retrieveQuestionsAndAnswers() {
         LOG.debug("Retrieving list of all QuestionAndAnswer objects");
-        List<QuestionAndAnswer> qaaList = faqJdbcTemplate.query(RETRIEVE_ALL_QAA, new Object[]{}, Mappers.questionAndAnswerMapper());
-        LOG.debug("Found :" + qaaList);
-        return qaaList;
+        List<QuestionAndAnswer> questionAndAnswerEntities = hibernateTemplate.loadAll(QuestionAndAnswer.class);
+        LOG.debug("Found :" + questionAndAnswerEntities);
+        return questionAndAnswerEntities;
     }
 
     /**
@@ -47,8 +42,7 @@ public class FAQRepository {
      */
     public void insertQuestionAndAnswer(QuestionAndAnswer questionAndAnswer) {
         LOG.debug("Inserting QuestionAndAnswer with question=" + questionAndAnswer.getQuestion() + " and answer=" + questionAndAnswer.getAnswer());
-        int response = faqJdbcTemplate.update(INSERT_QAA,  new Object[]{questionAndAnswer.getQuestion(), questionAndAnswer.getAnswer()});
-        LOG.debug("Number of rows modified =" + response);
+        hibernateTemplate.persist(questionAndAnswer);
     }
 
     /**
@@ -58,7 +52,7 @@ public class FAQRepository {
      */
     public void deleteQuestionAndAnswerById(int id) {
         LOG.debug("Deleting QuestionAndAnswer with id=" + id);
-        int response = faqJdbcTemplate.update(DELETE_QAA_BY_ID, id);
-        LOG.debug("Number of rows modified = " + response);
+        //int response = faqJdbcTemplate.update(DELETE_QAA_BY_ID, id);
+        hibernateTemplate.delete(hibernateTemplate.get(QuestionAndAnswer.class, id));
     }
 }

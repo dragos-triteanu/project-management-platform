@@ -1,13 +1,16 @@
 package eu.accesa.crowdfund.config;
 
 import java.sql.Driver;
+import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -15,6 +18,7 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -41,19 +45,13 @@ public class DatasourceConfig {
 	@Value("${crowdfunding.datasource.recreateDB}")
 	private boolean recreateDB;
 
-	
 	@Bean(name="crowdfundingJdbcTemplate")
 	public JdbcTemplate crowdfundingJdbcTemplate(){
 		JdbcTemplate jdbcTemplate = new JdbcTemplate();
 		jdbcTemplate.setDataSource(dataSource());
 		return jdbcTemplate;
 	}
-	
-	 @Bean
-     public PlatformTransactionManager txManager() {
-         return new DataSourceTransactionManager(dataSource());
-     }
-	
+
 	@Bean(name="dataSource")
 	public DataSource dataSource(){
 		DataSource dataSource = datasourceCreator();
@@ -70,7 +68,7 @@ public class DatasourceConfig {
 		databasePopulator.addScript(new ClassPathResource(dbSchema));
 		return databasePopulator;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private SimpleDriverDataSource datasourceCreator(){
 		SimpleDriverDataSource simpleDriverDataSource = new SimpleDriverDataSource();

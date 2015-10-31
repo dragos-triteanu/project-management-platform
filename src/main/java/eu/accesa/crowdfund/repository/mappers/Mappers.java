@@ -21,23 +21,6 @@ public class Mappers {
     private static final Logger LOG = LoggerFactory.getLogger(FAQRepository.class);
 
     /**
-     * Mapper class for mapping a row in the 'faq' SQL schema, to a {@link QuestionAndAnswer} object.
-     *
-     * @author dragos.triteanu
-     */
-    private static final class QuestionAndAnswerMapper implements RowMapper<QuestionAndAnswer> {
-
-        @Override
-        public QuestionAndAnswer mapRow(ResultSet rs, int rowNum) throws SQLException {
-            QuestionAndAnswer qaa = new QuestionAndAnswer();
-            qaa.setId(rs.getInt("id"));
-            qaa.setQuestion(rs.getString("question"));
-            qaa.setAnswer(rs.getString("answer"));
-            return qaa;
-        }
-    }
-
-    /**
      * Mapper class for mapping a row in the 'consultant-category' SQL schema, to a {@link eu.accesa.crowdfund.model.ConsultantSpeciality} object.
      *
      * @author dragos.triteanu
@@ -165,10 +148,6 @@ public class Mappers {
 
             return consultantOrder;
         }
-    }
-
-    public static final RowMapper<QuestionAndAnswer> questionAndAnswerMapper() {
-        return new QuestionAndAnswerMapper();
     }
 
     public static final RowMapper<ConsultantSpeciality> consultantCategoryMapper() {

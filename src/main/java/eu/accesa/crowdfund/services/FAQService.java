@@ -2,10 +2,10 @@ package eu.accesa.crowdfund.services;
 
 import java.util.List;
 
+import eu.accesa.crowdfund.model.entities.QuestionAndAnswer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import eu.accesa.crowdfund.model.QuestionAndAnswer;
 import eu.accesa.crowdfund.repository.FAQRepository;
 
 /**
@@ -19,7 +19,7 @@ public class FAQService {
     private FAQRepository faqRepository;
 
     /**
-     * Adds a new {@link eu.accesa.crowdfund.model.QuestionAndAnswer} into the {@link eu.accesa.crowdfund.repository.FAQRepository}.
+     * Adds a new {@link eu.accesa.crowdfund.model.entities.QuestionAndAnswer} into the {@link eu.accesa.crowdfund.repository.FAQRepository}.
      * @param qAnda
      */
     public void addNewFAQ(final QuestionAndAnswer qAnda){
@@ -27,7 +27,7 @@ public class FAQService {
     }
 
     /**
-     * Retrieves a list of all existent {@link eu.accesa.crowdfund.model.QuestionAndAnswer} in the {@link eu.accesa.crowdfund.repository.FAQRepository}.
+     * Retrieves a list of all existent {@link eu.accesa.crowdfund.model.entities.QuestionAndAnswer} in the {@link eu.accesa.crowdfund.repository.FAQRepository}.
      * @return
      */
     public List<QuestionAndAnswer> retrieveAllFAQs(){
@@ -35,8 +35,8 @@ public class FAQService {
     }
 
     /**
-     * Deletes a {@link eu.accesa.crowdfund.model.QuestionAndAnswer} based on it's id.
-     * @param faqId the id of the {@link eu.accesa.crowdfund.model.QuestionAndAnswer} that will be deleted.
+     * Deletes a {@link eu.accesa.crowdfund.model.entities.QuestionAndAnswer} based on it's id.
+     * @param faqId the id of the {@link eu.accesa.crowdfund.model.entities.QuestionAndAnswer} that will be deleted.
      */
     public void deleteeFAQById(final int faqId){
         faqRepository.deleteQuestionAndAnswerById(faqId);

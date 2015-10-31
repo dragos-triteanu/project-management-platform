@@ -1,5 +1,6 @@
 package eu.accesa.crowdfund.context;
 
+import eu.accesa.crowdfund.config.HibernateConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,7 @@ import eu.accesa.crowdfund.config.DatasourceConfig;
 
 @Configuration
 @EnableWebMvc
-@Import({MVCConfig.class,DatasourceConfig.class})
+@Import({MVCConfig.class,HibernateConfig.class})
 @ComponentScan("eu.accesa.crowdfund")
 public class MVCAppContext {
 	
