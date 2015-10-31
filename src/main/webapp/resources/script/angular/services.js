@@ -4,11 +4,11 @@
         var service = {}, listener = $q.defer(), socket = {
             client: null,
             stomp: null
-        }, messageIds = [];
+        }, messageIds = [],orderId = $("#orderId").val();
 
         service.RECONNECT_TIMEOUT = 30000;
         service.SOCKET_URL = "/chat";
-        service.CHAT_TOPIC = "/topic/message/123";
+        service.CHAT_TOPIC = "/topic/message/"+orderId;
         service.CHAT_BROKER = "/app/chat";
 
         service.receive = function() {
@@ -21,7 +21,7 @@
                 priority: 9
             }, JSON.stringify({
                 content: message,
-                to:123,
+                to:orderId,
                 id: id
             }));
             messageIds.push(id);
@@ -35,7 +35,7 @@
 
         var getMessage = function(data) {
             var message = JSON.parse(data), out = {};
-            out.message = message.content;
+            out.content = message.content;
             out.time = new Date(message.date);
             if (_.contains(messageIds, message.id)) {
                 out.self = true;

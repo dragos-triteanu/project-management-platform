@@ -20,11 +20,6 @@ public class ChatController {
     @Autowired
     private SimpMessagingTemplate template;
 
-    @RequestMapping(value = "/flap" , method = RequestMethod.GET)
-    public String viewApplication() {
-        return "index";
-    }
-
     @MessageMapping("/chat")
     public void sendMessage(ChatMessage message) {
         message.setDate(new Date());

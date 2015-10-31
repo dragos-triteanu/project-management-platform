@@ -32,7 +32,8 @@ public class MyOrdersController {
         List<Order> orders;
 
         if (searchText == null || searchText.isEmpty()) {
-            orders = myOrdersService.getConsultantAssignedOrders(1);
+            int currentUserId = SessionUtils.GetCurrentUser().getConsultantId();
+            orders = myOrdersService.getConsultantAssignedOrders(currentUserId);
         } else {
             orders = myOrdersService.getOrderResultSearch(1, searchText, CategoryOrderSearch.getKey(selectedCategory));
         }

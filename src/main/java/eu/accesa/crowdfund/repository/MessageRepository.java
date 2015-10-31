@@ -28,4 +28,8 @@ public class MessageRepository {
         LOG.debug("Found {} messages", messages.size());
         return messages;
     }
+
+    public void addMessage(Message message){
+        //Implementation of message persisting
+    }
 }

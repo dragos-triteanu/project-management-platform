@@ -1,7 +1,5 @@
 package eu.accesa.crowdfund.model;
 
-import com.sun.jmx.snmp.Timestamp;
-
 import java.util.Date;
 
 /**

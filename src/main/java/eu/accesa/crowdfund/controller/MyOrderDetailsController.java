@@ -2,6 +2,7 @@ package eu.accesa.crowdfund.controller;
 
 import eu.accesa.crowdfund.model.Message;
 import eu.accesa.crowdfund.model.Order;
+import eu.accesa.crowdfund.model.User;
 import eu.accesa.crowdfund.services.MessageService;
 import eu.accesa.crowdfund.services.OrderService;
 import eu.accesa.crowdfund.utils.SessionUtils;
@@ -33,7 +34,8 @@ public class MyOrderDetailsController {
         Order order = orderService.getOrderByUId(id);
         modelMap.addAttribute("order", order);
         modelMap.addAttribute("titlePage", "Detalii Comanda");
-
+        User currentUser = SessionUtils.GetCurrentUser();
+        modelMap.put("currentUser",currentUser);
         List<Message> messages = messageService.getMessages(id);
         modelMap.addAttribute("messages",messages);
 
