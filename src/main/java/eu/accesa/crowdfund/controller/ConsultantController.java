@@ -50,7 +50,7 @@ public class ConsultantController {
         modelMap.addAttribute("consultantsList", consultants);
         modelMap.addAttribute("categoryForSearch", CategoryConsultantSearch.valuesAsString());
 
-        return "consultants";
+        return "consultantsPage";
     }
 
     @RequestMapping(value = "createConsultant", method = RequestMethod.GET)
@@ -59,7 +59,7 @@ public class ConsultantController {
 
         List<ConsultantSpeciality> categories = consultantCategoryService.retrieveAllConsultantCategories();
         modelMap.put("categories", categories);
-        return "createConsultant";
+        return "createConsultantPage";
     }
 
     @RequestMapping(value = "createConsultant", method = RequestMethod.POST)

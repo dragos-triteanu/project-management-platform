@@ -39,6 +39,6 @@ public class MyOrderDetailsController {
         List<Message> messages = messageService.getMessages(id);
         modelMap.addAttribute("messages",messages);
 
-        return "myOrderDetails";
+        return "myOrderDetailsPage";
     }
 }

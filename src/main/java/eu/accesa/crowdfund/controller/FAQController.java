@@ -31,7 +31,7 @@ public class FAQController {
 
 		List<QuestionAndAnswer> qaa = faqService.retrieveAllFAQs();
 		modelMap.addAttribute("questionsAndAnswers", qaa);
-		return "faq";
+		return "faqPage";
 	}
 	
 	@RequestMapping(value="/add",method = RequestMethod.POST)

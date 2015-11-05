@@ -38,7 +38,7 @@ public class ConsultantDetailsController {
         List<ConsultantSpeciality> category = consultantCategoryRepository.retrieveAllCategories();
         modelMap.addAttribute("categories", category);
         modelMap.addAttribute("titlePage", "Editare Consultant");
-        return "consultant-details";
+        return "consultantDetailsPage";
     }
     
     @RequestMapping(value="/update",method = RequestMethod.POST)
