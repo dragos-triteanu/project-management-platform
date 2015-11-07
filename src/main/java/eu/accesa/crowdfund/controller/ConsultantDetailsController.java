@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import eu.accesa.crowdfund.model.User;
-import eu.accesa.crowdfund.model.ConsultantSpeciality;
+import eu.accesa.crowdfund.model.entities.Consultant;
+import eu.accesa.crowdfund.model.entities.ConsultantSpeciality;
 import eu.accesa.crowdfund.repository.ConsultantCategoryRepository;
 import eu.accesa.crowdfund.services.ConsultantService;
 import eu.accesa.crowdfund.utils.SessionUtils;
@@ -31,9 +31,9 @@ public class ConsultantDetailsController {
     private ConsultantCategoryRepository consultantCategoryRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getConsultantDetails(@RequestParam("consultantId") int consultantId, ModelMap modelMap) {
+    public String getConsultantDetails(@RequestParam("userId") int userId, ModelMap modelMap) {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
-        User consultant = consultantService.getConsultantById(consultantId);
+        Consultant consultant = consultantService.getConsultantById(userId);
         modelMap.addAttribute("consultant", consultant);
         List<ConsultantSpeciality> category = consultantCategoryRepository.retrieveAllCategories();
         modelMap.addAttribute("categories", category);
@@ -42,7 +42,7 @@ public class ConsultantDetailsController {
     }
     
     @RequestMapping(value="/update",method = RequestMethod.POST)
-    public String updateConsultant(@ModelAttribute("Consultant") User consultant,
+    public String updateConsultant(@ModelAttribute("Consultant") Consultant consultant,
     							   @RequestParam(value="cvFile", required = false) MultipartFile cvFile) throws Exception{
     	consultant.setCv(cvFile.getBytes());
     	consultantService.updateConsultant(consultant);
@@ -50,8 +50,8 @@ public class ConsultantDetailsController {
     }
 
     @RequestMapping(value="/delete", method=RequestMethod.POST)
-    public String deleteConsultant(@RequestParam("consultantId") final String consultantId){
-    	consultantService.removeConsultant(consultantId);
+    public String deleteConsultant(@RequestParam("userId") final String userId){
+    	consultantService.removeConsultant(userId);
         return "redirect:/consultants";
     }
 

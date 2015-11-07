@@ -1,6 +1,7 @@
 package eu.accesa.crowdfund.repository.mappers;
 
 import eu.accesa.crowdfund.model.*;
+import eu.accesa.crowdfund.model.entities.*;
 import eu.accesa.crowdfund.repository.FAQRepository;
 import eu.accesa.crowdfund.security.Authority;
 import eu.accesa.crowdfund.utils.OrderStatus;
@@ -21,7 +22,7 @@ public class Mappers {
     private static final Logger LOG = LoggerFactory.getLogger(FAQRepository.class);
 
     /**
-     * Mapper class for mapping a row in the 'consultant-category' SQL schema, to a {@link eu.accesa.crowdfund.model.ConsultantSpeciality} object.
+     * Mapper class for mapping a row in the 'consultant-category' SQL schema, to a {@link eu.accesa.crowdfund.model.entities.ConsultantSpeciality} object.
      *
      * @author dragos.triteanu
      */
@@ -36,11 +37,11 @@ public class Mappers {
         }
     }
 
-    private static final class ConsultantUserMapper implements RowMapper<User> {
+    private static final class ConsultantUserMapper implements RowMapper<Consultant> {
 
-        public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-            User consultant = new User();
-            consultant.setConsultantId(rs.getInt("userId"));
+        public Consultant mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Consultant consultant = new Consultant();
+            consultant.setUserId(rs.getInt("userId"));
             consultant.setLastName(rs.getString("lastName"));
             consultant.setFirstName(rs.getString("firstName"));
             consultant.setMail(rs.getString("email"));
@@ -54,7 +55,7 @@ public class Mappers {
             consultant.setSpeciality(speciality);
             consultant.setCv(rs.getBytes("cv"));
             if (consultant.getCv() != null && consultant.getCv().length > 0) {
-                consultant.setCvURL("/api/service/cv?id=" + consultant.getConsultantId());
+                consultant.setCvURL("/api/service/cv?id=" + consultant.getUserId());
             }
             consultant.setPassword(rs.getString("password"));
             consultant.setRole(Authority.valueOf(rs.getString("role")));
@@ -68,7 +69,7 @@ public class Mappers {
         @Override
         public User mapRow(ResultSet resultSet, int i) throws SQLException {
             User authUser = new User();
-            authUser.setConsultantId(resultSet.getInt("userId"));
+            authUser.setUserId(resultSet.getInt("userId"));
             authUser.setMail(resultSet.getString("email"));
             authUser.setPassword(resultSet.getString("password"));
             authUser.setRole(Authority.valueOf(resultSet.getString("role")));
@@ -77,7 +78,7 @@ public class Mappers {
     }
 
     /**
-     * Mapper class for mapping a row in the 'order' SQL schema, to a {@link eu.accesa.crowdfund.model.Order} object.
+     * Mapper class for mapping a row in the 'order' SQL schema, to a {@link eu.accesa.crowdfund.model.entities.Order} object.
      */
     private static final class OrderMapper implements RowMapper<Order> {
         public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -95,8 +96,8 @@ public class Mappers {
             } else {
                 order.setOrderStatus(OrderStatus.ACCEPTED);
             }
-            User client = new User();
-            client.setConsultantId(rs.getInt("clientId"));
+            Client client = new Client();
+            client.setUserId(rs.getInt("clientId"));
             try {
                 client.setFirstName(rs.getString("firstName"));
                 client.setLastName(rs.getString("lastName"));
@@ -117,14 +118,14 @@ public class Mappers {
             int clientId, consultantId;
             Message message = new Message();
             Client client = new Client();
-            User consultant = new User();
+            Consultant consultant = new Consultant();
 
             clientId = rs.getObject("clientId") != null ? rs.getInt("clientId") : 0;
             consultantId = rs.getObject("consultantId") != null ? rs.getInt("consultantId") : 0;
             message.setMessageId(rs.getInt("messageId"));
-            consultant.setConsultantId(consultantId);
+            consultant.setUserId(consultantId);
             message.setConsultant(consultant);
-            client.setId(clientId);
+            client.setUserId(clientId);
             message.setClient(client);
             message.setMessage(rs.getString("message"));
             message.setDateTime(rs.getDate("dateTime"));
@@ -138,8 +139,8 @@ public class Mappers {
             ConsultantOrder consultantOrder = new ConsultantOrder();
             Order order = new Order();
             order.setOrderId(rs.getInt("orderId"));
-            User consultant=new User();
-            consultant.setConsultantId(rs.getInt("consultantId"));
+            Consultant consultant=new Consultant();
+            consultant.setUserId(rs.getInt("consultantId"));
             consultantOrder.setConsultant(consultant);
             consultantOrder.setOrder(order);
             consultantOrder.setCost(rs.getDouble("cost"));
@@ -154,7 +155,7 @@ public class Mappers {
         return new ConsultantCategoryMapper();
     }
 
-    public static final RowMapper<User> userMapper() {
+    public static final RowMapper<Consultant> userMapper() {
         return new ConsultantUserMapper();
     }
 

@@ -1,6 +1,6 @@
 package eu.accesa.crowdfund.services;
 
-import eu.accesa.crowdfund.model.Order;
+import eu.accesa.crowdfund.model.entities.Order;
 import eu.accesa.crowdfund.repository.MyOrdersRepository;
 import eu.accesa.crowdfund.utils.CategoryOrderSearch;
 import org.springframework.beans.factory.annotation.Autowired;

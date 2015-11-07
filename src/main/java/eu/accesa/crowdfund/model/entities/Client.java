@@ -1,23 +1,20 @@
-package eu.accesa.crowdfund.model;
+package eu.accesa.crowdfund.model.entities;
 
+import javax.persistence.*;
 import java.util.UUID;
 
 /**
  * Created by Dragos on 9/19/2015.
  */
-public class Client {
-    private int id;
+@Entity
+@Table(name="clients")
+@PrimaryKeyJoinColumn(name="clientId" , referencedColumnName = "userId")
+public class Client extends User {
+
+    @Column(name = "firstName", nullable = false)
     private String firstName;
+    @Column(name= "lastName" , nullable = false)
     private String lastName;
-    private String email;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -33,13 +30,5 @@ public class Client {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

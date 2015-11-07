@@ -2,7 +2,7 @@
 <div id ="consultant-details">
     <#if consultant?has_content>
         <form class="edit-form form-horizontal" role="form" action="./consultantDetails/update" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="consultantId" value="${consultant.consultantId}"/>
+        <input type="hidden" name="userId" value="${consultant.userId}"/>
     <#else>
         <form class="create-form form-horizontal" role="form" action="./createConsultant" method="POST" enctype="multipart/form-data">
     </#if>
@@ -90,7 +90,7 @@
 
     <div class="form-group">
         <div class="col-md-2 col-xs-2">
-             <label for="consultant" class="control-label">IBAN:</label>
+             <label for="consultantIBAN" class="control-label">IBAN:</label>
         </div>
         <div class="col-md-6 col-xs-6">
              <#if consultant?has_content>
@@ -99,6 +99,18 @@
                 <input type="text" class="form-control" id="consultantIBAN"  value="iban" name="ibanCode" placeholder="Introduceti IBAN-ulconsultantului." required>
              </#if>
          </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2 col-xs-2">
+            <label for="cardOwner" class="control-label">Titular Cont:</label>
+        </div>
+        <div class="col-md-6 col-xs-6">
+            <#if consultant?has_content>
+                <input type="text" class="form-control" id="cardOwner" value="${consultant.cardOwner!''}" name="cardOwner" placeholder="Introduceti numele complet al titularului contului." required>
+            <#else>
+                <input type="text" class="form-control" id="cardOwner"  value="Sandu Lungu" name="cardOwner" pplaceholder="Introduceti numele complet al titularului contului." required>
+            </#if>
+        </div>
     </div>
 
     <div class="form-group">
@@ -132,7 +144,7 @@
     </form>
     <#if consultant?has_content>
         <form class="delete-consultant-form" method="post" action="./consultantDetails/delete">
-            <input type="hidden" name="consultantId" value="${consultant.consultantId}" />
+            <input type="hidden" name="userId" value="${consultant.userId}" />
             <button class="btn btn-danger delete-consultant-button" type="button">Sterge consultant</button>
         </form>
     </#if>

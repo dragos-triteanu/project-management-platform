@@ -1,7 +1,7 @@
 package eu.accesa.crowdfund.controller;
 
-import eu.accesa.crowdfund.model.ConsultantOrder;
-import eu.accesa.crowdfund.model.Order;
+import eu.accesa.crowdfund.model.entities.ConsultantOrder;
+import eu.accesa.crowdfund.model.entities.Order;
 import eu.accesa.crowdfund.services.BidService;
 import eu.accesa.crowdfund.services.OrderService;
 import eu.accesa.crowdfund.utils.OrderStatus;
@@ -32,7 +32,7 @@ public class OrderDetailsController {
 
         Order order = orderService.getOrderByUId(id);
         if(order.getOrderStatus().equals(OrderStatus.PENDING)){
-            ConsultantOrder  bid = bidService.getBid(id,SessionUtils.GetCurrentUser().getConsultantId());
+            ConsultantOrder  bid = bidService.getBid(id,SessionUtils.GetCurrentUser().getUserId());
             modelMap.addAttribute("bid",bid);
         }
         modelMap.addAttribute("order", order);

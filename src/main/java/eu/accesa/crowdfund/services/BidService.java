@@ -1,7 +1,6 @@
 package eu.accesa.crowdfund.services;
 
-import eu.accesa.crowdfund.model.ConsultantOrder;
-import eu.accesa.crowdfund.model.User;
+import eu.accesa.crowdfund.model.entities.ConsultantOrder;
 import eu.accesa.crowdfund.repository.BidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

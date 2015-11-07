@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import eu.accesa.crowdfund.model.User;
-import eu.accesa.crowdfund.model.ConsultantSpeciality;
+import eu.accesa.crowdfund.model.entities.Consultant;
+import eu.accesa.crowdfund.model.entities.ConsultantSpeciality;
 import eu.accesa.crowdfund.services.ConsultantCategoryService;
 import eu.accesa.crowdfund.services.ConsultantService;
 import eu.accesa.crowdfund.utils.SessionUtils;
@@ -40,7 +40,7 @@ public class ConsultantController {
                                     @RequestParam(value = "selectedSearchCategory", required = false) String selectedCategory, ModelMap modelMap) {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
 
-        List<User> consultants;
+        List<Consultant> consultants;
         if (searchText == null || searchText.isEmpty()) {
             consultants = consultantService.getAllConsultants();
         } else {
@@ -63,7 +63,7 @@ public class ConsultantController {
     }
 
     @RequestMapping(value = "createConsultant", method = RequestMethod.POST)
-    public String createConsultant(@ModelAttribute("consultant") User consultant,
+    public String createConsultant(@ModelAttribute("consultant") Consultant consultant,
                                    @RequestParam("cvFile") MultipartFile cvFile) {
 
         try {

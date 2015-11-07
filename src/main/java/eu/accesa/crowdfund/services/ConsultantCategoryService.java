@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import eu.accesa.crowdfund.model.ConsultantSpeciality;
+import eu.accesa.crowdfund.model.entities.ConsultantSpeciality;
 import eu.accesa.crowdfund.repository.ConsultantCategoryRepository;
 
 /**
@@ -19,7 +19,7 @@ public class ConsultantCategoryService {
     private ConsultantCategoryRepository consultantCategoryRepository;
 
     /**
-     * Inserts a new {@link eu.accesa.crowdfund.model.ConsultantSpeciality} in the corresponding schema.
+     * Inserts a new {@link eu.accesa.crowdfund.model.entities.ConsultantSpeciality} in the corresponding schema.
      * @param consultantCategory
      */
     public void insertConsultantCategory(final ConsultantSpeciality consultantCategory){
@@ -27,8 +27,8 @@ public class ConsultantCategoryService {
     }
 
     /**
-     * Retrieves all the {@link eu.accesa.crowdfund.model.ConsultantSpeciality} from the corresponding schema.
-     * @return a list of {@link eu.accesa.crowdfund.model.ConsultantSpeciality}.
+     * Retrieves all the {@link eu.accesa.crowdfund.model.entities.ConsultantSpeciality} from the corresponding schema.
+     * @return a list of {@link eu.accesa.crowdfund.model.entities.ConsultantSpeciality}.
      */
     public List<ConsultantSpeciality> retrieveAllConsultantCategories(){
         return consultantCategoryRepository.retrieveAllCategories();
@@ -36,7 +36,7 @@ public class ConsultantCategoryService {
 
     /**
      * Deletes a consultant category from the corresponding schema.
-     * @param consultantCategoryId the id of the to be deleted {@link eu.accesa.crowdfund.model.ConsultantSpeciality}.
+     * @param consultantCategoryId the id of the to be deleted {@link eu.accesa.crowdfund.model.entities.ConsultantSpeciality}.
      */
     public void deleteConsultantCategory(final int consultantCategoryId){
         consultantCategoryRepository.deleteCategoryById(consultantCategoryId);

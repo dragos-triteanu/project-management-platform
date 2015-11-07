@@ -1,9 +1,9 @@
 package eu.accesa.crowdfund.controller;
 
-import eu.accesa.crowdfund.model.ConsultantOrder;
+import eu.accesa.crowdfund.model.entities.Consultant;
+import eu.accesa.crowdfund.model.entities.ConsultantOrder;
 
-import eu.accesa.crowdfund.model.User;
-import eu.accesa.crowdfund.model.Order;
+import eu.accesa.crowdfund.model.entities.Order;
 import eu.accesa.crowdfund.services.BidService;
 import eu.accesa.crowdfund.utils.OrderStatus;
 import eu.accesa.crowdfund.utils.SessionUtils;
@@ -36,7 +36,7 @@ public class BidController {
         Order order=new Order();
         order.setOrderId(orderId);
         bid.setOrder(order);
-        bid.setConsultant(SessionUtils.GetCurrentUser());
+        bid.setConsultant((Consultant)SessionUtils.GetCurrentUser());
 
         bid.setStatus(OrderStatus.PENDING);
         bidService.addBid(bid);
@@ -46,7 +46,7 @@ public class BidController {
     @RequestMapping(value="/deleteBid", method = RequestMethod.POST)
     public String deleteBid(@RequestParam("orderId") int orderId)
     {
-        bidService.deleteBid(SessionUtils.GetCurrentUser().getConsultantId(),orderId);
+        bidService.deleteBid(SessionUtils.GetCurrentUser().getUserId(),orderId);
         return "redirect:/myorders";
     }
 }

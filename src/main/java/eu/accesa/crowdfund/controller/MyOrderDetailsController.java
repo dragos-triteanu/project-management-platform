@@ -1,8 +1,9 @@
 package eu.accesa.crowdfund.controller;
 
 import eu.accesa.crowdfund.model.Message;
-import eu.accesa.crowdfund.model.Order;
-import eu.accesa.crowdfund.model.User;
+import eu.accesa.crowdfund.model.entities.Order;
+import eu.accesa.crowdfund.model.entities.Consultant;
+import eu.accesa.crowdfund.model.entities.User;
 import eu.accesa.crowdfund.services.MessageService;
 import eu.accesa.crowdfund.services.OrderService;
 import eu.accesa.crowdfund.utils.SessionUtils;

@@ -1,6 +1,7 @@
 package eu.accesa.crowdfund.utils;
 
-import eu.accesa.crowdfund.model.User;
+import eu.accesa.crowdfund.model.entities.Consultant;
+import eu.accesa.crowdfund.model.entities.User;
 import eu.accesa.crowdfund.security.Authority;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

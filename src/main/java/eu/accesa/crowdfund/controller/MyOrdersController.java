@@ -1,6 +1,6 @@
 package eu.accesa.crowdfund.controller;
 
-import eu.accesa.crowdfund.model.Order;
+import eu.accesa.crowdfund.model.entities.Order;
 import eu.accesa.crowdfund.services.MyOrdersService;
 import eu.accesa.crowdfund.services.OrderService;
 import eu.accesa.crowdfund.utils.CategoryOrderSearch;
@@ -32,7 +32,7 @@ public class MyOrdersController {
         List<Order> orders;
 
         if (searchText == null || searchText.isEmpty()) {
-            int currentUserId = SessionUtils.GetCurrentUser().getConsultantId();
+            int currentUserId = SessionUtils.GetCurrentUser().getUserId();
             orders = myOrdersService.getConsultantAssignedOrders(currentUserId);
         } else {
             orders = myOrdersService.getOrderResultSearch(1, searchText, CategoryOrderSearch.getKey(selectedCategory));

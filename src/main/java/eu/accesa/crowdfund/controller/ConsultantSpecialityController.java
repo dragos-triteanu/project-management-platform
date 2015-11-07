@@ -1,7 +1,6 @@
 package eu.accesa.crowdfund.controller;
 
-import eu.accesa.crowdfund.controller.ConsultantController;
-import eu.accesa.crowdfund.model.ConsultantSpeciality;
+import eu.accesa.crowdfund.model.entities.ConsultantSpeciality;
 import eu.accesa.crowdfund.services.ConsultantCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,7 +1,8 @@
 package eu.accesa.crowdfund.security;
 
-import eu.accesa.crowdfund.model.User;
+import eu.accesa.crowdfund.model.entities.User;
 import eu.accesa.crowdfund.repository.UserRepository;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

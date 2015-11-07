@@ -1,40 +1,42 @@
-package eu.accesa.crowdfund.model;
+package eu.accesa.crowdfund.model.entities;
 
-import eu.accesa.crowdfund.security.Authority;
-
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * Created by Dragos on 9/12/2015.
  */
-public class User {
-    private int consultantId;
+@Entity
+@Table(name="consultants")
+@PrimaryKeyJoinColumn(name="consultantId" , referencedColumnName = "userId")
+
+public class Consultant extends User {
+
     private String lastName;
+    @Column(name = "firstName", nullable = false)
     private String firstName;
-    private String mail;
+    @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
+    @Column(name = "address", nullable = false)
     private String address;
+    @Column(name = "studies", nullable = false)
     private String studies;
+    @Column(name = "ibanCode", nullable = false)
     private String ibanCode;
+    @Column(name = "cardOwner", nullable = false)
     private String cardOwner;
+    @Column(name = "cv", nullable = true)
     private byte[] cv;
+    @OneToOne
+    @JoinColumn(name="specialityId", nullable = false)
     private ConsultantSpeciality speciality;
+    @Column(name = "numberOfActiveProjects", nullable = false)
     private int numberOfActiveProjects;
+    @Column(name = "cvURL", nullable = true)
     private String cvURL;
-    private String password;
-    private Timestamp lastLogin;
-    private Authority role;
 
-    public User() {
+    public Consultant() {
         speciality = new ConsultantSpeciality();
-    }
-
-    public int getConsultantId() {
-        return consultantId;
-    }
-
-    public void setConsultantId(int consultantId) {
-        this.consultantId = consultantId;
     }
 
     public String getFirstName() {
@@ -51,14 +53,6 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
     }
 
     public String getPhoneNumber() {
@@ -117,9 +111,7 @@ public class User {
         return numberOfActiveProjects;
     }
 
-    public void setNumberOfActiveProjects(int numberOfActiveProjects) {
-        this.numberOfActiveProjects = numberOfActiveProjects;
-    }
+    public void setNumberOfActiveProjects(int numberOfActiveProjects) {this.numberOfActiveProjects = numberOfActiveProjects; }
 
     public String getStudies() {
         return studies;
@@ -137,27 +129,4 @@ public class User {
         this.cvURL = cvURL;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Authority getRole() {
-        return role;
-    }
-
-    public void setRole(Authority role) {
-        this.role = role;
-    }
-
-    public Timestamp getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(Timestamp lastLogin) {
-        this.lastLogin = lastLogin;
-    }
 }

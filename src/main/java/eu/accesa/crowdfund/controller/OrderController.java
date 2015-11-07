@@ -1,13 +1,10 @@
 package eu.accesa.crowdfund.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import eu.accesa.crowdfund.model.User;
+import eu.accesa.crowdfund.model.entities.Client;
 import eu.accesa.crowdfund.security.Authority;
-import eu.accesa.crowdfund.services.ConsultantService;
 import eu.accesa.crowdfund.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import eu.accesa.crowdfund.model.Order;
+import eu.accesa.crowdfund.model.entities.Order;
 import eu.accesa.crowdfund.services.OrderService;
 
 /**
@@ -40,9 +37,9 @@ public class OrderController {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
         List<Order> orders;
         if (searchText == null || searchText.isEmpty()) {
-            orders = orderService.getOrders(SessionUtils.GetCurrentUser());
+            orders = orderService.getOrders();
         } else {
-            orders = orderService.getSearchedOrders(SessionUtils.GetCurrentUser(), searchText, selectedCategory);
+            orders = orderService.getSearchedOrders(searchText, selectedCategory);
 
         }
 
@@ -64,7 +61,7 @@ public class OrderController {
                                               @RequestParam("message") String message,
                                               @RequestParam("annexes") MultipartFile annexes) throws Exception {
 
-        User client = buildUserFromParams(firstName, lastName, email);
+        Client client = buildUserFromParams(firstName, lastName, email);
         //TODO validate
         Order order = buildOrderFromParams(domain, subject, nrOfPages, tableOfContents, bibliography, message, annexes, client);
 
@@ -79,8 +76,8 @@ public class OrderController {
     }
 
 
-        private User buildUserFromParams(String firstName, String lastName, String email) {
-        User user = new User();
+        private Client buildUserFromParams(String firstName, String lastName, String email) {
+            Client user = new Client();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setMail(email);
@@ -91,7 +88,7 @@ public class OrderController {
     }
 
     private Order buildOrderFromParams(String domain, String subject, long nrOfPages, String tableOfContents, String bibliography,
-                                       String message, MultipartFile annexes, User client) throws IOException {
+                                       String message, MultipartFile annexes, Client client) throws IOException {
         Order order = new Order();
         order.setDomain(domain);
         order.setSubject(subject);

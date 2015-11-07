@@ -16,7 +16,8 @@ import java.util.List;
 * @author dragos.triteanu
 */
 @Repository
-@Transactional(readOnly = false)
+
+
 public class FAQRepository {
     private static final Logger LOG = LoggerFactory.getLogger(FAQRepository.class);
 
@@ -43,6 +44,7 @@ public class FAQRepository {
     public void insertQuestionAndAnswer(QuestionAndAnswer questionAndAnswer) {
         LOG.debug("Inserting QuestionAndAnswer with question=" + questionAndAnswer.getQuestion() + " and answer=" + questionAndAnswer.getAnswer());
         hibernateTemplate.persist(questionAndAnswer);
+        retrieveQuestionsAndAnswers();
     }
 
     /**

@@ -1,5 +1,9 @@
 package eu.accesa.crowdfund.model;
 
+import eu.accesa.crowdfund.model.entities.Client;
+import eu.accesa.crowdfund.model.entities.Consultant;
+import eu.accesa.crowdfund.model.entities.Order;
+
 import java.util.Date;
 
 /**
@@ -9,7 +13,7 @@ public class Message {
     private int messageId;
     private Order order;
     private Client client;
-    private User consultant;
+    private Consultant consultant;
     private String message;
     private Date dateTime;
 
@@ -37,11 +41,11 @@ public class Message {
         this.client = client;
     }
 
-    public User getConsultant() {
+    public Consultant getConsultant() {
         return consultant;
     }
 
-    public void setConsultant(User consultant) {
+    public void setConsultant(Consultant consultant) {
         this.consultant = consultant;
     }
 

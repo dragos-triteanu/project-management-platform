@@ -1,22 +1,38 @@
-package eu.accesa.crowdfund.model;
+package eu.accesa.crowdfund.model.entities;
 
+import eu.accesa.crowdfund.model.entities.Consultant;
+import eu.accesa.crowdfund.model.entities.Order;
 import eu.accesa.crowdfund.utils.OrderStatus;
+
+import javax.persistence.*;
 
 
 /**
  * Created by Dragos on 9/21/2015.
  */
+@Entity
+@Table(name="consultantOrders")
 public class ConsultantOrder {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "bidId")
     private int bidId;
+    @OneToOne
+    @JoinColumn(name="orderId", nullable = false)
     private Order order;
-    private User consultant;
+    @OneToOne
+    @JoinColumn(name="consultantId", nullable = false)
+    private Consultant consultant;
+    @Column(name = "nrOfDays")
     private int nrOfDays;
+    @Column(name = "cost")
     private double cost;
-    private OrderStatus status;
+    @Enumerated(EnumType.ORDINAL)
+    private OrderStatus orderStatus;
 
     public ConsultantOrder(){
         order = new Order();
-        consultant = new User();
+        consultant = new Consultant();
     }
 
     public int getBidId() {
@@ -35,11 +51,11 @@ public class ConsultantOrder {
         this.order = order;
     }
 
-    public User getConsultant() {
+    public Consultant getConsultant() {
         return consultant;
     }
 
-    public void setConsultant(User consultant) {
+    public void setConsultant(Consultant consultant) {
         this.consultant = consultant;
     }
 
@@ -60,10 +76,10 @@ public class ConsultantOrder {
     }
 
     public OrderStatus getStatus() {
-        return status;
+        return orderStatus;
     }
 
     public void setStatus(OrderStatus status) {
-        this.status = status;
+        this.orderStatus = status;
     }
 }
