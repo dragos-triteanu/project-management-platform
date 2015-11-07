@@ -32,7 +32,7 @@ public class OrderDetailsController {
 
         Order order = orderService.getOrderByUId(id);
         if(order.getOrderStatus().equals(OrderStatus.PENDING)){
-            ConsultantOrder  bid = bidService.getBid(id,SessionUtils.GetCurrentUser().getUserId());
+            ConsultantOrder  bid = bidService.getBid(id);
             modelMap.addAttribute("bid",bid);
         }
         modelMap.addAttribute("order", order);

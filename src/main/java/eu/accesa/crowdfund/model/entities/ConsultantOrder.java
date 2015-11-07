@@ -1,7 +1,5 @@
 package eu.accesa.crowdfund.model.entities;
 
-import eu.accesa.crowdfund.model.entities.Consultant;
-import eu.accesa.crowdfund.model.entities.Order;
 import eu.accesa.crowdfund.utils.OrderStatus;
 
 import javax.persistence.*;
@@ -28,7 +26,7 @@ public class ConsultantOrder {
     @Column(name = "cost")
     private double cost;
     @Enumerated(EnumType.ORDINAL)
-    private OrderStatus orderStatus;
+    private OrderStatus status;
 
     public ConsultantOrder(){
         order = new Order();
@@ -76,10 +74,10 @@ public class ConsultantOrder {
     }
 
     public OrderStatus getStatus() {
-        return orderStatus;
+        return status;
     }
 
     public void setStatus(OrderStatus status) {
-        this.orderStatus = status;
+        this.status = status;
     }
 }

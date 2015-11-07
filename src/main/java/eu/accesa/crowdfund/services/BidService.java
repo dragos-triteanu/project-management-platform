@@ -24,7 +24,7 @@ public class BidService {
         bidRepository.deleteBid(consultantId,orderId);
     }
 
-    public ConsultantOrder getBid(int orderId, int userId) {
-        return bidRepository.getBid(orderId,userId);
+    public ConsultantOrder getBid(int orderId) {
+        return bidRepository.getBid(orderId);
     }
 }

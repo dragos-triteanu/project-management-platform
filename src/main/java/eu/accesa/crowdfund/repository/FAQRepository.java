@@ -1,28 +1,30 @@
 package eu.accesa.crowdfund.repository;
 
 import eu.accesa.crowdfund.model.entities.QuestionAndAnswer;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
+import static eu.accesa.crowdfund.repository.JDBCQueries.DELETE_QAA_BY_ID;
+
 /**
-* Repository class for managing QuestionAndAnswer data objects.
-*
-* @author dragos.triteanu
-*/
+ * Repository class for managing QuestionAndAnswer data objects.
+ *
+ * @author dragos.triteanu
+ */
 @Repository
-
-
+@Transactional(readOnly = false)
 public class FAQRepository {
     private static final Logger LOG = LoggerFactory.getLogger(FAQRepository.class);
 
-    @Resource
-    private HibernateTemplate hibernateTemplate;
+    @Autowired
+    private SessionFactory sessionFactory;
 
     /**
      * Retrieves a list of {@link QuestionAndAnswer} from the 'faq' SQL table.
@@ -31,7 +33,7 @@ public class FAQRepository {
      */
     public List<QuestionAndAnswer> retrieveQuestionsAndAnswers() {
         LOG.debug("Retrieving list of all QuestionAndAnswer objects");
-        List<QuestionAndAnswer> questionAndAnswerEntities = hibernateTemplate.loadAll(QuestionAndAnswer.class);
+        List<QuestionAndAnswer> questionAndAnswerEntities = sessionFactory.getCurrentSession().createCriteria(QuestionAndAnswer.class).list();
         LOG.debug("Found :" + questionAndAnswerEntities);
         return questionAndAnswerEntities;
     }
@@ -43,7 +45,7 @@ public class FAQRepository {
      */
     public void insertQuestionAndAnswer(QuestionAndAnswer questionAndAnswer) {
         LOG.debug("Inserting QuestionAndAnswer with question=" + questionAndAnswer.getQuestion() + " and answer=" + questionAndAnswer.getAnswer());
-        hibernateTemplate.persist(questionAndAnswer);
+        sessionFactory.getCurrentSession().persist(questionAndAnswer);
         retrieveQuestionsAndAnswers();
     }
 
@@ -54,7 +56,9 @@ public class FAQRepository {
      */
     public void deleteQuestionAndAnswerById(int id) {
         LOG.debug("Deleting QuestionAndAnswer with id=" + id);
-        //int response = faqJdbcTemplate.update(DELETE_QAA_BY_ID, id);
-        hibernateTemplate.delete(hibernateTemplate.get(QuestionAndAnswer.class, id));
+
+        Query query = sessionFactory.getCurrentSession().createQuery(DELETE_QAA_BY_ID);
+        query.setParameter("faqId", id);
+        query.executeUpdate();
     }
 }

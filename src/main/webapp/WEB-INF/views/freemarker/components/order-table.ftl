@@ -12,7 +12,6 @@
          <#if userRole == "CONSULTANT">
              <th class="table-header">Nr.pagini</th>
          </#if>
-
          <th class="table-header">Status </th>
          <th class="table-header">Detalii</th>
     </thead>
@@ -21,6 +20,13 @@
             <tr class="tableRow">
                     <#if userRole == "ADMINISTRATOR">
                         <td><a href="./clientDetails?userId=${order.client.userId}"> ${order.client.firstName} ${order.client.lastName}</a></td>
+                        <td>
+                            <#if order.consultant??>
+                                <a href="./consultantDetails?userId=${order.consultant.userId}"> ${order.consultant.firstName} ${order.consultant.lastName}</a>
+                            <#else>
+                                N/A
+                            </#if>
+                        </td>
                     </#if>
                     <td>${order.domain}</td>
                     <td>${order.subject}</td>

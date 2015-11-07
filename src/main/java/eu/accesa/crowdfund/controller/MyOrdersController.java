@@ -32,10 +32,9 @@ public class MyOrdersController {
         List<Order> orders;
 
         if (searchText == null || searchText.isEmpty()) {
-            int currentUserId = SessionUtils.GetCurrentUser().getUserId();
-            orders = myOrdersService.getConsultantAssignedOrders(currentUserId);
+            orders = myOrdersService.getConsultantAssignedOrders();
         } else {
-            orders = myOrdersService.getOrderResultSearch(1, searchText, CategoryOrderSearch.getKey(selectedCategory));
+            orders = myOrdersService.getOrderResultSearch(searchText, CategoryOrderSearch.getKey(selectedCategory));
         }
 
         modelMap.addAttribute("ordersList", orders);

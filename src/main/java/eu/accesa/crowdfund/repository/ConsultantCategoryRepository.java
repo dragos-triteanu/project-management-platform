@@ -3,6 +3,7 @@ package eu.accesa.crowdfund.repository;
 import eu.accesa.crowdfund.model.entities.Consultant;
 import eu.accesa.crowdfund.model.entities.ConsultantSpeciality;
 import eu.accesa.crowdfund.repository.mappers.Mappers;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +54,10 @@ public class ConsultantCategoryRepository {
      */
     public void deleteCategoryById(final int id){
         LOG.debug("Deleting category with categoryId={}",id);
-        sessionFactory.getCurrentSession().delete(sessionFactory.getCurrentSession().get(ConsultantSpeciality.class,id));
+
+        Query query = sessionFactory.getCurrentSession().createQuery(DELETE_CONSULTANT_CATEGORY_BY_ID);
+        query.setParameter("specialityId", id);
+        query.executeUpdate();
     }
 }
 

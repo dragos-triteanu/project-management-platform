@@ -32,7 +32,7 @@
             <div id="chatBody">
                 <p ng-repeat="message in messages | orderBy:'time':reverse" class="message">
                     <time class="chatTime">{{message.time | date:'HH:mm'}}</time>
-                    <span>C${currentUser.consultantId} said: </span>
+                    <span>C${currentUser.userId} said: </span>
                     <span ng-class="{self: message.self}">{{message.content}}</span>
                 </p>
             </div>

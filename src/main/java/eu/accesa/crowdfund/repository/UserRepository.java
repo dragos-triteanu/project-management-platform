@@ -43,15 +43,15 @@ public class UserRepository {
 
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Consultant.class);
         criteria.add(Restrictions.eq("userId", id));
-        Object foundObject = criteria.uniqueResult();
+        Consultant consultant = (Consultant)criteria.uniqueResult();
 
-        if(foundObject==null)
+        if(consultant==null)
         {
             LOG.error("The consultant with id {} wasn't found", id);
             return null;
         }
 
-        return (Consultant)foundObject;
+        return consultant;
     }
 
     /**
@@ -100,11 +100,11 @@ public class UserRepository {
         criteria.add(Restrictions.eq("mail", mail));
         criteria.add(Restrictions.eq("password", password));
 
-        Object foundObject = criteria.uniqueResult();
-        if (foundObject == null) {
+        User user =(User) criteria.uniqueResult();
+        if (user == null) {
             return null;
         }
-        User user = (User) foundObject;
+
         Date date = new Date();
         user.setLastLogin(new Timestamp(date.getTime()));
         sessionFactory.getCurrentSession().update(user);

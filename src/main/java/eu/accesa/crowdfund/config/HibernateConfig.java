@@ -56,12 +56,4 @@ public class HibernateConfig {
         txManager.setSessionFactory(sessionFactory);
         return txManager;
     }
-
-    @Bean
-    @Autowired
-    public HibernateTemplate hibernateTemplate(SessionFactory sessionFactory){
-        HibernateTemplate hibernateTemplate = new HibernateTemplate();
-        hibernateTemplate.setSessionFactory(sessionFactory);
-        return hibernateTemplate;
-    }
 }

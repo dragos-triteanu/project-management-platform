@@ -9,6 +9,8 @@ import eu.accesa.crowdfund.utils.CategoryOrderSearch;
 import eu.accesa.crowdfund.utils.OrderStatus;
 import eu.accesa.crowdfund.utils.SessionUtils;
 import org.hibernate.Criteria;
+import org.hibernate.FlushMode;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static eu.accesa.crowdfund.repository.JDBCQueries.*;
 
 
 /**
@@ -45,9 +49,9 @@ public class OrderRepository {
             criteria.add(Restrictions.eq("orderStatus", OrderStatus.ACCEPTED));
             criteria.add(Restrictions.isNull("consultant"));
             orders = criteria.list();
-            for (Order order : orders) {
-                setOrderStatus(order);
-            }
+            sessionFactory.getCurrentSession().setFlushMode(FlushMode.MANUAL);
+            setOrderStatus(orders);
+            sessionFactory.getCurrentSession().clear();
         } else {
             orders = criteria.list();
         }
@@ -65,15 +69,14 @@ public class OrderRepository {
         LOG.debug("Retrieving order with orderId={}", id);
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Order.class);
         criteria.add(Restrictions.eq("orderId", id));
-        Object result = criteria.uniqueResult();
-        if (result == null)
+        List<Order> order = criteria.list();
+        if (order == null)
             return null;
 
-        Order order = (Order) result;
         if (SessionUtils.GetCurrentUser().getRole().equals(Authority.CONSULTANT)) {
             setOrderStatus(order);
         }
-        return order;
+        return order.get(0);
     }
 
     /**
@@ -112,13 +115,17 @@ public class OrderRepository {
 
     public void updateOrder(Order order) {
         LOG.info("Updating the order with id= {}", order.getOrderId());
-        int update = 0;
-        try {
-            sessionFactory.getCurrentSession().update(order);
-        } catch (Exception ex) {
-            LOG.debug("Something went wrong. by Microsoft");
-        }
-        LOG.debug("Number of rows affected by update={}", update);
+        Query query = sessionFactory.getCurrentSession().createQuery(ORDER_UPDATE);
+        query.setParameter("domain", order.getDomain());
+        query.setParameter("subject", order.getSubject());
+        query.setParameter("nrOfPages", order.getNrOfPages());
+        query.setParameter("tableOfContents", order.getTableOfContents());
+        query.setParameter("bibliography", order.getBibliography());
+        query.setParameter("message", order.getMessage());
+        query.setParameter("orderStatus", order.getOrderStatus());
+        query.setParameter("orderId", order.getOrderId());
+        int rowUpdates = query.executeUpdate();
+        LOG.debug("Number of updated rows: {}", rowUpdates);
     }
 
     private List<Order> getSearchedOrdersForAdministrator(String searchText, AdminCategoryOrderSearch categorySearch) {
@@ -143,13 +150,17 @@ public class OrderRepository {
         return null;
     }
 
-    private void setOrderStatus(Order order) {
-        Criteria consultantOrder = sessionFactory.getCurrentSession().createCriteria(ConsultantOrder.class);
-        consultantOrder.add(Restrictions.eq("consultant.userId", SessionUtils.GetCurrentUser().getUserId()));
-        consultantOrder.add(Restrictions.eq("order.orderId", order.getOrderId()));
-        Object result = consultantOrder.uniqueResult();
-        if (result != null) {
-            order.setOrderStatus(((ConsultantOrder) consultantOrder.uniqueResult()).getStatus());
+    private void setOrderStatus(List<Order> orders) {
+        sessionFactory.getCurrentSession().setFlushMode(FlushMode.MANUAL);
+        for (Order order : orders) {
+            Criteria consultantOrder = sessionFactory.getCurrentSession().createCriteria(ConsultantOrder.class);
+            consultantOrder.add(Restrictions.eq("consultant.userId", SessionUtils.GetCurrentUser().getUserId()));
+            consultantOrder.add(Restrictions.eq("order.orderId", order.getOrderId()));
+            ConsultantOrder result = (ConsultantOrder) consultantOrder.uniqueResult();
+            if (result != null) {
+                order.setOrderStatus(result.getStatus());
+            }
         }
+        sessionFactory.getCurrentSession().clear();
     }
 }

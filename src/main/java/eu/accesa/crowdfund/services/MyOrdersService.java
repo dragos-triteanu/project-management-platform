@@ -19,14 +19,14 @@ public class MyOrdersService {
     /**
      Retrieves the list with consultant active orders.
      */
-    public List<Order> getConsultantAssignedOrders(int consultantId)
+    public List<Order> getConsultantAssignedOrders()
     {
-        return orderRepository.getConsultantAssignedOrders(consultantId);
+        return orderRepository.getConsultantAssignedOrders();
     }
 
-    public List<Order> getOrderResultSearch(int consultantId, String searchText, CategoryOrderSearch selectedCategory) {
+    public List<Order> getOrderResultSearch(String searchText, CategoryOrderSearch selectedCategory) {
         if(selectedCategory==null)
             return new ArrayList<>();
-        return orderRepository.getOrderResultSearch(consultantId,searchText,selectedCategory);
+        return orderRepository.getOrderResultSearch(searchText,selectedCategory);
     }
 }

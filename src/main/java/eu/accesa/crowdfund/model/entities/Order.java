@@ -24,7 +24,7 @@ public class Order {
     private String tableOfContents;
     @Column(name = "bibliography", nullable = false)
     private String bibliography;
-    @Column(name = "annexes", nullable = false)
+    @Column(name = "annexes", nullable = true)
     private byte[] annexes;
     @Column(name = "message", nullable = false)
     private String message;
