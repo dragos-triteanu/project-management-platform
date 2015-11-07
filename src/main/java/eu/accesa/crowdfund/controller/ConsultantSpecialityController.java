@@ -32,7 +32,7 @@ public class ConsultantSpecialityController extends ConsultantController {
 
         List<ConsultantSpeciality> categories = consultantCategoryService.retrieveAllConsultantCategories();
         modelMap.put("categories",categories);
-        return "category-table-rendered";
+        return "/components/category-table-rendered";
     }
 
     @RequestMapping(value="deleteCategory",method = RequestMethod.POST)
@@ -41,7 +41,7 @@ public class ConsultantSpecialityController extends ConsultantController {
 
         List<ConsultantSpeciality> categories = consultantCategoryService.retrieveAllConsultantCategories();
         modelMap.put("categories",categories);
-        return "category-table-rendered";
+        return "/components/category-table-rendered";
     }
 
 }

@@ -46,7 +46,7 @@ public class OrderController {
         modelMap.addAttribute("categoryForSearch", getCategoriesForSearch());
         modelMap.addAttribute("ordersList", orders);
 
-        return "orders";
+        return "ordersPage";
     }
 
     @RequestMapping(value = "/placeOrder", method = RequestMethod.POST)

@@ -41,6 +41,6 @@ public class MyOrdersController {
         modelMap.addAttribute("ordersList", orders);
         modelMap.addAttribute("categoryForSearch", CategoryOrderSearch.valuesAsString());
 
-        return "myOrders";
+        return "myOrdersPage";
     }
 }

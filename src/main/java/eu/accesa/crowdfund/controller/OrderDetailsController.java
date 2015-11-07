@@ -37,6 +37,6 @@ public class OrderDetailsController {
         }
         modelMap.addAttribute("order", order);
         modelMap.addAttribute("titlePage", "Detalii Comanda");
-        return "orderDetails";
+        return "orderDetailsPage";
     }
 }

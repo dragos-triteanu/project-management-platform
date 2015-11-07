@@ -29,7 +29,7 @@ public class LandingPageController {
 		LOG.debug("Found HTML=\n"+ htmlForWysiwygEscaped);
 		modelMap.addAttribute("htmlForWysiwyg",htmlForWysiwyg);
 		modelMap.addAttribute("htmlForWysiwygEscaped",htmlForWysiwygEscaped);
-		return "home";
+		return "homePage";
 	}
 
 	@RequestMapping(value="/updatePage", method = RequestMethod.POST)

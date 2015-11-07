@@ -18,7 +18,7 @@ public class HomeController {
 			LOG.info("loginError="+loginError);
 			modelMap.addAttribute("loginError",loginError);
 		}
-		return "login";
+		return "loginPage";
 	}
 
 	@RequestMapping(value = { "/"}, method = RequestMethod.GET)
@@ -28,11 +28,11 @@ public class HomeController {
 
 	@RequestMapping(value = "/denied", method = RequestMethod.GET)
 	public String denied(){
-		return "denied";
+		return "accessDeniedPage";
 	}
 
 	@RequestMapping(value = "/denied", method = RequestMethod.POST)
 	public String deniedPost(){
-		return "denied";
+		return "accessDeniedPage";
 	}
 }
