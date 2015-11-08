@@ -30,14 +30,16 @@ public class ConsultantService {
 
     public Consultant getConsultantById(int id) {
         Consultant consultant = userRepository.retrieveConsultantByUid(id);
+
+        if (consultant.getCv() != null && consultant.getCv().length > 0) {
+            consultant.setCvURL("/api/service/cv?id=" + consultant.getUserId());
+        }
+
         return consultant;
     }
 
     public void createUser(Consultant user) {
         user.setPassword(definedInitialPassword);
-        if (user.getCv() != null && user.getCv().length > 0) {
-            user.setCvURL("/api/service/cv?id=" + user.getUserId());
-        }
         userRepository.insertUser(user);
     }
 

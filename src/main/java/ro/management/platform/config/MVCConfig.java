@@ -36,17 +36,6 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 		return beansWrapper;
 	}
 
-    @Bean
-    public WebContentInterceptor webContentInterceptor() {
-        WebContentInterceptor interceptor = new WebContentInterceptor();
-        interceptor.setCacheSeconds(0);
-        interceptor.setUseExpiresHeader(true);
-        interceptor.setUseCacheControlHeader(true);
-        interceptor.setUseCacheControlNoStore(true);
-        return interceptor;
-    }
-
-
 	@Bean
 	public FreeMarkerConfigurer freemarkerConfig(){
 		FreeMarkerConfigurer freemarkerConfig = new FreeMarkerConfigurer();
