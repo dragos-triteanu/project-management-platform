@@ -24,7 +24,7 @@
     <div class="col-md-5 col-md-offset-4">
         <label for="nrOfDays" class="control-label">Numarul de zile</label>
         <select id="nrOfDays" name="nrOfDays">
-        <#list 1..40 as x>
+        <#list 1..maxNrOfDays as x>
             <option>${x}</option>
         </#list>
         </select>
