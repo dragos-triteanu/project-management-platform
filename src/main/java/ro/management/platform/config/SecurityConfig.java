@@ -1,0 +1,50 @@
+package ro.management.platform.config;
+
+import ro.management.platform.security.DatasourceAuthenticationProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Value("${crowdfunding.datasource.isDbEnabled}")
+	private boolean isDatabaseEnabled;
+
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder authBuilder) throws Exception {
+			if(isDatabaseEnabled){
+				authBuilder.authenticationProvider(datasourceAuthenticationProvider());
+			}else{
+				authBuilder.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMINISTRATOR");
+				authBuilder.inMemoryAuthentication().withUser("consultant").password("consultant").roles("CONSULTANT");
+				authBuilder.inMemoryAuthentication().withUser("client").password("client").roles("CLIENT");
+			}
+	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+	  http.authorizeRequests()
+		.antMatchers("/home**").access("hasAnyRole('ADMINISTRATOR','CONSULTANT')")
+		.antMatchers("/faq**").access("hasAnyRole('ADMINISTRATOR','CONSULTANT')")
+		.antMatchers("/consultants**").access("hasRole('ADMINISTRATOR')")
+		.antMatchers("/consultantDetails**").access("hasRole('ADMINISTRATOR')")
+        .antMatchers("/myOrderDetails**").access("hasRole('CONSULTANT')")
+		.and().formLogin().loginPage("/login").failureUrl("/login?loginError=true")
+		.and().exceptionHandling().accessDeniedPage("/denied")
+		.and().logout().logoutUrl("/logout").and().csrf().disable();
+	}
+
+	@Bean
+	public AuthenticationProvider datasourceAuthenticationProvider(){
+		DatasourceAuthenticationProvider provider = new DatasourceAuthenticationProvider();
+		return provider;
+	}
+}
