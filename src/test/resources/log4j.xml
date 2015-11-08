@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="eu.accesa.platform.ui">
+	<logger name="ro.management.platform.ui">
 		<level value="info" />
 	</logger>
 	
