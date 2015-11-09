@@ -23,6 +23,14 @@
 							 </div>
 						</div>
 					</div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <select id="selectWhatUsersSee" name="whatUsersSee">
+                                <option value="2" >Ce vad clientii</option>
+                                <option value="1">Ce vad consultantii</option>
+                            </select>
+                        </div>
+                    </div>
 					<div class="row">
 						<div class="col-md-12 col-xs-12 edit-section-button-container">
 							<button class="btn btn-primary" id="editSectionButton">Edit This Section</button>
@@ -31,7 +39,8 @@
 					<div class="row">
 						<div class="col-md-12 col-xs-12">
 							<form id="home-form" action="./home/updatePage" method="POST" style="display:none;">
-								<#if htmlForWysiwygEscaped??>
+                                <input type="hidden" name="whatUsersSee" value="1" id="forUser" />
+                                <#if htmlForWysiwygEscaped??>
 									<input type="hidden" id="wysiwyg-data" value="${htmlForWysiwygEscaped}" />
 								</#if>
 								<div class="col-md-12 col-xs-12">

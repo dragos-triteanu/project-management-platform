@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Repository class for managing the 'How It Works' page's WYSIWYG editor's HTML.
  * This repository will always update the single element in the 'landingPage' table, that is the reason
- * why a static ID=1 is used.
+ * why a static FOR_CONSULTANTS=1 is used.
  *
  * @author dragos.triteanu
  */
@@ -21,8 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = false)
 public class LandingPageRepository {
     private static final Logger LOG = LoggerFactory.getLogger(LandingPageRepository.class);
-
-    private static final int ID = 1;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -32,23 +30,27 @@ public class LandingPageRepository {
      *
      * @param html the new HTML as string.
      */
-    public void updateWysiwygHtml(String html) {
+    public void updateWysiwygHtmlForConsultants(final String html , final int forUserType) {
+        int userType = (forUserType == 2) ? forUserType : 1;
+
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(WysiwygHtml.class);
-        criteria.add(Restrictions.eq("id", ID));
+        criteria.add(Restrictions.eq("id", userType));
         WysiwygHtml wysiwygHtml = (WysiwygHtml) criteria.uniqueResult();
         if (wysiwygHtml == null) {
             wysiwygHtml = new WysiwygHtml();
-            wysiwygHtml.setId(ID);
+            wysiwygHtml.setId(userType);
         }
         wysiwygHtml.setHtml(html);
         sessionFactory.getCurrentSession().saveOrUpdate(wysiwygHtml);
     }
 
-    public String getHTMLForWysiwyg() {
+    public String getHTMLForWysiwyg(final int forUserType) {
+        int userType = (forUserType == 2) ? forUserType : 1;
+
         String html = "";
         try {
             Criteria criteria = sessionFactory.getCurrentSession().createCriteria(WysiwygHtml.class);
-            criteria.add(Restrictions.eq("id", ID));
+            criteria.add(Restrictions.eq("id", userType));
             WysiwygHtml wysiwygHtml = (WysiwygHtml) criteria.uniqueResult();
             html = wysiwygHtml.getHtml();
         } catch (Exception e) {

@@ -30,5 +30,20 @@ $(document).ready(function(){
 				this.innerHTML = "Edit This Section";
 			}
 		});
+
+        $("#selectWhatUsersSee").on("change",function(){
+            var userType = $(this).val();
+            $("#forUser").val(userType);
+
+            $.ajax({
+               "url" : "./home/getHTMLForUserType",
+                "method" : "POST",
+                "data" : {userType : userType}
+            }).done(function(data){
+                var replacementDiv = $("<div class='wysiContainer'></div>");
+                $(".wysiContainer").replaceWith(replacementDiv.html(data));
+                window.editor.setValue(data);
+            });
+        });
 	}
 });
