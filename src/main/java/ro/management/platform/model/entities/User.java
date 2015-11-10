@@ -30,6 +30,8 @@ public class User {
     @Column(name = "lastLogin", nullable = true)
     private Timestamp lastLogin;
 
+    @Column(name = "createdOn",nullable = true)
+    private Timestamp createdOn;
 
     public int getUserId() {
         return userId;
@@ -69,5 +71,13 @@ public class User {
 
     public void setLastLogin(Timestamp lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Timestamp createdOn) {
+        this.createdOn = createdOn;
     }
 }

@@ -1,5 +1,6 @@
 package ro.management.platform.repository;
 
+import ro.management.platform.model.entities.Client;
 import ro.management.platform.model.entities.Consultant;
 import ro.management.platform.model.entities.User;
 import ro.management.platform.utils.CategoryConsultantSearch;
@@ -38,6 +39,13 @@ public class UserRepository {
         return consultants;
     }
 
+    public List<Client> retrieveClients(){
+        LOG.debug("Retrieving list of all Clients");
+        List<Client> clients = sessionFactory.getCurrentSession().createCriteria(Client.class).list();
+        LOG.debug("Found {} clients", clients.size());
+        return clients;
+    }
+
     public Consultant retrieveConsultantByUid(int id) {
         LOG.debug("Retrieving the Consultant with id :" + id);
 
@@ -61,9 +69,18 @@ public class UserRepository {
      */
     public void insertUser(final Consultant consultant) {
         LOG.info("Inserting new  user");
+        consultant.setCreatedOn(new Timestamp(new Date().getTime()));
         sessionFactory.getCurrentSession().persist(consultant);
         LOG.debug("Inserted user with name {}", consultant.getFirstName());
     }
+
+    public void insertClient(final Client client) {
+        LOG.info("Inserting new  user");
+        client.setCreatedOn(new Timestamp(new Date().getTime()));
+        sessionFactory.getCurrentSession().persist(client);
+        LOG.debug("Inserted user with name {}", client.getFirstName());
+    }
+
 
     public void updateConsultant(Consultant consultant) {
         LOG.info("Updating details for consultant wit consultantId={}", consultant.getUserId());
@@ -142,4 +159,12 @@ public class UserRepository {
         }
         return consultants;
     }
+
+    public void deleteClient(Client client){
+        LOG.debug("DELETING client with userid={}",client.getUserId());
+        sessionFactory.getCurrentSession().delete(client);
+        LOG.debug("CLIENT accoutn removed , having userI=",client.getUserId());
+    }
+
+
 }
