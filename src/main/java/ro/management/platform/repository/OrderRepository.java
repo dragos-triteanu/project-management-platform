@@ -137,18 +137,15 @@ public class OrderRepository {
                 criteria.add(Restrictions.like("subject", "%" + searchText + "%"));
                 break;
             case CLIENT:
-                criteria.add(Restrictions.like("client.firstName", "%" + searchText + "%"));
+                criteria.createCriteria("client", "c");
+                criteria.add(Restrictions.like("c.fullName", "%" + searchText + "%"));
                 break;
             case CONSULTANT:
-                criteria.add(Restrictions.like("consultant.fullName","%" + searchText + "%"));
+                criteria.createCriteria("consultant", "c");
+                criteria.add(Restrictions.like("c.fullName","%" + searchText + "%"));
                 break;
         }
-        List<Order> orders=new ArrayList<>();
-        try {
-            orders = criteria.list();
-        }catch (Exception ex){
-            System.out.print(ex);
-        }
+        List<Order> orders = criteria.list();
         return orders;
     }
 
