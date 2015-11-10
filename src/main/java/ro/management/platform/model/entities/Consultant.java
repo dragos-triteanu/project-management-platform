@@ -1,5 +1,7 @@
 package ro.management.platform.model.entities;
 
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 
 import static ro.management.platform.repository.Queries.*;
@@ -48,10 +50,13 @@ public class Consultant extends User {
     @JoinColumn(name="specialityId", nullable = false)
     private ConsultantSpeciality speciality;
 
-    @Column(name = "numberOfActiveProjects", nullable = false)
+    @Formula(value = "concat(firstName,' ', lastName)")
+    private String fullName;
+
+    @Transient
     private int numberOfActiveProjects;
 
-    @Column(name = "cvURL", nullable = true)
+    @Transient
     private String cvURL;
 
     public Consultant() {
@@ -148,4 +153,7 @@ public class Consultant extends User {
         this.cvURL = cvURL;
     }
 
+    public String getFullName() {  return fullName; }
+
+    public void setFullName(String fullName) { this.fullName = fullName; }
 }

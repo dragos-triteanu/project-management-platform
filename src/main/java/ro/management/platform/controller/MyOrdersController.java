@@ -1,6 +1,8 @@
 package ro.management.platform.controller;
 
 import ro.management.platform.model.entities.Order;
+import ro.management.platform.model.entities.User;
+import ro.management.platform.security.Authority;
 import ro.management.platform.services.MyOrdersService;
 import ro.management.platform.utils.CategoryOrderSearch;
 import ro.management.platform.utils.SessionUtils;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,12 +30,17 @@ public class MyOrdersController {
                                             @RequestParam(value="selectedSearchCategory",required = false) String selectedCategory,ModelMap modelMap){
 
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
-        List<Order> orders;
+        User currentUser = SessionUtils.GetCurrentUser();
 
-        if (searchText == null || searchText.isEmpty()) {
-            orders = myOrdersService.getConsultantAssignedOrders();
-        } else {
-            orders = myOrdersService.getOrderResultSearch(searchText, CategoryOrderSearch.getKey(selectedCategory));
+        List<Order> orders = new ArrayList<>();
+        if(currentUser.getRole().equals(Authority.CONSULTANT)){
+            if (searchText == null || searchText.isEmpty()) {
+                orders = myOrdersService.getConsultantAssignedOrders();
+            } else {
+                orders = myOrdersService.getOrderResultSearch(searchText, CategoryOrderSearch.getKey(selectedCategory));
+            }
+        }else if (currentUser.getRole().equals(Authority.CLIENT)){
+            orders = myOrdersService.getOrdersForClient(currentUser,searchText,CategoryOrderSearch.getKey(selectedCategory));
         }
 
         modelMap.addAttribute("ordersList", orders);

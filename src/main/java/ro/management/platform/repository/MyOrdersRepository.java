@@ -1,7 +1,10 @@
 package ro.management.platform.repository;
 
+import org.apache.commons.lang3.StringUtils;
+import ro.management.platform.model.entities.Client;
 import ro.management.platform.model.entities.ConsultantOrder;
 import ro.management.platform.model.entities.Order;
+import ro.management.platform.model.entities.User;
 import ro.management.platform.utils.CategoryOrderSearch;
 import ro.management.platform.utils.OrderStatus;
 import ro.management.platform.utils.SessionUtils;
@@ -18,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * Created by Dragos on 9/27/2015.
@@ -44,6 +49,35 @@ public class MyOrdersRepository {
         LOG.debug("Found :" + orders);
 
         return orders;
+    }
+
+    /**
+     * Returns a filtered list of {@link ro.management.platform.model.entities.Order} based on the inputed userId,
+     * If filterText and selectedCategory are present, else, the entire list is shown.
+     * @param client {@link ro.management.platform.model.entities.Client} reference.
+     * @param filterText string containing the text to filter.
+     * @param selectedCategory {@link ro.management.platform.utils.CategoryOrderSearch} category of search.
+     * @return
+     */
+    public List<Order> getFilteredOrdersForClient(final User client,final String filterText,final CategoryOrderSearch selectedCategory){
+        LOG.debug("Retrieving list of active orders for userId={}", client.getUserId());
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Order.class);
+        criteria.add(Restrictions.eq("orderStatus",OrderStatus.INPROGRESS))
+                .add(Restrictions.isNotNull("consultant"))
+                .add(Restrictions.isNotNull("client"))
+                .add(Restrictions.eq("client.userId",client.getUserId()));
+        if(isNotEmpty(filterText)){
+            switch (selectedCategory) {
+                case DOMAIN:
+                    criteria.add(Restrictions.like("domain", "%" + filterText + "%"));
+                    break;
+                case SUBJECT:
+                    criteria.add(Restrictions.like("subject", "%" + filterText + "%"));
+                    break;
+            }
+        }
+        List<Order> orderList = criteria.list();
+        return orderList;
     }
 
     public List<Order> getOrderResultSearch(String searchText, CategoryOrderSearch selectedCategory) {

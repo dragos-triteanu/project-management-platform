@@ -53,6 +53,11 @@
             "name": "FAQ",
             "url": "./faq",
             "id": "faq"
+        },
+        {
+        "name":"Comenzile mele",
+        "url": "./myorders",
+        "id" : "myorders"
         }
     ]
 }

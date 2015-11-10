@@ -13,19 +13,33 @@
 <@navbarRenderer.renderNavbar userRole="${userRole}" activePage="myorders"/>
 
 <#if userRole == 'CONSULTANT'>
-<div class="container">
-    <div class ="panel-group">
-        <div class="h2" >
-            Comenzile mele
-        </div>
-        <div class="search">
-            <@search.search "myOrders" categoryForSearch />
-        </div>
-        <div class="orders-table">
-            <@order.renderTable ordersList userRole "Nici o comanda activa."/>
+    <div class="container">
+        <div class ="panel-group">
+            <div class="h2" >
+                Comenzile mele
+            </div>
+            <div class="search">
+                <@search.search "myOrders" categoryForSearch />
+            </div>
+            <div class="orders-table">
+                <@order.renderTable ordersList userRole "Nici o comanda activa."/>
+            </div>
         </div>
     </div>
-</div>
+<#elseif userRole == 'CLIENT'>
+    <div class="container">
+        <div class ="panel-group">
+            <div class="h2" >
+                Comenzile mele
+            </div>
+            <div class="search">
+                <@search.search "myOrders" categoryForSearch />
+            </div>
+            <div class="orders-table">
+                <@order.renderTable ordersList userRole "Nici o comanda activa."/>
+            </div>
+        </div>
+    </div>
 <#else>
 Access Denied.
 </#if>

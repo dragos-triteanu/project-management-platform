@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static ro.management.platform.repository.Queries.*;
@@ -49,9 +50,7 @@ public class OrderRepository {
             criteria.add(Restrictions.eq("orderStatus", OrderStatus.ACCEPTED));
             criteria.add(Restrictions.isNull("consultant"));
             orders = criteria.list();
-            sessionFactory.getCurrentSession().setFlushMode(FlushMode.MANUAL);
             setOrderStatus(orders);
-            sessionFactory.getCurrentSession().clear();
         } else {
             orders = criteria.list();
         }
@@ -104,7 +103,7 @@ public class OrderRepository {
         LOG.info("Searching for orders that contain the word={}", searchText);
         List<Order> orders;
         if (SessionUtils.GetCurrentUser().getRole().equals(Authority.CONSULTANT)) {
-            orders = getSearchedOrdersForConsultant(SessionUtils.GetCurrentUser().getUserId(), searchText, CategoryOrderSearch.getKey(categorySearch));
+            orders = getSearchedOrdersForConsultant(searchText, CategoryOrderSearch.getKey(categorySearch));
         } else {
             orders = getSearchedOrdersForAdministrator(searchText, AdminCategoryOrderSearch.getKey(categorySearch));
         }
@@ -129,25 +128,46 @@ public class OrderRepository {
     }
 
     private List<Order> getSearchedOrdersForAdministrator(String searchText, AdminCategoryOrderSearch categorySearch) {
-       /* switch (categorySearch) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Order.class);
+        switch (categorySearch) {
             case DOMAIN:
-                return orderJdbcTemplate.query(ALL_ORDERS_DOMAIN_SEARCH, new Object[]{"%" + searchText + "%"}, Mappers.orderMapper());
+                criteria.add(Restrictions.like("domain", "%" + searchText + "%"));
+                break;
             case SUBJECT:
-                return orderJdbcTemplate.query(ALL_ORDERS_SUBJECT_SEARCH, new Object[]{"%" + searchText + "%"}, Mappers.orderMapper());
+                criteria.add(Restrictions.like("subject", "%" + searchText + "%"));
+                break;
             case CLIENT:
-                return orderJdbcTemplate.query(ALL_ORDERS_CLIENT_SEARCH, new Object[]{"%" + searchText + "%", "%" + searchText + "%"}, Mappers.orderMapper());
-        }*/
-        return null;
+                criteria.add(Restrictions.like("client.firstName", "%" + searchText + "%"));
+                break;
+            case CONSULTANT:
+                criteria.add(Restrictions.like("consultant.fullName","%" + searchText + "%"));
+                break;
+        }
+        List<Order> orders=new ArrayList<>();
+        try {
+            orders = criteria.list();
+        }catch (Exception ex){
+            System.out.print(ex);
+        }
+        return orders;
     }
 
-    private List<Order> getSearchedOrdersForConsultant(int consultantId, String searchText, CategoryOrderSearch categorySearch) {
-        /*switch (categorySearch) {
+    private List<Order> getSearchedOrdersForConsultant(String searchText, CategoryOrderSearch categorySearch) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Order.class);
+        criteria.add(Restrictions.eq("orderStatus", OrderStatus.ACCEPTED));
+        criteria.add(Restrictions.isNull("consultant"));
+        switch (categorySearch) {
             case DOMAIN:
-                return orderJdbcTemplate.query(ORDER_DOMAIN_SEARCH, new Object[]{consultantId, OrderStatus.ACCEPTED.getOrderStatus(), "%" + searchText + "%"}, Mappers.orderMapper());
+                criteria.add(Restrictions.like("domain", "%" + searchText + "%"));
+                break;
             case SUBJECT:
-                return orderJdbcTemplate.query(ORDER_SUBJECT_SEARCH, new Object[]{consultantId, OrderStatus.ACCEPTED.getOrderStatus(), "%" + searchText + "%"}, Mappers.orderMapper());
-        }*/
-        return null;
+                criteria.add(Restrictions.like("subject", "%" + searchText + "%"));
+                break;
+        }
+        List<Order> orders = criteria.list();
+        setOrderStatus(orders);
+
+        return orders;
     }
 
     private void setOrderStatus(List<Order> orders) {

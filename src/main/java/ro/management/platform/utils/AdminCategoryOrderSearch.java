@@ -9,7 +9,8 @@ import java.util.List;
 public enum AdminCategoryOrderSearch {
     DOMAIN("Domeniu"),
     SUBJECT("Subiect"),
-    CLIENT("Client");
+    CLIENT("Client"),
+    CONSULTANT("Consultant");
 
     private final String orderCategory;
 
