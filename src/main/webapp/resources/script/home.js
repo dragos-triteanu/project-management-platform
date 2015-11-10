@@ -42,6 +42,7 @@ $(document).ready(function(){
             }).done(function(data){
                 var replacementDiv = $("<div class='wysiContainer'></div>");
                 $(".wysiContainer").replaceWith(replacementDiv.html(data));
+				$("#wysiwyg-data").val(data);
                 window.editor.setValue(data);
             });
         });
