@@ -21,7 +21,7 @@
             <div class="search">
                 <@search.search "myOrders" categoryForSearch />
             </div>
-            <div class="orders-table">
+            <div class="orders-table generic-table">
                 <@order.renderTable ordersList userRole "Nici o comanda activa."/>
             </div>
         </div>
@@ -35,8 +35,8 @@
             <div class="search">
                 <@search.search "myOrders" categoryForSearch />
             </div>
-            <div class="orders-table">
-                <@order.renderTable ordersList userRole "Nici o comanda activa."/>
+            <div class="orders-table generic-table">
+                <@order.renderTableForClient ordersList "Nici o comanda activa."/>
             </div>
         </div>
     </div>

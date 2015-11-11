@@ -59,13 +59,9 @@ public class MyOrdersRepository {
      * @param selectedCategory {@link ro.management.platform.utils.CategoryOrderSearch} category of search.
      * @return
      */
-    public List<Order> getFilteredOrdersForClient(final User client,final String filterText,final CategoryOrderSearch selectedCategory){
-        LOG.debug("Retrieving list of active orders for userId={}", client.getUserId());
+    public List<Order> getFilteredOrdersForClient(final User client,final String filterText,final CategoryOrderSearch selectedCategory){        LOG.debug("Retrieving list of active orders for userId={}", client.getUserId());
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Order.class);
-        criteria.add(Restrictions.eq("orderStatus",OrderStatus.INPROGRESS))
-                .add(Restrictions.isNotNull("consultant"))
-                .add(Restrictions.isNotNull("client"))
-                .add(Restrictions.eq("client.userId",client.getUserId()));
+        criteria.add(Restrictions.eq("client.userId",client.getUserId()));
         if(isNotEmpty(filterText)){
             switch (selectedCategory) {
                 case DOMAIN:
