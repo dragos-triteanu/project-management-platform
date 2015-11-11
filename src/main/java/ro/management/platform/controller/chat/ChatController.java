@@ -21,7 +21,6 @@ public class ChatController {
     @MessageMapping("/chat")
     public void sendMessage(ChatMessage message) {
         message.setDate(new Date());
-        logger.info("Message sent to " + message.getTo());
-        template.convertAndSend("/topic/message/" + message.getTo(),message);
+        template.convertAndSend("/topic/message/" + message.getOrderId(),message);
     }
 }

@@ -6,18 +6,26 @@ import java.util.Date;
  * Created by dragos.triteanu on 10/28/15.
  */
 public class ChatMessage {
-
-    private int id;
+    private long orderId;
+    private long from;
     private String content;
     private Date date;
-    private int to;
 
-    public int getId() {
-        return id;
+
+    public long getOrderId() {
+        return orderId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
+    }
+
+    public long getFrom() {
+        return from;
+    }
+
+    public void setFrom(long from) {
+        this.from = from;
     }
 
     public String getContent() {
@@ -34,13 +42,5 @@ public class ChatMessage {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public int getTo() {
-        return to;
-    }
-
-    public void setTo(int to) {
-        this.to = to;
     }
 }

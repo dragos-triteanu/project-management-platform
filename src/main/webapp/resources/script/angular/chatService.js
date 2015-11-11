@@ -4,11 +4,12 @@
         var service = {}, listener = $q.defer(), socket = {
             client: null,
             stomp: null
-        }, messageIds = [],orderId = $("#orderId").val();
+        },orderId = $("#orderId").val(),
+          from =   $("#userId").val();
 
         service.RECONNECT_TIMEOUT = 30000;
         service.SOCKET_URL = "/chat";
-        service.CHAT_TOPIC = "/topic/message/"+orderId;
+        service.CHAT_TOPIC = "/topic/message/" + orderId;
         service.CHAT_BROKER = "/app/chat";
 
         service.receive = function() {
@@ -16,15 +17,13 @@
         };
 
         service.send = function(message) {
-            var id = Math.floor(Math.random() * 1000000);
             socket.stomp.send(service.CHAT_BROKER, {
                 priority: 9
             }, JSON.stringify({
-                content: message,
-                to:orderId,
-                id: id
+                orderId:orderId,
+                from:from,
+                content: message
             }));
-            messageIds.push(id);
         };
 
         var reconnect = function() {
@@ -37,10 +36,8 @@
             var message = JSON.parse(data), out = {};
             out.content = message.content;
             out.time = new Date(message.date);
-            if (_.contains(messageIds, message.id)) {
-                out.self = true;
-                messageIds = _.remove(messageIds, message.id);
-            }
+            out.from  = message.from;
+            out.orderId = message.orderId;
             return out;
         };
 

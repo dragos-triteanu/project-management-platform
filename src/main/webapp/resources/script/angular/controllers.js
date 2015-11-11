@@ -3,6 +3,7 @@
         $scope.messages = [];
         $scope.message = "";
         $scope.max = 140;
+        $scope.userId = $("#userId").val();
 
         $scope.addMessage = function() {
             ChatService.send($scope.message);

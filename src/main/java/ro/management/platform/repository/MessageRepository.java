@@ -1,6 +1,6 @@
 package ro.management.platform.repository;
 
-import ro.management.platform.model.Message;
+import ro.management.platform.model.entities.Message;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;

@@ -44,5 +44,4 @@ INSERT INTO consultantOrders (cost,nrOfDays,status,consultantId,orderId) VALUES(
 INSERT INTO consultantOrders (cost,nrOfDays,status,consultantId,orderId) VALUES(20,3,3,(SELECT userId from users WHERE mail='catalin'),
                                                                                 (SELECT orderId FROM orders WHERE orderStatus=5));
 INSERT INTO consultantOrders (cost,nrOfDays,status,consultantId,orderId) VALUES(70,3,4,(SELECT userId from users WHERE mail='vasile'),
-                                                                                (SELECT orderId FROM orders WHERE orderStatus=5))
-*/
+                                                                                (SELECT orderId FROM orders WHERE orderStatus=5))*/

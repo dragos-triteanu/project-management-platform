@@ -1,6 +1,6 @@
 package ro.management.platform.controller;
 
-import ro.management.platform.model.Message;
+import ro.management.platform.model.entities.Message;
 import ro.management.platform.model.entities.Order;
 import ro.management.platform.model.entities.User;
 import ro.management.platform.services.MessageService;

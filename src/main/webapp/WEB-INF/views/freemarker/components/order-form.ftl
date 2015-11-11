@@ -125,7 +125,18 @@
         </div>
     </div>
 
-     <#if userRole="ADMINISTRATOR">
+     <#if userRole == "CLIENT">
+         <div class="form-group">
+             <div class="col-md-2 col-xs-2">
+                 <label for="status" class="control-label">Consultant alocat:</label>
+             </div>
+             <div class="col-md-6 col-xs-6">
+                 <p class="form-control-static" id="assignedTo" name="message">C${order.consultant.userId}</p>
+             </div>
+         </div>
+     </#if>
+
+     <#if userRole=="ADMINISTRATOR">
          <#if order.orderStatus=="NEW">
              <div class="form-group">
                  <div class="col-md-4 col-xs-4">

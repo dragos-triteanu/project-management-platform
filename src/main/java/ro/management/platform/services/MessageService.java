@@ -1,6 +1,6 @@
 package ro.management.platform.services;
 
-import ro.management.platform.model.Message;
+import ro.management.platform.model.entities.Message;
 import ro.management.platform.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

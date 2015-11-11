@@ -1,21 +1,22 @@
-package ro.management.platform.model;
-
-import ro.management.platform.model.entities.Client;
-import ro.management.platform.model.entities.Consultant;
-import ro.management.platform.model.entities.Order;
+package ro.management.platform.model.entities;
 
 import java.util.Date;
 
 /**
  * Created by Dragos on 10/7/2015.
  */
+
 public class Message {
+
     private int messageId;
+
     private Order order;
-    private Client client;
-    private Consultant consultant;
+
     private String message;
+
     private Date dateTime;
+
+    private long from;
 
     public int getMessageId() {
         return messageId;
@@ -31,22 +32,6 @@ public class Message {
 
     public void setOrder(Order order) {
         this.order = order;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Consultant getConsultant() {
-        return consultant;
-    }
-
-    public void setConsultant(Consultant consultant) {
-        this.consultant = consultant;
     }
 
     public String getMessage() {
