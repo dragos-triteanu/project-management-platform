@@ -1,21 +1,32 @@
 package ro.management.platform.model.entities;
 
+import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
  * Created by Dragos on 10/7/2015.
  */
-
+@Entity
+@Table(name = "messages")
 public class Message {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "messageId")
     private int messageId;
 
+    @OneToOne
+    @JoinColumn(name="clientId", nullable = false)
     private Order order;
 
-    private String message;
+    @Column(name = "content")
+    private String content;
 
-    private Date dateTime;
+    @Column(name = "timestamp")
+    private Timestamp timestamp;
 
+    @Column(name = "from")
     private long from;
 
     public int getMessageId() {
@@ -34,19 +45,19 @@ public class Message {
         this.order = order;
     }
 
-    public String getMessage() {
-        return message;
+    public String getContent() {
+        return content;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }

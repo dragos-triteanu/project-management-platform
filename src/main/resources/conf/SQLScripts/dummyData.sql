@@ -28,13 +28,13 @@ INSERT INTO consultants(address,cardOwner,firstName,lastName,ibanCode,phoneNumbe
    @specialityId,@consultantId);
 
 
-INSERT INTO orders(annexes,bibliography,domain,message,nrOfPages,orderStatus,subject,tableOfContents,clientId,consultantId) VALUES
-  (null,'some bibliography','medicina','some message',10,0,'despre corpul uman','tables of contents',(SELECT userId FROM users WHERE mail = 'maria'),null);
-INSERT INTO orders(annexes,bibliography,domain,message,nrOfPages,orderStatus,subject,tableOfContents,clientId,consultantId) VALUES
+INSERT INTO orders(annexes,bibliography,domain,content,nrOfPages,orderStatus,subject,tableOfContents,clientId,consultantId) VALUES
+  (null,'some bibliography','medicina','some content',10,0,'despre corpul uman','tables of contents',(SELECT userId FROM users WHERE mail = 'maria'),null);
+INSERT INTO orders(annexes,bibliography,domain,content,nrOfPages,orderStatus,subject,tableOfContents,clientId,consultantId) VALUES
   (null,'some bibliography2','chimie','some message2',5,1,'chimie stuff','tables of contents2',(SELECT userId FROM users WHERE mail = 'ana'),null);
-INSERT INTO orders(annexes,bibliography,domain,message,nrOfPages,orderStatus,subject,tableOfContents,clientId,consultantId) VALUES
+INSERT INTO orders(annexes,bibliography,domain,content,nrOfPages,orderStatus,subject,tableOfContents,clientId,consultantId) VALUES
   (null,'some bibliography3','Matematica','some message3',6,0,'matematica stuff','tables of contents3',(SELECT userId FROM users WHERE mail = 'catalina'),null);
-INSERT INTO orders(annexes,bibliography,domain,message,nrOfPages,orderStatus,subject,tableOfContents,clientId,consultantId) VALUES
+INSERT INTO orders(annexes,bibliography,domain,content,nrOfPages,orderStatus,subject,tableOfContents,clientId,consultantId) VALUES
   (null,'some bibliography4','Medicina','some message3',12,5,'Medicina stuff2','tables of contents4',(SELECT userId FROM users WHERE mail = 'maria'),(SELECT userId from users WHERE mail='catalin'));
 
 INSERT INTO consultantOrders (cost,nrOfDays,status,consultantId,orderId) VALUES(20,3,2,(SELECT userId from users WHERE mail='catalin'),

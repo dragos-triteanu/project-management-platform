@@ -20,7 +20,7 @@ ADMIN:
 
 
 
--La comenzi: text-box-ul de message sa fie editabil. 
+-La comenzi: text-box-ul de content sa fie editabil.
 -Payment options : Paypall + trimis chitante.
 
 CONSULTANT:

@@ -1,4 +1,4 @@
-<#macro renderTable ordersList userRole message>
+<#macro renderTable ordersList userRole content>
     <#import "*/components/statusRow.ftl" as statusRow />
 <table class="table">
     <#if ordersList?has_content>
@@ -53,13 +53,13 @@
             </tr>
         </#list>
     <#else>
-     ${message}
+     ${content}
     </#if>
     </tbody>
 </table>
 </#macro>
 
-<#macro renderTableForClient ordersList message>
+<#macro renderTableForClient ordersList content>
     <#import "*/components/statusRow.ftl" as statusRow />
 <table class="table">
     <#if ordersList?has_content>
@@ -85,7 +85,7 @@
             </#list>
         </tbody>
     <#else>
-        s${message}
+        s${content}
     </#if>
 </table>
 </#macro>

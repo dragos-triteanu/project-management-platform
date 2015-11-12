@@ -38,7 +38,6 @@ public class MyOrderDetailsController {
         modelMap.put("currentUser",currentUser);
         List<Message> messages = messageService.getMessages(id);
         modelMap.addAttribute("messages",messages);
-
         return "myOrderDetailsPage";
     }
 }

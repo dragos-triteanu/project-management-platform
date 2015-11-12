@@ -100,13 +100,13 @@
 
     <div class="form-group">
         <div class="col-md-2 col-xs-2">
-            <label for="message" class="control-label">Mesaj:</label>
+            <label for="content" class="control-label">Mesaj:</label>
         </div>
         <div class="col-md-6 col-xs-6">
             <#if isEditable==true>
-                <textarea class="form-control" id="message" name="message">${order.message}</textarea>
+                <textarea class="form-control" id="content" name="content">${order.content}</textarea>
             <#else>
-                <p class="form-control-static" id="message" name="message">${order.message}</p>
+                <p class="form-control-static" id="content" name="content">${order.content}</p>
             </#if>
         </div>
     </div>
@@ -120,7 +120,7 @@
               <label class="radio-inline"><input type="radio" name="orderStatus" value="ACCEPTED">Accepta</label>
               <label class="radio-inline"><input type="radio" name="orderStatus" value="REJECTED">Respinge</label>
           <#else>
-            <p class="form-control-static" id="message" name="message"><@statusRow.renderRow order.orderStatus/></p>
+            <p class="form-control-static" id="content" name="content"><@statusRow.renderRow order.orderStatus/></p>
           </#if>
         </div>
     </div>
@@ -131,7 +131,7 @@
                  <label for="status" class="control-label">Consultant alocat:</label>
              </div>
              <div class="col-md-6 col-xs-6">
-                 <p class="form-control-static" id="assignedTo" name="message">C${order.consultant.userId}</p>
+                 <p class="form-control-static" id="assignedTo" name="content">C${order.consultant.userId}</p>
              </div>
          </div>
      </#if>

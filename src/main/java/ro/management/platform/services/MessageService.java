@@ -1,5 +1,6 @@
 package ro.management.platform.services;
 
+import ro.management.platform.model.entities.ChatMessage;
 import ro.management.platform.model.entities.Message;
 import ro.management.platform.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,9 @@ public class MessageService {
         List<Message> messages = messageRepository.getMessages(orderId);
 
         return messages;
+    }
+
+    public void addMessage(final ChatMessage message){
+        messageRepository.convertAndAddChatMessageAsMessage(message);
     }
 }

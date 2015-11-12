@@ -15,7 +15,7 @@ NR OF PAGES → The number of pages that the project must have.
 TABLE OF CONTENTS → This should be a textarea in which the client can specify the table of contents for the project.
 BIBLIOGRAFY → A textarea where the client, can specify the books to be used in fulfilling the project order.
 ANEXES → This can be a file .
-MESSAGE → A message for the administrator of the platform.
+MESSAGE → A content for the administrator of the platform.
 T&C → A checkbox field where the client can accept the terms&conditions.
 
 As a CLIENT, I want to receive an email on the mailbox I have provided, so that I may receive pricing information for my project request.This email should contain :
@@ -76,10 +76,10 @@ As a CONSULTANT, I want to be able to login on the platform using the credential
 As a CONSULTANT, after I login to the platform with my provided credentials, I want to be able to view a landing page where I can see advice on how to use the platform.This section will be administered by the manager.
 As a CONSULTANT, I want to be able to view the orders that exist in the system, and have been placed by a manager.
 As a CONSULTANT, I want to be able to bid for an order, so that I can begin working on it.For this I must be  able to provide a bid amount(in virtual coin) and a bid time(the time that will take a CONSULTANT to finish the order, expressed in days)
-As a CONSULTANT, I want to be notified if I have received the order or not.This will be provided via a message on the platform.If the bid has been won, then the order status will become active.
+As a CONSULTANT, I want to be notified if I have received the order or not.This will be provided via a content on the platform.If the bid has been won, then the order status will become active.
 As a CONSULTANT, I want to be able to send documents such as (DOC, PDF, RAR) via the platform, as a form of service to the client that placed the order.
 As a CONSULTANT, I want to be able to see each order in multiple iterations(set by manager) so that I might start working on a sub-part of the order.I want to be aware of the status of subparts in the system, and of any user complaints/improvement requirements on submited part.
-As a CONSULTANT, I want to be able to send a message to the manager.
+As a CONSULTANT, I want to be able to send a content to the manager.
 As A CONSULTANT, I want to be able to sent messages to the client, but I do not want to know his details.Instead, I want to see him represented by a platform specific denominator(‘Ex.Client8123’).
 As a CONSULTANT, I want to be able to view my overall rating.This rating is calculated depending of the number of stars(from 1 to 5) I receive from clients.
 As a CONSULTANT, I want to be able to see all the previous orders that I have fulfilled, and to have calculated a total amount of money earned from making orders.
