@@ -29,7 +29,6 @@ public class ChatController {
 
     @MessageMapping("/chat")
     public void sendMessage(ChatMessage message) {
-        message.setTimestamp(new Timestamp(new Date().getTime()));
         messageService.addMessage(message);
         template.convertAndSend("/topic/message/" + message.getOrderId(),message);
     }

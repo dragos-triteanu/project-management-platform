@@ -13,7 +13,7 @@
             </header>
             <div id="chatBody">
                 <p ng-repeat="message in messages | orderBy:'time':reverse" class="message">
-                    <time class="chatTime">{{message.time | date:'HH:mm'}}</time>
+                    <time class="chatTime">{{message.timestamp | date:'HH:mm'}}</time>
                         {{message.from == userId ? 'me:' : 'C' + message.from + ':'}}
                     <span ng-class="{self: message.self}">{{message.content}}</span>
                 </p>

@@ -50,7 +50,7 @@ public class MessageRepository {
         Message message = new Message();
         Order orderById = orderRepository.getOrderByIdForChat(chatMessage.getOrderId());
         message.setOrder(orderById);
-        message.setTimestamp(new Timestamp(new Date().getTime()));
+        message.setTimestamp(new Timestamp(chatMessage.getTimestamp().getTime()));
         message.setContent(chatMessage.getContent());
         message.setSender(chatMessage.getFrom());
         return message;
