@@ -6,8 +6,15 @@ $(document).ready(function() {
          $("#openChat").hide();
          $("#minimizeChat").show();
     });
+
     $('#btnShow').on('click', function () {
         $("#openChat").show();
+        $("#chatBody").scrollTop($("#chatBody")[0].scrollHeight);
         $("#minimizeChat").hide();
     });
+
+    $('#chatBody').bind("DOMSubtreeModified",function(){
+        $("#chatBody").scrollTop($("#chatBody")[0].scrollHeight);
+    });
+
 });
