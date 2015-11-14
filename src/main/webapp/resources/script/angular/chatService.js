@@ -1,5 +1,5 @@
 (function(angular, SockJS, Stomp, _, undefined) {
-    angular.module("chatApp.services").service("ChatService", function($q, $timeout) {
+    angular.module("chatApp.services").service("ChatService", function($q, $timeout,$http) {
 
         var service = {}, listener = $q.defer(), socket = {
             client: null,
@@ -35,10 +35,19 @@
         var getMessage = function(data) {
             var message = JSON.parse(data), out = {};
             out.content = message.content;
-            out.time = new Date(message.date);
+            out.time = new Date(message.timestamp);
             out.from  = message.from;
             out.orderId = message.orderId;
             return out;
+        };
+
+
+        service.getMessages = function($scope){
+           $http.get("./myOrderDetails/messages?orderId="+orderId).then(function successCallback(response){
+               $scope.messages = response.data;
+           }, function errorCallback(response){
+                console.log(response);
+           });
         };
 
         var startListener = function() {

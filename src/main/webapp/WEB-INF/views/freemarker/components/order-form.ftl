@@ -104,9 +104,9 @@
         </div>
         <div class="col-md-6 col-xs-6">
             <#if isEditable==true>
-                <textarea class="form-control" id="content" name="content">${order.content}</textarea>
+                <textarea class="form-control" id="content" name="content">${order.message}</textarea>
             <#else>
-                <p class="form-control-static" id="content" name="content">${order.content}</p>
+                <p class="form-control-static" id="content" name="content">${order.message}</p>
             </#if>
         </div>
     </div>

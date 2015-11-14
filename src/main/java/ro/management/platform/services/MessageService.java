@@ -6,6 +6,8 @@ import ro.management.platform.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +25,28 @@ public class MessageService {
 
         return messages;
     }
+
+    public List<ChatMessage> getChatMessages(int orderId) {
+
+        List<Message> messages = messageRepository.getMessages(orderId);
+        List<ChatMessage> chatMessages = new ArrayList<>();
+        for(Message message : messages){
+            ChatMessage chatMessage = toChatMessage(message);
+            chatMessages.add(chatMessage);
+        }
+
+        return chatMessages;
+    }
+
+    private ChatMessage toChatMessage(Message message) {
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.setContent(message.getContent());
+        chatMessage.setFrom(message.getSender());
+        chatMessage.setOrderId(message.getOrder().getOrderId());
+        chatMessage.setTimestamp(new Date(message.getTimestamp().getTime()));
+        return chatMessage;
+    }
+
 
     public void addMessage(final ChatMessage message){
         messageRepository.convertAndAddChatMessageAsMessage(message);

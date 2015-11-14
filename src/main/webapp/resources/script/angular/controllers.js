@@ -5,6 +5,8 @@
         $scope.max = 140;
         $scope.userId = $("#userId").val();
 
+        init($scope,ChatService);
+
         $scope.addMessage = function() {
             ChatService.send($scope.message);
             $scope.message = "";
@@ -15,3 +17,8 @@
         });
     });
 })(angular);
+
+
+function init($scope,ChatService){
+   ChatService.getMessages($scope);
+}

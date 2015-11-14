@@ -48,10 +48,11 @@ public class MessageRepository {
 
     private Message fromChatMessage(final ChatMessage chatMessage){
         Message message = new Message();
-        Order orderById = orderRepository.getOrderById(chatMessage.getOrderId());
+        Order orderById = orderRepository.getOrderByIdForChat(chatMessage.getOrderId());
         message.setOrder(orderById);
         message.setTimestamp(new Timestamp(new Date().getTime()));
         message.setContent(chatMessage.getContent());
+        message.setSender(chatMessage.getFrom());
         return message;
     }
 

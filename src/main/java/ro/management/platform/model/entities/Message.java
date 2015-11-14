@@ -2,7 +2,6 @@ package ro.management.platform.model.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * Created by Dragos on 10/7/2015.
@@ -17,17 +16,17 @@ public class Message {
     private int messageId;
 
     @OneToOne
-    @JoinColumn(name="clientId", nullable = false)
+    @JoinColumn(name="orderId", nullable = false)
     private Order order;
 
-    @Column(name = "content")
+    @Column(name = "content" , nullable = false)
     private String content;
 
-    @Column(name = "timestamp")
+    @Column(name = "timestamp" , nullable = false)
     private Timestamp timestamp;
 
-    @Column(name = "from")
-    private long from;
+    @Column(name = "sender" , nullable = false)
+    private long sender;
 
     public int getMessageId() {
         return messageId;
@@ -59,5 +58,13 @@ public class Message {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public long getSender() {
+        return sender;
+    }
+
+    public void setSender(long sender) {
+        this.sender = sender;
     }
 }
