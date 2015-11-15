@@ -1,6 +1,6 @@
 <#macro renderForm titlePage userRole order="">
     <#import "*/components/statusRow.ftl" as statusRow />
- <div consultantId="consultant-details">
+ <div id="order-details">
     <#assign isEditable =  userRole == "ADMINISTRATOR" && (order.orderStatus=="NEW")>
      <h2>${titlePage}</h2>
     <#if isEditable==true>
