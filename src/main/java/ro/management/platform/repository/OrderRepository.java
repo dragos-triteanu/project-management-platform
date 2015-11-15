@@ -139,6 +139,10 @@ public class OrderRepository {
         LOG.debug("Number of updated rows: {}", rowUpdates);
     }
 
+    public void updateOrderWithRating(Order order){
+        sessionFactory.getCurrentSession().update(order);
+    }
+
     private List<Order> getSearchedOrdersForAdministrator(String searchText, AdminCategoryOrderSearch categorySearch) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Order.class);
         switch (categorySearch) {

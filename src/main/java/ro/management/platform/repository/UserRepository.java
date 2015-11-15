@@ -81,6 +81,10 @@ public class UserRepository {
         LOG.debug("Inserted user with name {}", client.getFirstName());
     }
 
+    public void hibernateUpdateConsultant(final Consultant consultant){
+        LOG.info("Updating details for consultant wit consultantId={}", consultant.getUserId());
+        sessionFactory.getCurrentSession().update(consultant);
+    }
 
     public void updateConsultant(Consultant consultant) {
         LOG.info("Updating details for consultant wit consultantId={}", consultant.getUserId());

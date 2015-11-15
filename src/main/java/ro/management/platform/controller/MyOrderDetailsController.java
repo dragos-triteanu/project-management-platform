@@ -27,6 +27,7 @@ public class MyOrderDetailsController {
 
     @Autowired
     private OrderService orderService;
+
     @Autowired
     private MessageService messageService;
 
@@ -50,4 +51,13 @@ public class MyOrderDetailsController {
         ResponseEntity<Object> entity = new ResponseEntity<Object>(messageService.getChatMessages(id),HttpStatus.OK);
         return entity;
     }
+
+    @RequestMapping(value = "/rateConsultant" , method = RequestMethod.POST)
+    public String rateConsultant(@RequestParam("orderId") int orderId ,
+                                 @RequestParam("consultantRating") float consultantRating){
+
+        orderService.rateConsultantResponsibleForOrder(orderId,consultantRating);
+        return "redirect:/myorders";
+    }
+
 }

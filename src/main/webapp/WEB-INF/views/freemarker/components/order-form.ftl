@@ -2,6 +2,7 @@
     <#import "*/components/statusRow.ftl" as statusRow />
  <div consultantId="consultant-details">
     <#assign isEditable =  userRole == "ADMINISTRATOR" && (order.orderStatus=="NEW")>
+     <h2>${titlePage}</h2>
     <#if isEditable==true>
        <form class="create-form form-horizontal" role="form" action="./orders/update" method="POST"
           enctype="multipart/form-data">
@@ -10,10 +11,6 @@
           enctype="multipart/form-data">
     </#if>
      <input type="hidden" name="orderId" id="orderId" value="${order.orderId}"/>
-     <div class="form-group">
-         <h2>${titlePage}</h2>
-     </div>
-
     <#if userRole == "ADMINISTRATOR">
     <div class="form-group">
         <div class="col-md-2 col-xs-2">

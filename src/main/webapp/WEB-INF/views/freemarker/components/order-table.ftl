@@ -85,7 +85,7 @@
             </#list>
         </tbody>
     <#else>
-        s${content}
+        ${content}
     </#if>
 </table>
 </#macro>
