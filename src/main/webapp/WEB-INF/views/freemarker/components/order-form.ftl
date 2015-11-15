@@ -134,54 +134,58 @@
      </#if>
 
      <#if userRole=="ADMINISTRATOR">
-         <#if order.orderStatus=="NEW">
-             <div class="form-group">
-                 <div class="col-md-4 col-xs-4">
+         <div class="form-group">
+             <div class="col-md-2 col-xs-2">
+                 <label for="assignedConsultant" class="control-label">Consultant:</label>
+             </div>
+             <#if order.orderStatus=="ACCEPTED">
+                 <#if orderBids?has_content>
+                     <div class="col-md-5 col-xs-5">
+                         <input id="assignedConsultant" class="form-control" name="assignedConsultant"/>
+                     </div>
+                     <div class="col-md-1 col-xs-1">
+                         <button id="assignConsultant" class="btn btn-default btn-save">Asigneaza</button>
+                     </div>
+                     <div class="col-md-offset-2 col-md-5 col-xs-5">
+                         <table id="orderBids" class="table">
+                             <thead>
+                             <th class="table-header">Consultant</th>
+                             <th class="table-header">Nr zile</th>
+                             <th class="table-header">Pret </th>
+                             </thead>
+                             <tbody>
+                                 <#list orderBids as orderBid>
+                                 <tr class="tableRow" id="${orderBid.consultant.userId}">
+                                     <td> <a href="./consultantDetails?userId=${orderBid.consultant.userId}"> ${orderBid.consultant.firstName} ${orderBid.consultant.lastName} </a></td>
+                                     <td>${orderBid.nrOfDays}</td>
+                                     <td>${orderBid.cost}</td>
+                                 </tr>
+                                 </#list>
+                             </tbody>
+                         </table>
+                     </div>
+                 <#else>
+                     <div class="col-md-offset-1 col-md-5 col-xs-5">
+                         <div class="alert alert-info" role="alert"><p>Nici un consultant nu a aplicat pentru comanda.</p></div>
+                     </div>
+                 </#if>
+             <#elseif order.orderStatus=="ASSIGNED">
+                 <div class="col-md-6 col-xs-6">
+                     <p id="assignedConsultant" class="form-control-static">
+                         <a href="./consultantDetails?userId=${order.consultant.userId}"> ${order.consultant.firstName} ${order.consultant.lastName} </a>
+                         :  ${assignedConsultant.nrOfDays} zile | ${assignedConsultant.cost} RON
+                     </p>
+                 </div>
+             <#elseif order.orderStatus=="NEW">
+                 <div class="col-md-6 col-xs-6">
+                     <div class="alert alert-info" role="alert"><p>Neasignat.</p></div>
+                 </div>
+                 <div class="col-md-5 col-xs-5">
                      <button class="btn btn-default btn-save" type="submit">Salveaza</button>
                      <a href="/orders"><button class="btn btn-default" type="button" id="cancel-btn">Anuleaza</button></a>
                  </div>
-             </div>
-            <div class="col-md-offset-2 col-md-5 col-xs-5">
-             <table id="orderBids" class="table">
-                <thead>
-                     <th class="table-header">Consultant</th>
-                     <th class="table-header">Nr zile</th>
-                     <th class="table-header">Pret </th>
-                 </thead>
-                 <tbody>
-                  <#list orderBids as orderBid>
-                      <tr class="tableRow" id="${orderBid.consultant.userId}">
-                          <td> <a href="./consultantDetails?userId=${orderBid.consultant.userId}"> ${orderBid.consultant.firstName} ${orderBid.consultant.lastName} </a></td>
-                          <td>${orderBid.nrOfDays}</td>
-                          <td>${orderBid.cost}</td>
-                      </tr>
-                  </#list>
-                </tbody>
-             </table>
-            </div>
-           <#else>
-           <div class="col-md-offset-1 col-md-5 col-xs-5">
-               <div class="alert alert-info" role="alert"><p>Nici un consultant nu a aplicat pentru comanda.</p></div>
-           </div>
-           </#if>
-
-          <#elseif order.orderStatus=="ASSIGNED">
-            <div class="col-md-6 col-xs-6">
-             <p id="assignedConsultant" class="form-control-static">
-                 <a href="./consultantDetails?userId=${order.consultant.userId}"> ${order.consultant.firstName} ${order.consultant.lastName} </a>
-                   :  ${assignedConsultant.nrOfDays} zile | ${assignedConsultant.cost} RON
-             </p>
-             </div>
-          <#elseif order.orderStatus=="NEW">
-             <div class="col-md-6 col-xs-6">
-                 <div class="alert alert-info" role="alert"><p>Neasignat.</p></div>
-             </div>
-             <div class="col-md-5 col-xs-5">
-                 <button class="btn btn-default btn-save" type="submit">Salveaza</button>
-                 <a href="/orders"><button class="btn btn-default" type="button" id="cancel-btn">Anuleaza</button></a>
-             </div>
-           </#if>
-     </div>
+             </#if>
+         </div>
      </#if>
 </form>
 </div>
