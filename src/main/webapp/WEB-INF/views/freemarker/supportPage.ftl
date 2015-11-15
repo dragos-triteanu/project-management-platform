@@ -9,8 +9,8 @@
     <input id="userRole" type="hidden" class="hidden" value="${userRole}" />
     <@navbarRenderer.renderNavbar userRole="${userRole}" activePage="support"/>
 
-    <#if messageSent??>
-
+    <#if mailSent?? && mailSent?string('true','false') == 'true'>
+        <h2 class="col-md-5">Mailul dumneavoastra a fost trimis cu success<h2>
     <#else>
     <div class="container">
         <div class="supportPageContainer">

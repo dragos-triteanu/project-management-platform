@@ -1,7 +1,7 @@
 package ro.management.platform.context;
 
 import org.springframework.scheduling.annotation.EnableScheduling;
-import ro.management.platform.config.AppConfig;
+import ro.management.platform.config.MailingConfig;
 import ro.management.platform.config.HibernateConfig;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -11,7 +11,7 @@ import ro.management.platform.config.MVCConfig;
 @Configuration
 @EnableWebMvc
 @EnableScheduling
-@Import({MVCConfig.class,HibernateConfig.class, AppConfig.class})
+@Import({MVCConfig.class,HibernateConfig.class, MailingConfig.class})
 @ComponentScan("ro.management.platform.*")
 @PropertySource("classpath:conf/application.properties")
 public class MVCAppContext {

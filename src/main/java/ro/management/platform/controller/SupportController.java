@@ -27,18 +27,18 @@ public class SupportController {
     private MailService mailService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getSupportPage(ModelMap modelMap, @RequestParam(name = "mailMessage",required = false) boolean mailSent){
+    public String getSupportPage(ModelMap modelMap, @RequestParam(name = "mailSent",required = false) boolean mailSent){
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
         modelMap.addAttribute("mailSent",mailSent);
         return "supportPage";
     }
 
     @RequestMapping(value = "/sendMessageToAdmin" , method = RequestMethod.POST)
-    public String sendMessageToAdmin(@ModelAttribute("mailMessage") MailMessage mailMessage){
+    public String sendMessageToAdmin(@ModelAttribute("mailMessage") MailMessage mailMessage) throws Exception {
         User user = SessionUtils.GetCurrentUser();
         mailMessage.withSender(user.getMail());
         mailService.sendEmailToAllAdmins(mailMessage);
-        return "redirect: /support?mailSent=true";
+        return "redirect:/support?mailSent=true";
     }
 
 }

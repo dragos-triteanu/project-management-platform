@@ -220,9 +220,7 @@
             <artifactId>mail</artifactId>
             <version>${javax.mail.version}</version>
         </dependency>
-
-
-    </dependencies>
+	</dependencies>
 	
     <build>
         <plugins>

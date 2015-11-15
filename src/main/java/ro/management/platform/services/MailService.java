@@ -10,7 +10,11 @@ import ro.management.platform.model.entities.MailMessage;
 import ro.management.platform.model.entities.User;
 import ro.management.platform.repository.UserRepository;
 
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by dragos.triteanu on 11/15/15.
@@ -36,8 +40,7 @@ public class MailService {
         mailSender.send(simpleMessage);
     }
 
-
-    public void sendEmailToAllAdmins(final MailMessage mailMessage) {
+    public void sendEmailToAllAdmins(final MailMessage mailMessage) throws Exception {
         LOG.info("Sending mail message from {} to {}", mailMessage.getSender(), mailMessage.getReceiver());
         List<User> allAdmins = userRepository.getAllAdmins();
 
@@ -51,12 +54,26 @@ public class MailService {
             to += ";";
         }
         to = to.substring(0,to.lastIndexOf(";"));
-
-        SimpleMailMessage simpleMessage = new SimpleMailMessage();
-        simpleMessage.setFrom(mailMessage.getSender());
-        simpleMessage.setTo(to);
-        simpleMessage.setSubject(mailMessage.getSubject());
-        simpleMessage.setText(mailMessage.getContent());
-        mailSender.send(simpleMessage);
+        MimeMessage mimeMail = createMimeMail(to, mailMessage.getSender(), mailMessage.getSubject(), mailMessage.getContent());
+        mailSender.send(mimeMail);
     }
+
+
+    private MimeMessage createMimeMail(String to, String from, String subject,String bodyText) throws Exception {
+        Properties props = new Properties();
+        Session session = Session.getDefaultInstance(props, null);
+
+        MimeMessage email = new MimeMessage(session);
+        InternetAddress tAddress = new InternetAddress(to);
+        InternetAddress fAddress = new InternetAddress(from);
+
+        email.setFrom(new InternetAddress(from));
+        email.addRecipient(javax.mail.Message.RecipientType.TO,new InternetAddress(to));
+        email.setSubject(subject);
+        email.setText(bodyText);
+        return  email;
+    }
+
+
+
 }
