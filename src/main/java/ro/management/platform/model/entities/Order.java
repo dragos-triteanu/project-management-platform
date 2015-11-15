@@ -57,6 +57,9 @@ public class Order {
     @Enumerated(EnumType.ORDINAL)
     private OrderStatus orderStatus;
 
+    @Column(name = "isRated" , nullable = false , columnDefinition = "TINYINT(1) default 0")
+    private boolean rated;
+
     public String getDomain() {
         return domain;
     }
@@ -141,4 +144,11 @@ public class Order {
         this.consultant = consultant;
     }
 
+    public boolean getRated() {
+        return rated;
+    }
+
+    public void setRated(boolean rated) {
+        this.rated = rated;
+    }
 }

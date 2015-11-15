@@ -1,31 +1,21 @@
 package ro.management.platform.model.entities;
 
-import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by dragos.triteanu on 10/28/15.
  */
 
-@Entity
-@Table(name = "messages")
 public class ChatMessage {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "messageId" , nullable = false)
     private String messageId;
 
-    @Column(name = "orderId")
     private int orderId;
 
-    @Column(name = "content")
     private String content;
 
-    @Column(name = "from")
     private long from;
 
-    @Column(name = "timestamp")
     private Date timestamp;
 
     public String getMessageId() {

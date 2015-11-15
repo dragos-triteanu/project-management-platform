@@ -1,5 +1,8 @@
 package ro.management.platform.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import ro.management.platform.model.entities.ChatMessage;
 import ro.management.platform.model.entities.Message;
 import ro.management.platform.model.entities.Order;
 import ro.management.platform.model.entities.User;
@@ -24,6 +27,7 @@ public class MyOrderDetailsController {
 
     @Autowired
     private OrderService orderService;
+
     @Autowired
     private MessageService messageService;
 
@@ -36,8 +40,24 @@ public class MyOrderDetailsController {
         modelMap.addAttribute("titlePage", "Detalii Comanda");
         User currentUser = SessionUtils.GetCurrentUser();
         modelMap.put("currentUser",currentUser);
-        List<Message> messages = messageService.getMessages(id);
+        List<ChatMessage> messages = messageService.getChatMessages(id);
         modelMap.addAttribute("messages",messages);
         return "myOrderDetailsPage";
     }
+
+
+    @RequestMapping(value = "/messages" , method = RequestMethod.GET)
+    public ResponseEntity<Object> getChatMessages(@RequestParam("orderId") int id, ModelMap modelMap){
+        ResponseEntity<Object> entity = new ResponseEntity<Object>(messageService.getChatMessages(id),HttpStatus.OK);
+        return entity;
+    }
+
+    @RequestMapping(value = "/rateConsultant" , method = RequestMethod.POST)
+    public String rateConsultant(@RequestParam("orderId") int orderId ,
+                                 @RequestParam("consultantRating") float consultantRating){
+
+        orderService.rateConsultantResponsibleForOrder(orderId,consultantRating);
+        return "redirect:/myorders";
+    }
+
 }

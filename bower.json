@@ -11,6 +11,7 @@
         "stomp-websocket": "latest",
         "showdown": "latest",
         "lodash": "latest",
-        "bootstrap": "latest"
+        "bootstrap": "latest",
+        "bootstrap-star-rating": "latest"
     }
 }

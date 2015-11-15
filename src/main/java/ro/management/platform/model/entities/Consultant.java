@@ -59,6 +59,9 @@ public class Consultant extends User {
     @Transient
     private String cvURL;
 
+    @Column(name = "rating" , nullable = true , columnDefinition = "FLOAT default 0")
+    private float rating;
+
     public Consultant() {
         speciality = new ConsultantSpeciality();
     }
@@ -156,4 +159,12 @@ public class Consultant extends User {
     public String getFullName() {  return fullName; }
 
     public void setFullName(String fullName) { this.fullName = fullName; }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
 }

@@ -1,7 +1,8 @@
 <#macro renderForm titlePage userRole order="">
     <#import "*/components/statusRow.ftl" as statusRow />
- <div id="order-details">
+ <div consultantId="consultant-details">
     <#assign isEditable =  userRole == "ADMINISTRATOR" && (order.orderStatus=="NEW")>
+     <h2>${titlePage}</h2>
     <#if isEditable==true>
        <form class="create-form form-horizontal" role="form" action="./orders/update" method="POST"
           enctype="multipart/form-data">
@@ -10,10 +11,6 @@
           enctype="multipart/form-data">
     </#if>
      <input type="hidden" name="orderId" id="orderId" value="${order.orderId}"/>
-     <div class="form-group">
-         <h2>${titlePage}</h2>
-     </div>
-
     <#if userRole == "ADMINISTRATOR">
     <div class="form-group">
         <div class="col-md-2 col-xs-2">
@@ -136,18 +133,13 @@
          </div>
      </#if>
 
-    <#if userRole=="ADMINISTRATOR">
-       <div class="form-group">
-          <div class="col-md-2 col-xs-2">
-             <label for="assignedConsultant" class="control-label">Consultant:</label>
-          </div>
-         <#if order.orderStatus=="ACCEPTED">
-          <#if orderBids?has_content>
-           <div class="col-md-5 col-xs-5">
-             <input id="assignedConsultant" class="form-control" name="assignedConsultant"/>
-           </div>
-           <div class="col-md-1 col-xs-1">
-                   <button id="assignConsultant" class="btn btn-default btn-save">Asigneaza</button>
+     <#if userRole=="ADMINISTRATOR">
+         <#if order.orderStatus=="NEW">
+             <div class="form-group">
+                 <div class="col-md-4 col-xs-4">
+                     <button class="btn btn-default btn-save" type="submit">Salveaza</button>
+                     <a href="/orders"><button class="btn btn-default" type="button" id="cancel-btn">Anuleaza</button></a>
+                 </div>
              </div>
             <div class="col-md-offset-2 col-md-5 col-xs-5">
              <table id="orderBids" class="table">

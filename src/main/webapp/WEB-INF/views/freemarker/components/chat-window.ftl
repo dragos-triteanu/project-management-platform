@@ -12,16 +12,16 @@
                 </div>
             </header>
             <div id="chatBody">
-                <p ng-repeat="content in messages | orderBy:'time':reverse" class="content">
-                    <time class="chatTime">{{content.time | date:'HH:mm'}}</time>
-                        {{content.from == userId ? 'me:' : 'C' + content.from + ':'}}
-                    <span ng-class="{self: content.self}">{{content.content}}</span>
+                <p ng-repeat="message in messages | orderBy:'time':reverse" class="message">
+                    <time class="chatTime">{{message.timestamp | date:'HH:mm'}}</time>
+                        {{message.from == userId ? 'me:' : 'C' + message.from + ':'}}
+                    <span ng-class="{self: message.self}">{{message.content}}</span>
                 </p>
             </div>
             <div id="chatFooter">
                 <form ng-submit="addMessage()" name="messageForm">
                     <div class="input-group">
-                        <input type="text" placeholder="Introduceti mesaj..." class="form-control no-border-radius" ng-model="content" />
+                        <input type="text" placeholder="Introduceti mesaj..." class="form-control no-border-radius" ng-model="message" />
                             <span class="input-group-btn">
                                 <button class="btn btn-default no-border-radius" type="submit" type="button">
                                     <span class="glyphicon glyphicon-send" aria-hidden="true"></span>

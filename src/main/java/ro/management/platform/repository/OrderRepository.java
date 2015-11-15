@@ -78,6 +78,18 @@ public class OrderRepository {
         return order.get(0);
     }
 
+    public Order getOrderByIdForChat(int id) {
+        LOG.debug("Retrieving order with orderId={}", id);
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Order.class);
+        criteria.add(Restrictions.eq("orderId", id));
+        List<Order> order = criteria.list();
+        if (order == null)
+            return null;
+        return order.get(0);
+    }
+
+
+
     /**
      * Method that creates a {@link Order} in the 'orders' SQL table.
      *
@@ -125,6 +137,10 @@ public class OrderRepository {
         query.setParameter("orderId", order.getOrderId());
         int rowUpdates = query.executeUpdate();
         LOG.debug("Number of updated rows: {}", rowUpdates);
+    }
+
+    public void updateOrderWithRating(Order order){
+        sessionFactory.getCurrentSession().update(order);
     }
 
     private List<Order> getSearchedOrdersForAdministrator(String searchText, AdminCategoryOrderSearch categorySearch) {
