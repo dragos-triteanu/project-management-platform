@@ -5,6 +5,8 @@ import ro.management.platform.repository.BidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Dragos on 9/24/2015.
  */
@@ -24,7 +26,11 @@ public class BidService {
         bidRepository.deleteBid(consultantId,orderId);
     }
 
-    public ConsultantOrder getBid(int orderId) {
-        return bidRepository.getBid(orderId);
+    public ConsultantOrder getConsultantBid(int orderId,int consultantId) {
+        return bidRepository.getConsultantBid(orderId, consultantId);
+    }
+
+    public List<ConsultantOrder> getOrderBids(int orderId) {
+        return bidRepository.getOrderBids(orderId);
     }
 }

@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static ro.management.platform.repository.Queries.DELETE_BID;
 
 /**
@@ -37,25 +39,32 @@ public class BidRepository {
 
     public void deleteBid(final int consultantId, final int orderId) {
         LOG.info("Deleting bid for orderId={} from consultantId={}", orderId, consultantId);
-
-        Query query = sessionFactory.getCurrentSession().createQuery(DELETE_BID);
+        Query query = sessionFactory.getCurrentSession().getNamedQuery(DELETE_BID);
         query.setParameter("consultantId" ,consultantId);
         query.setParameter("orderId" ,orderId);
         query.executeUpdate();
+
     }
 
-    public ConsultantOrder getBid(int orderId) {
-        LOG.info("Retrieving the bid for orderId={} and consultantId={}", orderId, SessionUtils.GetCurrentUser().getUserId());
+    public ConsultantOrder getConsultantBid(int orderId,int consultantId) {
+        LOG.info("Retrieving the bid for orderId={} and consultantId={}", orderId, consultantId);
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ConsultantOrder.class);
-        criteria.add(Restrictions.eq("consultant.userId", SessionUtils.GetCurrentUser().getUserId()));
+        criteria.add(Restrictions.eq("consultant.userId",consultantId));
         criteria.add(Restrictions.eq("order.orderId", orderId));
         Object result = criteria.uniqueResult();
         if(result==null) {
-            LOG.info("No bid found for orderId={} and consultantId={}", orderId, SessionUtils.GetCurrentUser().getUserId());
+            LOG.info("No bid found for orderId={} and consultantId={}", orderId,consultantId);
             return null;
         }
 
-        LOG.info("Found the bid for orderId={} and consultantId={}", orderId, SessionUtils.GetCurrentUser().getUserId());
+        LOG.info("Found the bid for orderId={} and consultantId={}", orderId, consultantId);
         return (ConsultantOrder)result;
+    }
+
+    public List<ConsultantOrder> getOrderBids(int orderId) {
+        LOG.info("Retrieving the bids for orderId={}", orderId);
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ConsultantOrder.class);
+        criteria.add(Restrictions.eq("order.orderId", orderId));
+        return criteria.list();
     }
 }

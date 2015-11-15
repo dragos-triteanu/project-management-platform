@@ -70,14 +70,20 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateOrder(@ModelAttribute("order") Order order){
+    public String updateOrder(@ModelAttribute("order") Order order) {
         orderService.updateOrder(order);
         return "redirect:/orders";
     }
 
+    @RequestMapping(value = "/deleteOrder", method = RequestMethod.POST)
+    public String deleteOrder(@RequestParam("orderId") int orderId,ModelMap modelMap)
+    {
+        orderService.deleteOrder(orderId);
+        return "redirect:/orders";
+    }
 
-        private Client buildUserFromParams(String firstName, String lastName, String email) {
-            Client user = new Client();
+    private Client buildUserFromParams(String firstName, String lastName, String email) {
+        Client user = new Client();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setMail(email);
@@ -86,6 +92,7 @@ public class OrderController {
 
         return user;
     }
+
 
     private Order buildOrderFromParams(String domain, String subject, long nrOfPages, String tableOfContents, String bibliography,
                                        String message, MultipartFile annexes, Client client) throws IOException {

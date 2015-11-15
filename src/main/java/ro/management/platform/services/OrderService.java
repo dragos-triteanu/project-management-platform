@@ -46,5 +46,13 @@ public class OrderService {
     public void updateOrder(Order order) {
         orderRepository.updateOrder(order);
     }
+
+    public void assignConsultant(int orderId, int consultantId) {
+        orderRepository.assignConsultant(orderId,consultantId);
+    }
+
+    public void deleteOrder(int orderId) {
+        orderRepository.deleteOrder(orderId);
+    }
 }
 

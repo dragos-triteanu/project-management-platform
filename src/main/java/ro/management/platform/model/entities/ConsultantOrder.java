@@ -5,6 +5,7 @@ import ro.management.platform.utils.OrderStatus;
 import javax.persistence.*;
 
 import static ro.management.platform.repository.Queries.DELETE_BID;
+import static ro.management.platform.repository.Queries.UPDATE_BID_STATUS;
 
 
 /**
@@ -13,7 +14,8 @@ import static ro.management.platform.repository.Queries.DELETE_BID;
 @Entity
 @Table(name="consultantOrders")
 @NamedQueries({
-    @NamedQuery(name = DELETE_BID, query = "DELETE FROM ConsultantOrder WHERE consultantId=:consultantId and orderId=:orderId")
+    @NamedQuery(name = DELETE_BID, query = "DELETE FROM ConsultantOrder co WHERE co.consultant.userId=:consultantId AND co.order.orderId=:orderId"),
+    @NamedQuery(name = UPDATE_BID_STATUS , query = "UPDATE ConsultantOrder co SET co.status=:status WHERE co.consultant.userId=:consultantId AND co.order.orderId=:orderId")
 })
 public class ConsultantOrder {
 
