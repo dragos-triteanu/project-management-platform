@@ -39,18 +39,16 @@
     </div>
 </form>
 <#elseif order.orderStatus == "PENDING" >
-<form id="viewBid" role="form" action="/getBid" method="GET">
-    <input type="hidden" name="orderId" id="orderId" value="${order.orderId}"/>
     <div class="alert alert-success container" role="alert">
         <span>Ai aplicat deja pentru acesta comanda.<br/>
-              Numar de zile : ${bid.nrOfDays} <br/>
-              Cost : ${bid.cost} RON
+              Numar de zile : ${consultantBid.nrOfDays} <br/>
+              Cost : ${consultantBid.cost} RON
           </span>
     </div>
-</form>
 
 </#if>
 </#if>
+
 <script src="./resources/script/order.js"></script>
 </body>
 <html>

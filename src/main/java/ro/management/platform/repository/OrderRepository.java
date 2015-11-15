@@ -196,4 +196,32 @@ public class OrderRepository {
         }
         sessionFactory.getCurrentSession().clear();
     }
+
+    public void assignConsultant(int orderId, int consultantId) {
+        LOG.info("Assigning consultant id= {} for order id = {}",consultantId,orderId);
+        Query firstQuery = sessionFactory.getCurrentSession().getNamedQuery(ASSIGN_CONSULTANT);
+        firstQuery.setParameter("consultantId", consultantId);
+        firstQuery.setParameter("orderId", orderId);
+        firstQuery.setParameter("orderStatus", OrderStatus.ASSIGNED);
+        try {
+            firstQuery.executeUpdate();
+        }catch (Exception e)
+        {
+            System.out.print(e);
+        }
+
+        LOG.info("Updating bid status for consultant id= {} and order id = {}",consultantId,orderId);
+        Query secondQuery = sessionFactory.getCurrentSession().getNamedQuery(UPDATE_BID_STATUS);
+        secondQuery.setParameter("consultantId", consultantId);
+        secondQuery.setParameter("orderId", orderId);
+        secondQuery.setParameter("status", OrderStatus.APPROVED);
+        secondQuery.executeUpdate();
+    }
+
+    public void deleteOrder(int orderId) {
+        LOG.info("Deleting the  order id = {}",orderId);
+        Query query = sessionFactory.getCurrentSession().getNamedQuery(DELETE_ORDER);
+        query.setParameter("orderId", orderId);
+        query.executeUpdate();
+    }
 }

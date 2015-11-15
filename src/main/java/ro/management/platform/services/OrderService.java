@@ -56,6 +56,14 @@ public class OrderService {
         orderRepository.updateOrder(order);
     }
 
+    public void assignConsultant(int orderId, int consultantId) {
+        orderRepository.assignConsultant(orderId,consultantId);
+    }
+
+    public void deleteOrder(int orderId) {
+        orderRepository.deleteOrder(orderId);
+    }
+
     public void rateConsultantResponsibleForOrder(int orderId, float consultantRating) {
         try{
             computeRating(orderId,consultantRating);

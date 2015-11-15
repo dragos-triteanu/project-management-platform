@@ -4,3 +4,6 @@
 .bid{
     display: none;
 }
+#orderBids th {
+    text-align: center;
+}

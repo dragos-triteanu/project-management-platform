@@ -36,9 +36,13 @@
                     <td><@statusRow.renderRow order.orderStatus/></td>
                     <td>
                      <#if  order.orderStatus == "REJECTED">
-                         <form class="details-button-qaa-${order.orderId}" action="./deleteBid" method="POST">
-                             <input type="hidden" name="orderId" value="${order.orderId}" />
-                             <button id="edit${order.orderId}" type="submit" class="btn btn-danger">Sterge</button>
+                         <#if userRole == "ADMINISTRATOR">
+                           <form class="details-button-qaa-${order.orderId}" action="./orders/deleteOrder" method="POST">
+                         <#elseif userRole == "CONSULTANT">
+                             <form class="details-button-qaa-${order.orderId}" action="./deleteBid" method="POST">
+                         </#if>
+                         <input type="hidden" name="orderId" value="${order.orderId}" />
+                         <button id="edit${order.orderId}" type="submit" class="btn btn-danger">Sterge</button>
                      <#elseif order.orderStatus == "APPROVED" >
                         <form class="details-button-qaa-${order.orderId}" action="./myOrderDetails" method="GET">
                             <input type="hidden" name="orderId" value="${order.orderId}" />

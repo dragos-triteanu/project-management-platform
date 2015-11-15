@@ -17,7 +17,7 @@ $(document).ready(function() {
     });
 
     $('#cancel-btn').on('click', function() {
-        window.location="/CrowdfundingApp/consultants"
+        window.location="/consultants"
     });
 
 
