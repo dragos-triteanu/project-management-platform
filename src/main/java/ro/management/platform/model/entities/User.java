@@ -5,6 +5,8 @@ import ro.management.platform.security.Authority;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+import static ro.management.platform.repository.Queries.GET_ALL_ADMIN_MAILS;
+
 /**
  * Created by Dragos on 11/5/2015.
  */

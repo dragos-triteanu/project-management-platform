@@ -37,4 +37,10 @@ public class Queries {
      * {@link ro.management.platform.model.entities.QuestionAndAnswer} QAA queries.
      */
     public static final String DELETE_QAA_BY_ID = "deleteQaaById";
+
+    /**
+     * {@link ro.management.platform.model.entities.User} queries.
+     */
+    public static final String GET_ALL_ADMIN_MAILS = "getAllAdminMails";
+
 }

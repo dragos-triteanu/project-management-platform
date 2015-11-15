@@ -3,6 +3,7 @@ package ro.management.platform.repository;
 import ro.management.platform.model.entities.Client;
 import ro.management.platform.model.entities.Consultant;
 import ro.management.platform.model.entities.User;
+import ro.management.platform.security.Authority;
 import ro.management.platform.utils.CategoryConsultantSearch;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -60,6 +61,14 @@ public class UserRepository {
         }
 
         return consultant;
+    }
+
+
+    public List<User> getAllAdmins(){
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class)
+                .add(Restrictions.eq("role", Authority.ADMINISTRATOR));
+        List<User> list = criteria.list();
+        return list;
     }
 
     /**

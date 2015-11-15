@@ -58,6 +58,11 @@
         "name":"Comenzile mele",
         "url": "./myorders",
         "id" : "myorders"
+        },
+        {
+        "name":"Support",
+        "url": "./support",
+        "id" : "support"
         }
     ]
 }
