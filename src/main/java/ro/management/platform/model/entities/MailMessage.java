@@ -1,5 +1,7 @@
 package ro.management.platform.model.entities;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * Created by dragos.triteanu on 11/15/15.
  */

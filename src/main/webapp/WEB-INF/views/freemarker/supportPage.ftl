@@ -10,7 +10,9 @@
     <@navbarRenderer.renderNavbar userRole="${userRole}" activePage="support"/>
 
     <#if mailSent?? && mailSent?string('true','false') == 'true'>
-        <h2 class="col-md-5">Mailul dumneavoastra a fost trimis cu success<h2>
+        <div class="col-md-offset-4">
+            <h2>Mailul dumneavoastra a fost trimis cu success<h2>
+        </div>
     <#else>
     <div class="container">
         <div class="supportPageContainer">
@@ -19,7 +21,7 @@
             </div>
             <div class="adminMessageContainer">
                 <div class="col-md-12">
-                    <form role="form" class="adminMessageForm form-horizontal" method="post" action="./support/sendMessageToAdmin">
+                    <form role="form" enctype="multipart/form-data" class="adminMessageForm form-horizontal" method="post" action="./support/sendMessageToAdmin">
                         <div class="form-group">
                             <div class="col-md-2">
                                 <label for="subject" class="control-label">Subiect:</label>
@@ -34,6 +36,14 @@
                             </div>
                             <div class="col-md-8">
                                 <textarea class="form-control" name="content" maxlength="300" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2">
+                               <label for="attachment">Atasament(Optional):</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="file" name="attachment" />
                             </div>
                         </div>
                         <div class="form-group">

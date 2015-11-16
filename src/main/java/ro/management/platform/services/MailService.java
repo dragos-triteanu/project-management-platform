@@ -3,18 +3,23 @@ package ro.management.platform.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import ro.management.platform.model.entities.MailMessage;
 import ro.management.platform.model.entities.User;
 import ro.management.platform.repository.UserRepository;
+import ro.management.platform.utils.FileUtils;
 
-import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.util.List;
-import java.util.Properties;
+import java.util.concurrent.Future;
 
 /**
  * Created by dragos.triteanu on 11/15/15.
@@ -29,21 +34,22 @@ public class MailService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ThreadPoolTaskExecutor taskExecutor;
 
-    public void sendEmail(final MailMessage mailMessage){
-        LOG.info("Sending mail message from {} to {}",mailMessage.getSender(),mailMessage.getReceiver());
-        SimpleMailMessage simpleMessage = new SimpleMailMessage();
-        simpleMessage.setFrom(mailMessage.getSender());
-        simpleMessage.setTo(mailMessage.getReceiver());
-        simpleMessage.setSubject(mailMessage.getSubject());
-        simpleMessage.setText(mailMessage.getContent());
-        mailSender.send(simpleMessage);
-    }
+//
+//    @Async
+//    public Future<Boolean> sendEmail(final MailMessage mailMessage) throws Exception {
+//        LOG.info("Sending mail message from {} to {}",mailMessage.getSender(),mailMessage.getReceiver());
+//        MimeMessage mimeMail = createMimeMail(mailMessage.getReceiver(), mailMessage.getSender(), mailMessage.getSubject(), mailMessage.getContent(),mailMessage.getMailAttachment());
+//        mailSender.send(mimeMail);
+//        return new AsyncResult<>(true);
+//    }
 
-    public void sendEmailToAllAdmins(final MailMessage mailMessage) throws Exception {
+    @Async
+    public void sendEmailToAllAdmins(final MailMessage mailMessage, final String fileLocation) throws Exception {
         LOG.info("Sending mail message from {} to {}", mailMessage.getSender(), mailMessage.getReceiver());
         List<User> allAdmins = userRepository.getAllAdmins();
-
         if(allAdmins.isEmpty()){
             throw new RuntimeException("There was an error sending your request");
         }
@@ -54,26 +60,27 @@ public class MailService {
             to += ";";
         }
         to = to.substring(0,to.lastIndexOf(";"));
-        MimeMessage mimeMail = createMimeMail(to, mailMessage.getSender(), mailMessage.getSubject(), mailMessage.getContent());
+
+        mailMessage.withReceiver(to);
+
+        LOG.info("Sending mail message from {} to {}",mailMessage.getSender(),mailMessage.getReceiver());
+        final MimeMessage mimeMail = createMimeMail(mailMessage,fileLocation);
         mailSender.send(mimeMail);
+        FileUtils.deleteFile(fileLocation);
     }
 
+    private MimeMessage createMimeMail(final MailMessage mailMessage, final String fileLocation) throws Exception {
+        MimeMessage email = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(email, true);
+        helper.setFrom(new InternetAddress(mailMessage.getSender()));
+        helper.setTo(new InternetAddress(mailMessage.getReceiver()));
+        helper.setSubject(mailMessage.getSubject());
+        helper.setText("Mesaj primit de la utilizatorul " + mailMessage.getSender() + ":\n" + mailMessage.getContent());
 
-    private MimeMessage createMimeMail(String to, String from, String subject,String bodyText) throws Exception {
-        Properties props = new Properties();
-        Session session = Session.getDefaultInstance(props, null);
+        if(fileLocation != null){
+            helper.addAttachment("file",new File(fileLocation));
+        }
 
-        MimeMessage email = new MimeMessage(session);
-        InternetAddress tAddress = new InternetAddress(to);
-        InternetAddress fAddress = new InternetAddress(from);
-
-        email.setFrom(new InternetAddress(from));
-        email.addRecipient(javax.mail.Message.RecipientType.TO,new InternetAddress(to));
-        email.setSubject(subject);
-        email.setText(bodyText);
         return  email;
     }
-
-
-
 }

@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import ro.management.platform.model.entities.MailMessage;
 import ro.management.platform.model.entities.User;
 import ro.management.platform.services.MailService;
+import ro.management.platform.utils.FileUtils;
 import ro.management.platform.utils.SessionUtils;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by dragos.triteanu on 11/15/15.
@@ -34,11 +38,15 @@ public class SupportController {
     }
 
     @RequestMapping(value = "/sendMessageToAdmin" , method = RequestMethod.POST)
-    public String sendMessageToAdmin(@ModelAttribute("mailMessage") MailMessage mailMessage) throws Exception {
+    public String sendMessageToAdmin(@ModelAttribute("mailMessage") MailMessage mailMessage,
+                                     @RequestParam(name="attachment",required = false) MultipartFile attachment,
+                                     HttpServletRequest request) throws Exception {
         User user = SessionUtils.GetCurrentUser();
         mailMessage.withSender(user.getMail());
-        mailService.sendEmailToAllAdmins(mailMessage);
+
+        String fileLocation = FileUtils.saveFileToDisk(attachment, request);
+
+        mailService.sendEmailToAllAdmins(mailMessage , fileLocation);
         return "redirect:/support?mailSent=true";
     }
-
 }

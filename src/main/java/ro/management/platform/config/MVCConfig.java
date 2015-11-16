@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.mvc.WebContentInterceptor;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
@@ -17,7 +17,8 @@ import java.util.Map;
 
 @Configuration
 @PropertySource("classpath:conf/application.properties")
-public class MVCConfig extends WebMvcConfigurerAdapter {
+@EnableAsync
+public class MVCConfig extends WebMvcConfigurerAdapter{
 
 
     @Value("${cv.upload.maxFileSize}")
