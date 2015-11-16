@@ -2,6 +2,7 @@ package ro.management.platform.services;
 
 import java.util.List;
 
+import ro.management.platform.model.entities.Client;
 import ro.management.platform.utils.CategoryConsultantSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +16,7 @@ import ro.management.platform.repository.UserRepository;
  */
 
 @Service
-public class ConsultantService {
+public class UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -57,5 +58,9 @@ public class ConsultantService {
 
     public List<Consultant> getConsultantsResultSearch(String searchText, CategoryConsultantSearch selectedCategory) {
         return userRepository.getConsultantsResultSearch(searchText, selectedCategory);
+    }
+
+    public List<Client> getAllClients(){
+        return userRepository.retrieveClients();
     }
 }

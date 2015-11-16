@@ -19,7 +19,7 @@
         <#list ordersList as order>
             <tr class="tableRow">
                     <#if userRole == "ADMINISTRATOR">
-                        <td><a href="./clientDetails?userId=${order.client.userId}"> ${order.client.firstName} ${order.client.lastName}</a></td>
+                        <td> ${order.client.firstName} ${order.client.lastName}</td>
                         <td>
                             <#if order.consultant??>
                                 <a href="./consultantDetails?userId=${order.consultant.userId}"> ${order.consultant.firstName} ${order.consultant.lastName}</a>

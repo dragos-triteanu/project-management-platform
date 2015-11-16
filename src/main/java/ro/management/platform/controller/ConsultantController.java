@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ro.management.platform.model.entities.Consultant;
 import ro.management.platform.model.entities.ConsultantSpeciality;
 import ro.management.platform.services.ConsultantCategoryService;
-import ro.management.platform.services.ConsultantService;
+import ro.management.platform.services.UserService;
 import ro.management.platform.utils.SessionUtils;
 
 /**
@@ -30,7 +30,7 @@ public class ConsultantController {
     private static final Logger LOG = LoggerFactory.getLogger(ConsultantController.class);
 
     @Autowired
-    private ConsultantService consultantService;
+    private UserService consultantService;
 
     @Autowired
     private ConsultantCategoryService consultantCategoryService;

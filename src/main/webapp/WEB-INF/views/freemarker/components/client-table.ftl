@@ -1,34 +1,28 @@
-<#macro renderTable consultantsList>
+<#macro renderTable clientsList>
 <table class="table">
-    <#if consultantsList?has_content>
+    <#if clientsList?has_content>
         <thead>
         <th class="table-header">Nume</th>
         <th class="table-header">Prenume</th>
-        <th class="table-header">Numar Telefon</th>
         <th class="table-header">Adresa e-mail</th>
-        <th class="table-header">Specialitate</th>
-        <th class="table-header">Nr. Proiecte Active</th>
-        <th class="table-header">Detalii</th>
+        <th class="table-header">Ultima accesare</th>
+        <th class="table-header">Membru din :</th>
         </thead>
     <tbody>
-        <#list consultantsList as consultant>
+        <#list clientsList as client>
         <tr class="tableRow">
-            <td>${consultant.lastName}</td>
-            <td>${consultant.firstName}</td>
-            <td>${consultant.phoneNumber}</td>
-            <td>${consultant.mail}</td>
-            <td>${consultant.speciality.specialityName}</td>
-            <td>${consultant.numberOfActiveProjects}</td>
-            <td>
-                <form class="details-button-qaa-${consultant.userId}" action="./consultantDetails" method="GET">
-                    <input type="hidden" name="userId" value="${consultant.userId}" />
-                    <button id="edit${consultant.userId}" type="submit" class="btn details-button">Detatlii</button>
-                </form>
-            </td>
-        </tr>
+            <td>${client.lastName}</td>
+            <td>${client.firstName}</td>
+            <td>${client.mail}</td>
+            <#if client.lastLogin?has_content>
+                <td>${client.lastLogin}</td>
+            <#else>
+            <td class="text-danger"> <span class="glyphicon glyphicon-remove" aria-hidden="true"> Neautentificat</span></td>
+            </#if>
+            <td>${client.createdOn?datetime?string("dd-MM-yyyy")}</td>
         </#list>
     <#else>
-    Nici un consultant adaugat!
+    Nici un client!
     </#if>
 </tbody>
 </table>

@@ -11,14 +11,19 @@
             "id": "faq"
         },
         {
+        	"name": "Comenzi",
+        	"url": "./orders",
+        	"id": "orders"
+        },
+        {
             "name": "Consultanti",
             "url": "./consultants",
             "id": "consultants"
         },
         {
-        	"name": "Orders",
-        	"url": "./orders",
-        	"id": "orders"
+        "name": "Clienti",
+        "url": "./clients",
+        "id": "clients"
         }
     ],
     "CONSULTANT": [

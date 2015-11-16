@@ -3,6 +3,7 @@ package ro.management.platform.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import ro.management.platform.model.entities.Client;
 import ro.management.platform.security.Authority;
 import ro.management.platform.utils.*;
@@ -29,6 +30,10 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Value("${users.predefined.password}")
+    private String definedInitialPassword;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String getOrders(@RequestParam(value = "searchText", required = false) String searchText,
@@ -88,7 +93,7 @@ public class OrderController {
         user.setLastName(lastName);
         user.setMail(email);
         user.setRole(Authority.CLIENT);
-        user.setPassword(Utils.Constants.CHANGEME_123);
+        user.setPassword(definedInitialPassword);
 
         return user;
     }

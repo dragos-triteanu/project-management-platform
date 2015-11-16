@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/consultants**").access("hasRole('ADMINISTRATOR')")
 		.antMatchers("/myorders**").access("hasAnyRole('CONSULTANT','CLIENT')")
 		.antMatchers("/consultantDetails**").access("hasRole('ADMINISTRATOR')")
+		.antMatchers("/clients**").access("hasRole('ADMINISTRATOR')")
         .antMatchers("/myOrderDetails**").access("hasAnyRole('CONSULTANT','CLIENT')")
 		.and().formLogin().loginPage("/login").failureUrl("/login?loginError=true")
 		.and().exceptionHandling().accessDeniedPage("/denied")
