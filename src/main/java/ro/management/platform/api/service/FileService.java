@@ -34,9 +34,6 @@ public class FileService {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private MessageRepository messageRepository;
 	
 	@RequestMapping(value="/cv", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> getPDF(@RequestParam("id") final int id) throws IOException, DocumentException {
