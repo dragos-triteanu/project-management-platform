@@ -19,7 +19,7 @@ public class Message {
     @JoinColumn(name="orderId", nullable = false)
     private Order order;
 
-    @Column(name = "content" , nullable = false)
+    @Column(name = "content" , nullable = true)
     private String content;
 
     @Column(name = "timestamp" , nullable = false)
@@ -27,6 +27,12 @@ public class Message {
 
     @Column(name = "sender" , nullable = false)
     private long sender;
+
+    @Column(name = "fileName" , nullable = true)
+    private String fileName;
+
+    @Column(name = "location" , nullable = true)
+    private String location;
 
     public int getMessageId() {
         return messageId;
@@ -66,5 +72,21 @@ public class Message {
 
     public void setSender(long sender) {
         this.sender = sender;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

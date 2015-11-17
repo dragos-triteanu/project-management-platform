@@ -10,14 +10,27 @@
                         <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
                     </button>
                 </div>
+                <div class="right">
+                    <div class="fileUploadContainer">
+                        <label for="fileUpload">
+                            <span class="glyphicon glyphicon-upload"></span>
+                        </label>
+                        <input id="fileUpload" ng-model="uploadedFile" onchange="angular.element(this).scope().fileChange(this)" type="file" class="fileUpload" name="uploadedFile"/>
+                    </div>
+                </div>
             </header>
-            <div id="chatBody">
-                <p ng-repeat="message in messages | orderBy:'time':reverse" class="message">
-                    <time class="chatTime">{{message.timestamp | date:'HH:mm'}}</time>
+                <div id="chatBody">
+                    <p ng-repeat="message in messages | orderBy:'time':reverse" class="message">
+                        <time class="chatTime">{{message.timestamp | date:'HH:mm'}}</time>
                         {{message.from == userId ? 'me:' : 'C' + message.from + ':'}}
-                    <span ng-class="{self: message.self}">{{message.content}}</span>
-                </p>
-            </div>
+                        <span ng-if="message.location != null">
+                           <a href="{{message.location}}"><span ng-class="{self: message.self}">{{message.fileName}}</span></a>
+                        </span>
+                        <span ng-if="message.location == null">
+                            <span>{{message.content}}</span>
+                        </span>
+                    </p>
+                </div>
             <div id="chatFooter">
                 <form ng-submit="addMessage()" name="messageForm">
                     <div class="input-group">

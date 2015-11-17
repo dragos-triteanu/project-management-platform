@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import ro.management.platform.model.entities.MailMessage;
+import ro.management.platform.model.dto.MailMessage;
 import ro.management.platform.model.entities.User;
 import ro.management.platform.services.MailService;
 import ro.management.platform.utils.FileUtils;

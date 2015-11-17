@@ -2,8 +2,7 @@ package ro.management.platform.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import ro.management.platform.model.entities.ChatMessage;
-import ro.management.platform.model.entities.Message;
+import ro.management.platform.model.dto.ChatMessage;
 import ro.management.platform.model.entities.Order;
 import ro.management.platform.model.entities.User;
 import ro.management.platform.services.MessageService;
@@ -59,5 +58,4 @@ public class MyOrderDetailsController {
         orderService.rateConsultantResponsibleForOrder(orderId,consultantRating);
         return "redirect:/myorders";
     }
-
 }

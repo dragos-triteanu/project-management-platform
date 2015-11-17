@@ -142,3 +142,7 @@
 .create-form , .edit-form {
     text-align: left;
 }
+
+.fileUploadContainer > input {
+    display: none;
+}

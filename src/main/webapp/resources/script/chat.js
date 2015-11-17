@@ -16,5 +16,4 @@ $(document).ready(function() {
     $('#chatBody').bind("DOMSubtreeModified",function(){
         $("#chatBody").scrollTop($("#chatBody")[0].scrollHeight);
     });
-
 });

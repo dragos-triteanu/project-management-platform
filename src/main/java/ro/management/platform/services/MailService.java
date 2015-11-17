@@ -3,14 +3,12 @@ package ro.management.platform.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
-import ro.management.platform.model.entities.MailMessage;
+import ro.management.platform.model.dto.MailMessage;
 import ro.management.platform.model.entities.User;
 import ro.management.platform.repository.UserRepository;
 import ro.management.platform.utils.FileUtils;
@@ -19,7 +17,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.Future;
 
 /**
  * Created by dragos.triteanu on 11/15/15.

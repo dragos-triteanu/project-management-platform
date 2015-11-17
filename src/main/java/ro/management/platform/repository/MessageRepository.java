@@ -8,12 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ro.management.platform.model.entities.ChatMessage;
+import ro.management.platform.model.dto.ChatMessage;
 import ro.management.platform.model.entities.Message;
 import ro.management.platform.model.entities.Order;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,6 +52,8 @@ public class MessageRepository {
         message.setTimestamp(new Timestamp(chatMessage.getTimestamp().getTime()));
         message.setContent(chatMessage.getContent());
         message.setSender(chatMessage.getFrom());
+        message.setFileName(chatMessage.getFileName());
+        message.setLocation(chatMessage.getLocation());
         return message;
     }
 

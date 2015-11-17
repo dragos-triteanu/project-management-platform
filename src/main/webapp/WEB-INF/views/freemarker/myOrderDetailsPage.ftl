@@ -33,7 +33,7 @@
     <script src="resources/libs/lodash/lodash.min.js"></script>
     <script src="resources/libs/bootstrap-star-rating/js/star-rating.min.js"></script>
     <script src="resources/script/angular/app.js" type="text/javascript"></script>
-    <script src="resources/script/angular/controllers.js" type="text/javascript"></script>
+    <script src="resources/script/angular/chatController.js" type="text/javascript"></script>
     <script src="resources/script/angular/chatService.js" type="text/javascript"></script>
-    <script src="./resources/script/chat.js"></script>
+    <script src="resources/script/chat.js"></script>
 </body>

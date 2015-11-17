@@ -1,20 +1,13 @@
 package ro.management.platform.controller.chat;
 
-import ro.management.platform.model.entities.ChatMessage;
+import ro.management.platform.model.dto.ChatMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import ro.management.platform.model.entities.Message;
-import ro.management.platform.repository.MessageRepository;
-import ro.management.platform.repository.OrderRepository;
 import ro.management.platform.services.MessageService;
-
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
 
 @Controller
 public class ChatController {

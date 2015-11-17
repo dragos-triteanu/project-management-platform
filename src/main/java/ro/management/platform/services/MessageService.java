@@ -1,6 +1,6 @@
 package ro.management.platform.services;
 
-import ro.management.platform.model.entities.ChatMessage;
+import ro.management.platform.model.dto.ChatMessage;
 import ro.management.platform.model.entities.Message;
 import ro.management.platform.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +44,8 @@ public class MessageService {
         chatMessage.setFrom(message.getSender());
         chatMessage.setOrderId(message.getOrder().getOrderId());
         chatMessage.setTimestamp(new Date(message.getTimestamp().getTime()));
+        chatMessage.setLocation(message.getLocation());
+        chatMessage.setFileName(message.getFileName());
         return chatMessage;
     }
 

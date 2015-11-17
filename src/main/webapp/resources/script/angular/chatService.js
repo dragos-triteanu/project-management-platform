@@ -22,8 +22,10 @@
             }, JSON.stringify({
                 orderId:orderId,
                 from:from,
-                content: message,
-                timestamp: new Date()
+                content: message.content,
+                timestamp: new Date(),
+                location:message.location,
+                fileName:message.fileName
             }));
         };
 
@@ -39,9 +41,10 @@
             out.timestamp = new Date(message.timestamp);
             out.from  = message.from;
             out.orderId = message.orderId;
+            out.fileName = message.fileName;
+            out.location = message.location;
             return out;
         };
-
 
         service.getMessages = function($scope){
            $http.get("./myOrderDetails/messages?orderId="+orderId).then(function successCallback(response){

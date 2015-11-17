@@ -1,4 +1,4 @@
-package ro.management.platform.model.entities;
+package ro.management.platform.model.dto;
 
 import java.util.Date;
 
@@ -17,6 +17,10 @@ public class ChatMessage {
     private long from;
 
     private Date timestamp;
+
+    private String location;
+
+    private String fileName;
 
     public String getMessageId() {
         return messageId;
@@ -56,5 +60,21 @@ public class ChatMessage {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }
