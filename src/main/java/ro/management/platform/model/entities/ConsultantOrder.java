@@ -1,5 +1,6 @@
 package ro.management.platform.model.entities;
 
+import org.hibernate.validator.constraints.Range;
 import ro.management.platform.utils.OrderStatus;
 
 import javax.persistence.*;
@@ -33,6 +34,7 @@ public class ConsultantOrder {
     private Consultant consultant;
 
     @Column(name = "nrOfDays")
+    @Range(min=1)
     private int nrOfDays;
 
     @Column(name = "cost")

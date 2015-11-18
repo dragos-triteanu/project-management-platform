@@ -1,5 +1,8 @@
 package ro.management.platform.model.entities;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import ro.management.platform.utils.OrderStatus;
 
 import javax.persistence.*;
@@ -25,18 +28,23 @@ public class Order {
     private int orderId;
 
     @Column(name = "domain", nullable = false)
+    @NotBlank(message = "order.domain.notBlank")
     private String domain;
 
     @Column(name = "subject", nullable = false)
+    @NotBlank(message = "order.subject.notBlank")
     private String subject;
 
     @Column(name = "nrOfPages", nullable = false)
+    @Range(min = 1 , max = 100,message = "order.nrOfPages.range")
     private long nrOfPages;
 
     @Column(name = "tableOfContents", nullable = false)
+    @NotBlank(message = "order.tableOfContents.notBlank")
     private String tableOfContents;
 
     @Column(name = "bibliography", nullable = false)
+    @NotBlank(message = "order.bibliography.notBlank")
     private String bibliography;
 
     @Column(name = "annexes", nullable = true, columnDefinition = "LONGBLOB")
@@ -44,6 +52,7 @@ public class Order {
     private byte[] annexes;
 
     @Column(name = "message", nullable = false)
+    @NotBlank(message = "order.message.notBlank")
     private String message;
 
     @OneToOne

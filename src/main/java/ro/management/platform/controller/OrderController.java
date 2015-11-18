@@ -1,25 +1,25 @@
 package ro.management.platform.controller;
 
-import java.io.IOException;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Value;
-import ro.management.platform.model.entities.Client;
-import ro.management.platform.security.Authority;
-import ro.management.platform.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
+import ro.management.platform.model.entities.Client;
 import ro.management.platform.model.entities.Order;
+import ro.management.platform.security.Authority;
 import ro.management.platform.services.OrderService;
+import ro.management.platform.utils.*;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Dragos on 9/17/2015.
@@ -34,6 +34,11 @@ public class OrderController {
     @Value("${users.predefined.password}")
     private String definedInitialPassword;
 
+    @Autowired
+    private org.springframework.validation.Validator validator;
+
+    @Autowired
+    private MessageTranslator messageTranslator;
 
     @RequestMapping(method = RequestMethod.GET)
     public String getOrders(@RequestParam(value = "searchText", required = false) String searchText,
@@ -55,22 +60,27 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/placeOrder", method = RequestMethod.POST)
-    public ResponseEntity<Integer> placeOrder(@RequestParam("firstName") String firstName,
-                                              @RequestParam("lastName") String lastName,
-                                              @RequestParam("email") String email,
-                                              @RequestParam("domain") String domain,
-                                              @RequestParam("subject") String subject,
-                                              @RequestParam("nrOfPages") long nrOfPages,
-                                              @RequestParam("tableOfContents") String tableOfContents,
-                                              @RequestParam("bibliography") String bibliography,
-                                              @RequestParam("message") String message,
-                                              @RequestParam("annexes") MultipartFile annexes) throws Exception {
+    public ResponseEntity<?> placeOrder(@ModelAttribute("client") Client client,
+                                        @ModelAttribute("order") Order order,
+                                        @RequestParam(value = "files", required = false) MultipartFile files,
+                                        Errors errors) throws Exception {
 
-        Client client = buildUserFromParams(firstName, lastName, email);
-        //TODO validate
-        Order order = buildOrderFromParams(domain, subject, nrOfPages, tableOfContents, bibliography, message, annexes, client);
 
-        int placedOrder = orderService.placeOrder(client, order);
+        validator.validate(client,errors);
+        validator.validate(order,errors);
+
+        if(errors.hasErrors()){
+            List<String> errors1 = messageTranslator.getErrors(errors);
+            return new ResponseEntity<Object>(errors1,HttpStatus.BAD_REQUEST);
+        }
+
+        client.setRole(Authority.CLIENT);
+        client.setPassword(definedInitialPassword);
+
+        order.setAnnexes(files!= null ? files.getBytes() : null);
+        order.setClient(client);
+
+        Integer placedOrder = orderService.placeOrder(client, order);
         return new ResponseEntity<>(placedOrder, HttpStatus.CREATED);
     }
 

@@ -9,13 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import ro.management.platform.model.dto.HtmlForWysiwyg;
 import ro.management.platform.services.LandingPageService;
 import ro.management.platform.utils.MessageTranslator;
 import ro.management.platform.utils.SessionUtils;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -31,14 +32,9 @@ public class LandingPageController {
 	private MessageTranslator messageTranslator;
 
     @RequestMapping(method = RequestMethod.GET)
-	public String howItWorks(ModelMap modelMap, HttpSession session){
+	public String howItWorks(ModelMap modelMap){
 		SessionUtils.populateModelWithAuthenticatedRole(modelMap);
 
-		List<String> errors = (List<String>) session.getAttribute("errors");
-		if(errors != null){
-			modelMap.addAttribute("errors",errors);
-			session.removeAttribute("errors");
-		}
 		String htmlForWysiwyg = landingPageService.getHTMLForWysiwyg();
 		String htmlForWysiwygEscaped = StringEscapeUtils.escapeHtml4(htmlForWysiwyg);
 		LOG.debug("Found HTML=\n"+ htmlForWysiwygEscaped);
@@ -50,13 +46,13 @@ public class LandingPageController {
 	@RequestMapping(value="/updatePage", method = RequestMethod.POST)
 	public String updatePage(@Valid HtmlForWysiwyg htmlForWysiwyg,
 							 BindingResult bindingResult,
-                             ModelMap modelMap,
-							 HttpSession session){
+                             ModelMap modelMap){
 
 		if(bindingResult.hasErrors()){
+			SessionUtils.populateModelWithAuthenticatedRole(modelMap);
 			List<String> errors = messageTranslator.getErrors(bindingResult);
-			session.setAttribute("errors",errors);
-			return "redirect:/home";
+			modelMap.addAttribute("errors", errors);
+			return "errors";
 		}
 		LOG.debug("Received following HTML file :\n "+htmlForWysiwyg.getNewHtml());
         landingPageService.updateWywywigForUser(htmlForWysiwyg.getNewHtml(),htmlForWysiwyg.getWhatUsersSee());
@@ -64,7 +60,8 @@ public class LandingPageController {
 	}
 
     @RequestMapping(value = "/getHTMLForUserType" , method = RequestMethod.POST)
-    public ResponseEntity<String> getHtmlForUserType(@RequestParam("userType") int userType){
+    public ResponseEntity<String> getHtmlForUserType(@RequestParam("userType") int userType,BindingResult result){
+
         String htmlForUserByType = landingPageService.getHtmlForUserByType(userType);
         ResponseEntity<String> entity = new ResponseEntity<String>(htmlForUserByType, HttpStatus.OK);
         return entity;

@@ -4,6 +4,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import ro.management.platform.config.AsyncConfig;
 import ro.management.platform.config.MailingConfig;
 import ro.management.platform.config.HibernateConfig;
@@ -32,5 +33,12 @@ public class MVCAppContext {
 		messageSource.setBasename("conf/errors/errorMessages");
 		return messageSource;
 	}
+
+	@Bean
+	public LocalValidatorFactoryBean validator(){
+		LocalValidatorFactoryBean factoryBean = new LocalValidatorFactoryBean();
+		return factoryBean;
+	}
+
 
 }

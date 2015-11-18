@@ -1,10 +1,14 @@
 package ro.management.platform.controller;
 
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import ro.management.platform.model.entities.Consultant;
 import ro.management.platform.model.entities.ConsultantOrder;
 
 import ro.management.platform.model.entities.Order;
 import ro.management.platform.services.BidService;
+import ro.management.platform.utils.MessageTranslator;
 import ro.management.platform.utils.OrderStatus;
 import ro.management.platform.utils.SessionUtils;
 import org.slf4j.Logger;
@@ -14,6 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
+import java.util.List;
 
 
 /**
@@ -26,12 +33,17 @@ public class BidController {
     @Autowired
     private BidService bidService;
 
-    @RequestMapping(value="/placeBid", method = RequestMethod.POST)
-    public String sendBid(@RequestParam("orderId") int orderId , @RequestParam("nrOfDays") int nrOfDays, @RequestParam("cost") double cost){
+    @Autowired
+    private MessageTranslator messageTranslator;
 
-        ConsultantOrder bid = new ConsultantOrder();
-        bid.setCost(cost);
-        bid.setNrOfDays(nrOfDays);
+    @RequestMapping(value="/placeBid", method = RequestMethod.POST)
+    public String sendBid(@RequestParam("orderId") int orderId ,@Valid @ModelAttribute("consultantOrder") ConsultantOrder bid,BindingResult bindingResult,ModelMap modelMap){
+
+        if(bindingResult.hasErrors()){
+            List<String> errors = messageTranslator.getErrors(bindingResult);
+            modelMap.addAttribute("errors",errors);
+            return "errors";
+        }
 
         Order order=new Order();
         order.setOrderId(orderId);
@@ -44,8 +56,8 @@ public class BidController {
     }
 
     @RequestMapping(value="/deleteBid", method = RequestMethod.POST)
-    public String deleteBid(@RequestParam("orderId") int orderId)
-    {
+    public String deleteBid(@RequestParam("orderId") int orderId){
+
         bidService.deleteBid(SessionUtils.GetCurrentUser().getUserId(),orderId);
         return "redirect:/myorders";
     }

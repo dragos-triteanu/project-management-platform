@@ -1,8 +1,11 @@
 package ro.management.platform.model.entities;
 
 import org.hibernate.annotations.Formula;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import static ro.management.platform.repository.Queries.*;
 import static ro.management.platform.repository.Queries.RETRIEVE_CONSULTANTS_BY_ADDRESS;
@@ -16,9 +19,11 @@ import static ro.management.platform.repository.Queries.RETRIEVE_CONSULTANTS_BY_
 public class Client extends User {
 
     @Column(name = "firstName", nullable = false)
+    @NotBlank(message = "client.firstName.notBlank")
     private String firstName;
 
     @Column(name= "lastName" , nullable = false)
+    @NotBlank(message = "client.lastName.notBlank")
     private String lastName;
 
     @Formula(value = " concat(firstName, ' ', lastName)")

@@ -1,11 +1,10 @@
 package ro.management.platform.model.entities;
 
+import org.hibernate.validator.constraints.Email;
 import ro.management.platform.security.Authority;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-
-import static ro.management.platform.repository.Queries.GET_ALL_ADMIN_MAILS;
 
 /**
  * Created by Dragos on 11/5/2015.
@@ -21,6 +20,7 @@ public class User {
     private int userId;
 
     @Column(name="mail", nullable = false)
+    @Email(message = "client.email.notEmail")
     private String mail;
 
     @Column(name="password", nullable = false)

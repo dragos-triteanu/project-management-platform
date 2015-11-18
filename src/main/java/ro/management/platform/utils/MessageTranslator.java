@@ -5,6 +5,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
 import java.util.ArrayList;
@@ -40,4 +41,17 @@ public class MessageTranslator {
         return errors;
     }
 
+    public List<String> getErrors(Errors errors) {
+        List<String> errorsString = new ArrayList<>();
+        for(FieldError error : errors.getFieldErrors()){
+            Object[] arguments = error.getArguments();
+            if(arguments.length > 1){
+                errorsString.add(getLocalizedMessage(error.getDefaultMessage(),arguments));
+            }else{
+                errorsString.add(getLocalizedMessage(error.getDefaultMessage(), new Object[]{error.getField()}));
+            }
+        }
+        return errorsString;
+
+    }
 }
