@@ -1,5 +1,7 @@
 package ro.management.platform.context;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import ro.management.platform.config.HibernateConfig;
 import ro.management.platform.config.WebSocketConfig;
 import org.springframework.context.annotation.Bean;

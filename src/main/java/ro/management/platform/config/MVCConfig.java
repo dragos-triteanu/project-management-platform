@@ -21,7 +21,6 @@ import java.util.Map;
 
 @Configuration
 @PropertySource("classpath:conf/application.properties")
-@EnableAsync
 public class MVCConfig extends WebMvcConfigurerAdapter{
 
 
@@ -70,11 +69,4 @@ public class MVCConfig extends WebMvcConfigurerAdapter{
         multipartResolver.setMaxUploadSize(maxFileUploadSize);
         return multipartResolver;
     }
-
-	@Bean
-	public MessageSource messageSource() {
-		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-		messageSource.setBasename("conf/errors/errorMessages");
-		return messageSource;
-	}
 }
