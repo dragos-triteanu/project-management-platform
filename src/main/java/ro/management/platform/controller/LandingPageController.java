@@ -8,11 +8,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import ro.management.platform.model.dto.HtmlForWysiwyg;
 import ro.management.platform.services.LandingPageService;
+import ro.management.platform.utils.MessageTranslator;
 import ro.management.platform.utils.SessionUtils;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/home")
@@ -22,10 +27,18 @@ public class LandingPageController {
     @Autowired
     private LandingPageService landingPageService;
 
+	@Autowired
+	private MessageTranslator messageTranslator;
+
     @RequestMapping(method = RequestMethod.GET)
-	public String howItWorks(ModelMap modelMap){
+	public String howItWorks(ModelMap modelMap, HttpSession session){
 		SessionUtils.populateModelWithAuthenticatedRole(modelMap);
 
+		List<String> errors = (List<String>) session.getAttribute("errors");
+		if(errors != null){
+			modelMap.addAttribute("errors",errors);
+			session.removeAttribute("errors");
+		}
 		String htmlForWysiwyg = landingPageService.getHTMLForWysiwyg();
 		String htmlForWysiwygEscaped = StringEscapeUtils.escapeHtml4(htmlForWysiwyg);
 		LOG.debug("Found HTML=\n"+ htmlForWysiwygEscaped);
@@ -35,11 +48,18 @@ public class LandingPageController {
 	}
 
 	@RequestMapping(value="/updatePage", method = RequestMethod.POST)
-	public String updatePage(@RequestParam("newHtml") String newHtml,
-                             @RequestParam("whatUsersSee") int whatUsersSee,
-                             ModelMap modelMap){
-		LOG.debug("Received following HTML file :\n "+newHtml);
-        landingPageService.updateWywywigForUser(newHtml,whatUsersSee);
+	public String updatePage(@Valid HtmlForWysiwyg htmlForWysiwyg,
+							 BindingResult bindingResult,
+                             ModelMap modelMap,
+							 HttpSession session){
+
+		if(bindingResult.hasErrors()){
+			List<String> errors = messageTranslator.getErrors(bindingResult);
+			session.setAttribute("errors",errors);
+			return "redirect:/home";
+		}
+		LOG.debug("Received following HTML file :\n "+htmlForWysiwyg.getNewHtml());
+        landingPageService.updateWywywigForUser(htmlForWysiwyg.getNewHtml(),htmlForWysiwyg.getWhatUsersSee());
 		return "redirect:/home";
 	}
 

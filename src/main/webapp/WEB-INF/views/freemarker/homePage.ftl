@@ -5,10 +5,10 @@
 <html>
 	<head>
 	 	<#include "*/includes.ftl">
-	 	<link rel="stylesheet" type="text/css" href="./resources/css/wysihtml5/editor.css" />
-	 	<link rel="stylesheet" type="text/css" href="./resources/css/wysihtml5/wysihtml5.css" />
-	 	<link rel="stylesheet" type="text/css" href="./resources/css/home.css" />
-	    <link rel="stylesheet" type="text/css" href="./resources/css/mediaQueries/home-media-queries.css" />
+	 	<link rel="stylesheet" type="text/css" href="resources/css/wysihtml5/editor.css" />
+	 	<link rel="stylesheet" type="text/css" href="resources/css/wysihtml5/wysihtml5.css" />
+	 	<link rel="stylesheet" type="text/css" href="resources/css/home.css" />
+	    <link rel="stylesheet" type="text/css" href="resources/css/mediaQueries/home-media-queries.css" />
 	 	
 	</head>
 	<body>
@@ -62,9 +62,11 @@
 					</div>
 				</div>
 			</#if>
-			
-			<script src="./resources/script/wysihtml5/wysihtml5-parserRules.js"></script>
-			<script src="./resources/script/wysihtml5/wysihtml5-0.3.0.js"></script>
-			<script src="./resources/script/home.js"></script>
+			<#if errors?? && errors?has_content>
+				<@errorBox.renderErrors errors />
+			</#if>
+			<script src="resources/script/wysihtml5/wysihtml5-parserRules.js"></script>
+			<script src="resources/script/wysihtml5/wysihtml5-0.3.0.js"></script>
+			<script src="resources/script/home.js"></script>
 	</body>
 </html>

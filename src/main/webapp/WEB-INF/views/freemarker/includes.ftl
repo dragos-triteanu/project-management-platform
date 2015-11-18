@@ -6,4 +6,5 @@
 <script src="resources/libs/jquery/jquery.min.js"></script>
 <script src="resources/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="resources/libs/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-<script src="./resources/script/bootbox.min.js"></script>
+<script src="resources/script/bootbox.min.js"></script>
+<#import "*/components/errorBox.ftl" as errorBox/>
