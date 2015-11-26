@@ -51,7 +51,7 @@ public class OrderDetailsController {
             }
             case ASSIGNED:
             case INPROGRESS:{
-                if(order.getConsultant()!=null){
+                if(order.getConsultant() != null){
                     ConsultantOrder assignedConsultant = bidService.getConsultantBid(id, order.getConsultant().getUserId());
                     modelMap.addAttribute("assignedConsultant", assignedConsultant);
                     break;
@@ -66,10 +66,8 @@ public class OrderDetailsController {
 
     @RequestMapping(value="/assignConsultant",method = RequestMethod.POST)
     public String assignConsultant(@RequestParam("orderId")int orderId,@RequestParam("consultantId") int consultantId,ModelMap modelMap){
-        orderService.assignConsultant(orderId, consultantId);
-        Order order = orderService.getOrderByUId(orderId);
-        modelMap.addAttribute("order", order);
 
+        orderService.assignConsultant(orderId, consultantId);
         return getOrderDetails(orderId,modelMap);
     }
 }

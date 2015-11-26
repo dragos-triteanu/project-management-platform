@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 import static ro.management.platform.repository.Queries.DELETE_BID;
 import static ro.management.platform.repository.Queries.UPDATE_BID_STATUS;
-
+import static ro.management.platform.repository.Queries.UPDATE_BID_STATUS_FOR_REJECTED_CONSULTANTS;
 
 /**
  * Created by Dragos on 9/21/2015.
@@ -16,7 +16,8 @@ import static ro.management.platform.repository.Queries.UPDATE_BID_STATUS;
 @Table(name="consultantOrders")
 @NamedQueries({
     @NamedQuery(name = DELETE_BID, query = "DELETE FROM ConsultantOrder co WHERE co.consultant.userId=:consultantId AND co.order.orderId=:orderId"),
-    @NamedQuery(name = UPDATE_BID_STATUS , query = "UPDATE ConsultantOrder co SET co.status=:status WHERE co.consultant.userId=:consultantId AND co.order.orderId=:orderId")
+    @NamedQuery(name = UPDATE_BID_STATUS , query = "UPDATE ConsultantOrder co SET co.status=:status WHERE co.consultant.userId=:consultantId AND co.order.orderId=:orderId"),
+    @NamedQuery(name = UPDATE_BID_STATUS_FOR_REJECTED_CONSULTANTS, query = "UPDATE ConsultantOrder co SET co.status=:status WHERE co.consultant.userId<>:consultantId AND co.order.orderId=:orderId" )
 })
 public class ConsultantOrder {
 

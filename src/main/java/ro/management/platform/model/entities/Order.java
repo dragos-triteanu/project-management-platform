@@ -10,6 +10,7 @@ import javax.persistence.*;
 import static ro.management.platform.repository.Queries.UPDATE_ORDER;
 import static ro.management.platform.repository.Queries.ASSIGN_CONSULTANT;
 import static ro.management.platform.repository.Queries.DELETE_ORDER;
+import static ro.management.platform.repository.Queries.UPDATE_ORDER_STATUS;
 /**
  * Created by Dragos on 9/19/2015.
  */
@@ -18,7 +19,8 @@ import static ro.management.platform.repository.Queries.DELETE_ORDER;
 @NamedQueries({
     @NamedQuery(name = UPDATE_ORDER, query = "UPDATE Order o SET o.domain=:domain, o.subject=:subject, o.nrOfPages=:nrOfPages, o.tableOfContents=:tableOfContents, o.bibliography=:bibliography, o.message=:message, o.orderStatus=:orderStatus WHERE o.orderId=:orderId"),
     @NamedQuery(name= ASSIGN_CONSULTANT, query = "UPDATE Order o SET o.consultant.userId=:consultantId, o.orderStatus=:orderStatus WHERE o.orderId=:orderId"),
-    @NamedQuery(name= DELETE_ORDER, query = "DELETE  FROM Order o WHERE o.orderId=:orderId")
+    @NamedQuery(name= DELETE_ORDER, query = "DELETE  FROM Order o WHERE o.orderId=:orderId"),
+    @NamedQuery(name= UPDATE_ORDER_STATUS, query = "UPDATE Order o SET o.orderStatus=:orderStatus WHERE o.orderId=:orderId")
 })
 public class Order {
 

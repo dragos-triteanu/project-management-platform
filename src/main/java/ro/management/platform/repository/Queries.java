@@ -27,12 +27,14 @@ public class Queries {
     public static final String UPDATE_ORDER = "updateOrder";
     public static final String ASSIGN_CONSULTANT = "assignConsultant";
     public static final String DELETE_ORDER = "deleteOrder";
+    public static final String UPDATE_ORDER_STATUS ="updateOrderStatus";
 
     /**
      * {@link ro.management.platform.model.entities.ConsultantOrder} named queries.
      */
     public static final String DELETE_BID = "deleteBidByConsultantIdAndOrderId";
     public static final String UPDATE_BID_STATUS = "updateBidStatus";
+    public static final String UPDATE_BID_STATUS_FOR_REJECTED_CONSULTANTS = "updateBidStatusForRejectedConsultants";
     /**
      * {@link ro.management.platform.model.entities.QuestionAndAnswer} QAA queries.
      */

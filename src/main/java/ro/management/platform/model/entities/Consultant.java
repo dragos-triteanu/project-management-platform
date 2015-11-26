@@ -53,7 +53,7 @@ public class Consultant extends User {
     @Formula(value = "concat(firstName,' ', lastName)")
     private String fullName;
 
-    @Formula(value = "(SELECT COUNT(*) FROM consultantOrders co WHERE co.status = 3 AND co.consultantId = consultantId)" )
+    @Formula(value = "(SELECT COUNT(*) FROM consultantOrders co WHERE (co.status = 3 OR co.status = 6 OR co.status = 7) AND co.consultantId = consultantId)" )
     private int numberOfActiveProjects;
 
     @Transient

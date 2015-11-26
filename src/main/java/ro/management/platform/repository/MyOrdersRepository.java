@@ -1,10 +1,10 @@
 package ro.management.platform.repository;
 
 import org.apache.commons.lang3.StringUtils;
-import ro.management.platform.model.entities.Client;
-import ro.management.platform.model.entities.ConsultantOrder;
-import ro.management.platform.model.entities.Order;
-import ro.management.platform.model.entities.User;
+import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Property;
+import ro.management.platform.model.entities.*;
 import ro.management.platform.utils.CategoryOrderSearch;
 import ro.management.platform.utils.OrderStatus;
 import ro.management.platform.utils.SessionUtils;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static org.apache.commons.lang3.StringUtils.getCommonPrefix;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
@@ -40,11 +41,9 @@ public class MyOrdersRepository {
      *
      * @return
      */
-    public List<Order> getConsultantAssignedOrders() {
-        LOG.debug("Retrieving list of active orders for consultant:" + SessionUtils.GetCurrentUser().getUserId());
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Order.class);
-        criteria.add(Restrictions.eq("orderStatus", OrderStatus.ASSIGNED));
-        criteria.add(Restrictions.isNotNull("consultant"));
+    public List<Order> getConsultantAssignedOrders(User consultant) {
+        LOG.debug("Retrieving list of active orders for consultant:" + consultant.getUserId());
+        Criteria criteria = getMyOrdersCriteriaForConsultant();
         List<Order> orders = getOrdersWithStatus(criteria.list());
         LOG.debug("Found :" + orders);
 
@@ -76,11 +75,10 @@ public class MyOrdersRepository {
         return orderList;
     }
 
-    public List<Order> getOrderResultSearch(String searchText, CategoryOrderSearch selectedCategory) {
+    public List<Order> getMyOrdersSearchResultForConsultant(final User consultant,String searchText, CategoryOrderSearch selectedCategory) {
         LOG.info("Searching for orders that contain the word={}", searchText);
         List<Order> orders = new ArrayList<>();
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Order.class);
-        criteria.add(Restrictions.eq("orderStatus", OrderStatus.ASSIGNED));
+        Criteria criteria = getMyOrdersCriteriaForConsultant();
         switch (selectedCategory) {
             case DOMAIN:
                 criteria.add(Restrictions.like("domain", "%" + searchText + "%"));
@@ -98,18 +96,30 @@ public class MyOrdersRepository {
         sessionFactory.getCurrentSession().setFlushMode(FlushMode.MANUAL);
         Iterator<Order> it= orders.iterator();
         while(it.hasNext()){
-            Order order = it.next();
-            Criteria consultantOrder = sessionFactory.getCurrentSession().createCriteria(ConsultantOrder.class);
-            consultantOrder.add(Restrictions.eq("consultant.userId", SessionUtils.GetCurrentUser().getUserId()));
-            consultantOrder.add(Restrictions.eq("order.orderId", order.getOrderId()));
-            ConsultantOrder result = (ConsultantOrder) consultantOrder.uniqueResult();
+           Order order = it.next();
+           Criteria consultantOrder = sessionFactory.getCurrentSession().createCriteria(ConsultantOrder.class);
+           consultantOrder.add(Restrictions.eq("consultant.userId", SessionUtils.GetCurrentUser().getUserId()));
+           consultantOrder.add(Restrictions.eq("order.orderId", order.getOrderId()));
+           ConsultantOrder result = (ConsultantOrder) consultantOrder.uniqueResult();
             if (result != null) {
                 order.setOrderStatus(result.getStatus());
                 continue;
             }
             it.remove();
-        }
+       }
         sessionFactory.getCurrentSession().clear();
         return orders;
+    }
+
+    private Criteria getMyOrdersCriteriaForConsultant(){
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Order.class);
+        Disjunction orExpression = Restrictions.disjunction();
+        orExpression.add(Property.forName("orderStatus").eq(OrderStatus.ASSIGNED))
+                    .add(Property.forName("orderStatus").eq(OrderStatus.INPROGRESS))
+                    .add(Property.forName("orderStatus").eq(OrderStatus.DONE));
+        criteria.add(orExpression);
+        criteria.add(Restrictions.isNotNull("consultant"));
+
+        return criteria;
     }
 }

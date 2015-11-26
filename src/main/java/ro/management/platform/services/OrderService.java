@@ -87,5 +87,8 @@ public class OrderService {
         userRepository.hibernateUpdateConsultant(consultant);
     }
 
+    public void startOrder(int orderId, int consultantId) {
+        orderRepository.startOrder(orderId,consultantId);
+    }
 }
 

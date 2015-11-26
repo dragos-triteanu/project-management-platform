@@ -43,7 +43,7 @@
                          </#if>
                          <input type="hidden" name="orderId" value="${order.orderId}" />
                          <button id="edit${order.orderId}" type="submit" class="btn btn-danger">Sterge</button>
-                     <#elseif order.orderStatus == "APPROVED" >
+                     <#elseif order.orderStatus == "APPROVED" || order.orderStatus == "INPROGRESS" || order.orderStatus == "DONE">
                         <form class="details-button-qaa-${order.orderId}" action="./myOrderDetails" method="GET">
                             <input type="hidden" name="orderId" value="${order.orderId}" />
                             <button id="edit${order.orderId}" type="submit" class="btn details-button">Detalii</button>

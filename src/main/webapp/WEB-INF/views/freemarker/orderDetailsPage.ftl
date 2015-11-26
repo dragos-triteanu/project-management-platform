@@ -16,39 +16,28 @@
     </div>
 </div>
 
-<#if userRole=="CONSULTANT">
-<#if order.orderStatus == "ACCEPTED">
-<button type="button" id="bidBtn" class="btn btn-default col-md-offset-4">Liciteaza</button>
-<form id="bid" class="create-form bid" role="form" action="/placeBid" method="POST" >
-    <input type="hidden" name="orderId" id="orderId" value="${order.orderId}"/>
-    <div class="col-md-5 col-md-offset-4">
-        <label for="nrOfDays" class="control-label">Numarul de zile</label>
-        <select id="nrOfDays" name="nrOfDays">
-        <#list 1..maxNrOfDays as x>
-            <option>${x}</option>
-        </#list>
-        </select>
-    </div>
-    <div class="form-group col-md-5 col-md-offset-4">
-        <label for="cost" class="control-label">Cost</label>
-        <input type="text" id="cost" name="cost" placeholder="Introduceti suma in RON" required="Introduceti suma." />
-    </div>
-    <div class="form-group col-md-5 col-md-offset-4">
-        <button id="sendBid" type="submit" class="btn btn-default">Trimite</button>
-        <button id="cancelBid" type="button" class="btn btn-default">Anuleaza</button>
-    </div>
-</form>
-<#elseif order.orderStatus == "PENDING" >
-    <div class="alert alert-success container" role="alert">
-        <span>Ai aplicat deja pentru acesta comanda.<br/>
-              Numar de zile : ${consultantBid.nrOfDays} <br/>
-              Cost : ${consultantBid.cost} RON
-          </span>
-    </div>
-
+<#if userRole=="CONSULTANT" && order.orderStatus == "ACCEPTED">
+    <button type="button" id="bidBtn" class="btn btn-default col-md-offset-4">Liciteaza</button>
+    <form id="bid" class="create-form bid" role="form" action="/placeBid" method="POST" >
+        <input type="hidden" name="orderId" id="orderId" value="${order.orderId}"/>
+        <div class="col-md-5 col-md-offset-4">
+            <label for="nrOfDays" class="control-label">Numarul de zile</label>
+            <select id="nrOfDays" name="nrOfDays">
+                <#list 1..maxNrOfDays as x>
+                    <option>${x}</option>
+                </#list>
+            </select>
+        </div>
+        <div class="form-group col-md-5 col-md-offset-4">
+            <label for="cost" class="control-label">Cost</label>
+            <input type="text" id="cost" name="cost" placeholder="Introduceti suma in RON" required="Introduceti suma." />
+        </div>
+        <div class="form-group col-md-5 col-md-offset-4">
+            <button id="sendBid" type="submit" class="btn btn-default">Trimite</button>
+            <button id="cancelBid" type="button" class="btn btn-default">Anuleaza</button>
+        </div>
+    </form>
 </#if>
-</#if>
-
 <script src="./resources/script/order.js"></script>
 </body>
 <html>

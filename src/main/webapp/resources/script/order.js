@@ -2,12 +2,11 @@
  * Created by Dragos on 9/21/2015.
  */
 $(document).ready(function(){
-    var row;
+    /*apply bid for an order section*/
     $('#bidBtn').on('click',function(){
         $(this).hide();
         $('#bid').show();
     });
-
     $('#cancelBid').on('click', function()
     {
         $('#bidBtn').show();
@@ -15,10 +14,11 @@ $(document).ready(function(){
 
     });
 
+    /*assign consultant to an order section*/
+    var row;
     $("#orderBids tr").draggable({
         helper: "clone"
     });
-
     $("#assignedConsultant").droppable({
         drop: function (event, ui) {
             var bid = ui.draggable.text().replace(/\s+/g," ").split(" ");
@@ -36,7 +36,6 @@ $(document).ready(function(){
             $(ui.helper).remove();
         }
     });
-
     $("#assignConsultant").on('click',function(event) {
             event.preventDefault();
             if (row != null) {
@@ -55,5 +54,21 @@ $(document).ready(function(){
             }
         }
     );
+
+    /*start order section*/
+    $("#starOrder").on('click',function(event) {
+        event.preventDefault();
+        var params = new Object();
+        params["orderId"] = $("#orderId").val();
+        $.ajax({
+            url: "/myOrderDetails/startOrder",
+            method: "POST",
+            data: params
+        }).success(function (data) {
+            console.log(data);
+            $("#myOrderPage").replaceWith($(data).find("#myOrderPage"));
+        });
+    });
+
 });
 

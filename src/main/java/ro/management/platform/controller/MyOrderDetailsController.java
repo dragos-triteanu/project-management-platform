@@ -3,8 +3,10 @@ package ro.management.platform.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ro.management.platform.model.dto.ChatMessage;
+import ro.management.platform.model.entities.ConsultantOrder;
 import ro.management.platform.model.entities.Order;
 import ro.management.platform.model.entities.User;
+import ro.management.platform.services.BidService;
 import ro.management.platform.services.MessageService;
 import ro.management.platform.services.OrderService;
 import ro.management.platform.utils.SessionUtils;
@@ -30,8 +32,11 @@ public class MyOrderDetailsController {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private BidService bidService;
+
     @RequestMapping(method = RequestMethod.GET)
-    public String getAllApprovedOrders(@RequestParam("orderId") int id, ModelMap modelMap) {
+    public String getOrderDetails(@RequestParam("orderId") int id, ModelMap modelMap) {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
 
         Order order = orderService.getOrderByUId(id);
@@ -39,11 +44,23 @@ public class MyOrderDetailsController {
         modelMap.addAttribute("titlePage", "Detalii Comanda");
         User currentUser = SessionUtils.GetCurrentUser();
         modelMap.put("currentUser",currentUser);
-        List<ChatMessage> messages = messageService.getChatMessages(id);
-        modelMap.addAttribute("messages",messages);
+        if(order.getConsultant()!=null){
+            ConsultantOrder assignedConsultant = bidService.getConsultantBid(id, order.getConsultant().getUserId());
+            modelMap.addAttribute("assignedConsultant", assignedConsultant);
+
+            List<ChatMessage> messages = messageService.getChatMessages(id);
+            modelMap.addAttribute("messages",messages);
+        }
         return "myOrderDetailsPage";
     }
 
+
+    @RequestMapping(value="/startOrder",method = RequestMethod.POST)
+    public String startOrder(@RequestParam("orderId")int orderId,ModelMap modelMap){
+
+        orderService.startOrder(orderId, SessionUtils.GetCurrentUser().getUserId());
+        return getOrderDetails(orderId,modelMap);
+    }
 
     @RequestMapping(value = "/messages" , method = RequestMethod.GET)
     public ResponseEntity<Object> getChatMessages(@RequestParam("orderId") int id, ModelMap modelMap){

@@ -97,33 +97,6 @@ public class OrderController {
         return "redirect:/orders";
     }
 
-    private Client buildUserFromParams(String firstName, String lastName, String email) {
-        Client user = new Client();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setMail(email);
-        user.setRole(Authority.CLIENT);
-        user.setPassword(definedInitialPassword);
-
-        return user;
-    }
-
-
-    private Order buildOrderFromParams(String domain, String subject, long nrOfPages, String tableOfContents, String bibliography,
-                                       String message, MultipartFile annexes, Client client) throws IOException {
-        Order order = new Order();
-        order.setDomain(domain);
-        order.setSubject(subject);
-        order.setNrOfPages(nrOfPages);
-        order.setTableOfContents(tableOfContents);
-        order.setBibliography(bibliography);
-        order.setMessage(message);
-        order.setAnnexes(annexes.getBytes());
-        order.setOrderStatus(OrderStatus.NEW);
-        order.setClient(client);
-        return order;
-    }
-
     private List<String> getCategoriesForSearch() {
         if (SessionUtils.GetCurrentUser().getRole().equals(Authority.ADMINISTRATOR)) {
             return AdminCategoryOrderSearch.valuesAsString();

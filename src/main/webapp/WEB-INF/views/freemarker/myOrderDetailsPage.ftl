@@ -15,6 +15,7 @@
     <input id="userId" type="hidden" value="${currentUser.userId}"/>
     <input id="orderId" type="hidden" value="${order.orderId!''}" />
     <@navbarRenderer.renderNavbar userRole="${userRole}" activePage="orders"/>
+    <div class="myOrderPage">
     <div class="container">
         <div class="col-md-12 col-xs-12">
             <@orderForm.renderForm titlePage userRole order />
@@ -24,9 +25,10 @@
         <#if order.rated?string("true","false") == 'false'>
             <@consultantRatingFormRenderer.renderRatingForm order />
         </#if>
-    <#else>
+     <#elseif order.orderStatus == 'INPROGRESS'>
         <@chatRenderer.renderChatWindow userRole />
     </#if>
+    </div>
     <script src="resources/libs/sockjs/sockjs.min.js" type="text/javascript"></script>
     <script src="resources/libs/stomp-websocket/lib/stomp.min.js" type="text/javascript"></script>
     <script src="resources/libs/angular/angular.min.js"></script>
@@ -36,4 +38,5 @@
     <script src="resources/script/angular/chatController.js" type="text/javascript"></script>
     <script src="resources/script/angular/chatService.js" type="text/javascript"></script>
     <script src="resources/script/chat.js"></script>
+    <script src="./resources/script/order.js"></script>
 </body>

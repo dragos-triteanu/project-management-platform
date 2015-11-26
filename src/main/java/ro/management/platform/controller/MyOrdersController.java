@@ -35,9 +35,9 @@ public class MyOrdersController {
         List<Order> orders = new ArrayList<>();
         if(currentUser.getRole().equals(Authority.CONSULTANT)){
             if (searchText == null || searchText.isEmpty()) {
-                orders = myOrdersService.getConsultantAssignedOrders();
+                orders = myOrdersService.getConsultantAssignedOrders(SessionUtils.GetCurrentUser());
             } else {
-                orders = myOrdersService.getOrderResultSearch(searchText, CategoryOrderSearch.getKey(selectedCategory));
+                orders = myOrdersService.getMyOrdersSearchResultForConsultant(SessionUtils.GetCurrentUser(),searchText, CategoryOrderSearch.getKey(selectedCategory));
             }
         }else if (currentUser.getRole().equals(Authority.CLIENT)){
             orders = myOrdersService.getOrdersForClient(currentUser,searchText,CategoryOrderSearch.getKey(selectedCategory));

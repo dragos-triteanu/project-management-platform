@@ -3,6 +3,7 @@ package ro.management.platform.repository;
 import ro.management.platform.model.entities.Client;
 import ro.management.platform.model.entities.ConsultantOrder;
 import ro.management.platform.model.entities.Order;
+import ro.management.platform.model.entities.Payment;
 import ro.management.platform.security.Authority;
 import ro.management.platform.utils.AdminCategoryOrderSearch;
 import ro.management.platform.utils.CategoryOrderSearch;
@@ -203,12 +204,7 @@ public class OrderRepository {
         firstQuery.setParameter("consultantId", consultantId);
         firstQuery.setParameter("orderId", orderId);
         firstQuery.setParameter("orderStatus", OrderStatus.ASSIGNED);
-        try {
-            firstQuery.executeUpdate();
-        }catch (Exception e)
-        {
-            System.out.print(e);
-        }
+        firstQuery.executeUpdate();
 
         LOG.info("Updating bid status for consultant id= {} and order id = {}",consultantId,orderId);
         Query secondQuery = sessionFactory.getCurrentSession().getNamedQuery(UPDATE_BID_STATUS);
@@ -216,6 +212,13 @@ public class OrderRepository {
         secondQuery.setParameter("orderId", orderId);
         secondQuery.setParameter("status", OrderStatus.APPROVED);
         secondQuery.executeUpdate();
+
+        LOG.info("Updating bid status for consultant id= {} and order id = {}",consultantId,orderId);
+        Query thirdQuery = sessionFactory.getCurrentSession().getNamedQuery(UPDATE_BID_STATUS_FOR_REJECTED_CONSULTANTS);
+        thirdQuery.setParameter("consultantId", consultantId);
+        thirdQuery.setParameter("orderId", orderId);
+        thirdQuery.setParameter("status", OrderStatus.REJECTED);
+        thirdQuery.executeUpdate();
     }
 
     public void deleteOrder(int orderId) {
@@ -223,5 +226,45 @@ public class OrderRepository {
         Query query = sessionFactory.getCurrentSession().getNamedQuery(DELETE_ORDER);
         query.setParameter("orderId", orderId);
         query.executeUpdate();
+    }
+
+    public void startOrder(int orderId, int consultantId) {
+        LOG.info("Updating status for order id = {}",orderId);
+        Query firstQuery = sessionFactory.getCurrentSession().getNamedQuery(UPDATE_ORDER_STATUS);
+        firstQuery.setParameter("orderId", orderId);
+        firstQuery.setParameter("orderStatus", OrderStatus.INPROGRESS);
+        firstQuery.executeUpdate();
+
+        LOG.info("Updating bid status for consultant id= {} and order id = {}",consultantId,orderId);
+        Query secondQuery = sessionFactory.getCurrentSession().getNamedQuery(UPDATE_BID_STATUS);
+        secondQuery.setParameter("consultantId", consultantId);
+        secondQuery.setParameter("orderId", orderId);
+        secondQuery.setParameter("status", OrderStatus.INPROGRESS);
+        secondQuery.executeUpdate();
+
+        insertInitialPaymentValues(orderId,consultantId);
+    }
+
+    private void insertInitialPaymentValues(int orderId , int consultantId)
+    {
+        LOG.info("Inserting the initial payment values for order {} and client {}");
+
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ConsultantOrder.class);
+        criteria.add(Restrictions.eq("order.orderId", orderId));
+        criteria.add(Restrictions.eq("consultant.userId",consultantId));
+        ConsultantOrder order= new ConsultantOrder();
+        try {
+             order = (ConsultantOrder) criteria.uniqueResult();
+        }catch (Exception ex)
+        {
+            System.out.print(ex);
+        }
+
+        Payment payment = new Payment();
+        payment.setOrder(order.getOrder());
+        payment.setAmountDue(order.getCost());
+        payment.setAmountDue(0);
+        payment.setClient(order.getOrder().getClient());
+        sessionFactory.getCurrentSession().persist(payment);
     }
 }
