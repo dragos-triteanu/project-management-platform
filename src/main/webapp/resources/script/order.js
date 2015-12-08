@@ -65,8 +65,7 @@ $(document).ready(function(){
             method: "POST",
             data: params
         }).success(function (data) {
-            console.log(data);
-            $("#myOrderPage").replaceWith($(data).find("#myOrderPage"));
+            window.location.href ="/myOrderDetails?orderId="+ $("#orderId").val();
         });
     });
 

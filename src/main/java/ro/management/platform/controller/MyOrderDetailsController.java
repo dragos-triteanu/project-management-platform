@@ -56,10 +56,9 @@ public class MyOrderDetailsController {
 
 
     @RequestMapping(value="/startOrder",method = RequestMethod.POST)
-    public String startOrder(@RequestParam("orderId")int orderId,ModelMap modelMap){
-
+    public ResponseEntity<Object> startOrder(@RequestParam("orderId")int orderId,ModelMap modelMap){
         orderService.startOrder(orderId, SessionUtils.GetCurrentUser().getUserId());
-        return getOrderDetails(orderId,modelMap);
+        return  new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/messages" , method = RequestMethod.GET)
@@ -73,6 +72,6 @@ public class MyOrderDetailsController {
                                  @RequestParam("consultantRating") float consultantRating){
 
         orderService.rateConsultantResponsibleForOrder(orderId,consultantRating);
-        return "redirect:/myorders";
+        return "myorders";
     }
 }
