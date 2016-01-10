@@ -2,64 +2,68 @@
     <#import "*/components/statusRow.ftl" as statusRow />
 <table class="table">
     <#if ordersList?has_content>
-    <thead>
-         <#if userRole == "ADMINISTRATOR">
+        <thead>
+            <#if userRole == "ADMINISTRATOR">
             <th class="table-header">Client</th>
             <th class="table-header">Consultant</th>
-         </#if>
-         <th class="table-header">Domeniu</th>
-         <th class="table-header">Subiect</th>
-         <#if userRole == "CONSULTANT">
-             <th class="table-header">Nr.pagini</th>
-         </#if>
-         <th class="table-header">Status </th>
-         <th class="table-header">Detalii</th>
-    </thead>
+            </#if>
+        <th class="table-header">Domeniu</th>
+        <th class="table-header">Subiect</th>
+            <#if userRole == "CONSULTANT">
+            <th class="table-header">Nr.pagini</th>
+            </#if>
+        <th class="table-header">Status </th>
+        <th class="table-header">Detalii</th>
+        </thead>
     <tbody>
         <#list ordersList as order>
-            <tr class="tableRow">
+        <tr class="tableRow">
+            <#if userRole == "ADMINISTRATOR">
+                <td> ${order.client.firstName} ${order.client.lastName}</td>
+                <td>
+                    <#if order.consultant??>
+                        <a href="./consultantDetails?userId=${order.consultant.userId}"> ${order.consultant.firstName} ${order.consultant.lastName}</a>
+                    <#else>
+                        N/A
+                    </#if>
+                </td>
+            </#if>
+            <td>${order.domain}</td>
+            <td>${order.subject}</td>
+            <#if userRole == "CONSULTANT">
+                <td>${order.nrOfPages}</td>
+            </#if>
+            <td><@statusRow.renderRow order.orderStatus/></td>
+            <td>
+                <#if  order.orderStatus == "REJECTED">
                     <#if userRole == "ADMINISTRATOR">
-                        <td> ${order.client.firstName} ${order.client.lastName}</td>
-                        <td>
-                            <#if order.consultant??>
-                                <a href="./consultantDetails?userId=${order.consultant.userId}"> ${order.consultant.firstName} ${order.consultant.lastName}</a>
-                            <#else>
-                                N/A
-                            </#if>
-                        </td>
+                    <form class="details-button-qaa-${order.orderId}" action="./orders/deleteOrder" method="POST">
+                    <#elseif userRole == "CONSULTANT">
+                    <form class="details-button-qaa-${order.orderId}" action="./deleteBid" method="POST">
                     </#if>
-                    <td>${order.domain}</td>
-                    <td>${order.subject}</td>
-                    <#if userRole == "CONSULTANT">
-                        <td>${order.nrOfPages}</td>
+                    <input type="hidden" name="orderId" value="${order.orderId}" />
+                    <button id="edit${order.orderId}" type="submit" class="btn btn-danger">Sterge</button>
+                <#elseif order.orderStatus == "APPROVED" || order.orderStatus == "INPROGRESS" || order.orderStatus == "DONE">
+                    <#if userRole == "ADMINISTRATOR">
+                    <form class="details-button-qaa-${order.orderId}" action="./orderDetails" method="GET">
+                    <#else>
+                    <form class="details-button-qaa-${order.orderId}" action="./myOrderDetails" method="GET">
                     </#if>
-                    <td><@statusRow.renderRow order.orderStatus/></td>
-                    <td>
-                     <#if  order.orderStatus == "REJECTED">
-                         <#if userRole == "ADMINISTRATOR">
-                           <form class="details-button-qaa-${order.orderId}" action="./orders/deleteOrder" method="POST">
-                         <#elseif userRole == "CONSULTANT">
-                             <form class="details-button-qaa-${order.orderId}" action="./deleteBid" method="POST">
-                         </#if>
-                         <input type="hidden" name="orderId" value="${order.orderId}" />
-                         <button id="edit${order.orderId}" type="submit" class="btn btn-danger">Sterge</button>
-                     <#elseif order.orderStatus == "APPROVED" || order.orderStatus == "INPROGRESS" || order.orderStatus == "DONE">
-                        <form class="details-button-qaa-${order.orderId}" action="./myOrderDetails" method="GET">
-                            <input type="hidden" name="orderId" value="${order.orderId}" />
-                            <button id="edit${order.orderId}" type="submit" class="btn details-button">Detalii</button>
-                     <#else>
-                         <form class="details-button-qaa-${order.orderId}" action="./orderDetails" method="GET">
-                             <input type="hidden" name="orderId" value="${order.orderId}" />
-                             <button id="edit${order.orderId}" type="submit" class="btn details-button">Detalii</button>
-                     </#if>
-                    </form>
-                    </td>
-            </tr>
+                    <input type="hidden" name="orderId" value="${order.orderId}" />
+                    <button id="edit${order.orderId}" type="submit" class="btn details-button">Detalii</button>
+                <#else>
+                <form class="details-button-qaa-${order.orderId}" action="./orderDetails" method="GET">
+                    <input type="hidden" name="orderId" value="${order.orderId}" />
+                    <button id="edit${order.orderId}" type="submit" class="btn details-button">Detalii</button>
+                </#if>
+            </form>
+            </td>
+        </tr>
         </#list>
     <#else>
-     ${content}
+    ${content}
     </#if>
-    </tbody>
+</tbody>
 </table>
 </#macro>
 
@@ -68,10 +72,10 @@
 <table class="table">
     <#if ordersList?has_content>
         <thead>
-            <th class="table-header">Domeniu</th>
-            <th class="table-header">Subiect</th>
-            <th class="table-header">Status </th>
-            <th class="table-header">Detalii</th>
+        <th class="table-header">Domeniu</th>
+        <th class="table-header">Subiect</th>
+        <th class="table-header">Status </th>
+        <th class="table-header">Detalii</th>
         </thead>
         <tbody>
             <#list ordersList as order>
@@ -89,7 +93,7 @@
             </#list>
         </tbody>
     <#else>
-        ${content}
+    ${content}
     </#if>
 </table>
 </#macro>

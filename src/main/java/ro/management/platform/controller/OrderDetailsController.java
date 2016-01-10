@@ -3,8 +3,10 @@ package ro.management.platform.controller;
 import ro.management.platform.model.entities.Consultant;
 import ro.management.platform.model.entities.ConsultantOrder;
 import ro.management.platform.model.entities.Order;
+import ro.management.platform.model.entities.Payment;
 import ro.management.platform.services.BidService;
 import ro.management.platform.services.OrderService;
+import ro.management.platform.services.PaymentService;
 import ro.management.platform.utils.OrderStatus;
 import ro.management.platform.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class OrderDetailsController {
     @Autowired
     private BidService bidService;
 
+    @Autowired
+    private PaymentService paymentService;
+
     @Value("${consultant.bid.maxNrOfDays}")
     private int maxNrOfDays;
 
@@ -50,12 +55,17 @@ public class OrderDetailsController {
                 break;
             }
             case ASSIGNED:
+            case DONE:
             case INPROGRESS:{
                 if(order.getConsultant() != null){
                     ConsultantOrder assignedConsultant = bidService.getConsultantBid(id, order.getConsultant().getUserId());
                     modelMap.addAttribute("assignedConsultant", assignedConsultant);
-                    break;
                 }
+                Payment payment = paymentService.getPaymentDetails(order.getOrderId(),order.getClient().getUserId());
+                if(payment!=null){
+                    modelMap.addAttribute("paymentInfo", payment);
+                }
+                break;
             }
         }
         modelMap.addAttribute("order", order);

@@ -242,19 +242,19 @@ public class OrderRepository {
         secondQuery.setParameter("status", OrderStatus.INPROGRESS);
         secondQuery.executeUpdate();
 
-        insertInitialPaymentValues(orderId,consultantId);
+        insertInitialPaymentValues(orderId, consultantId);
     }
 
     private void insertInitialPaymentValues(int orderId , int consultantId)
     {
-        LOG.info("Inserting the initial payment values for order {} and client {}");
+        LOG.info("Inserting the initial payment values for order {} and client {}",orderId,consultantId);
 
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ConsultantOrder.class);
         criteria.add(Restrictions.eq("order.orderId", orderId));
         criteria.add(Restrictions.eq("consultant.userId",consultantId));
         ConsultantOrder order= new ConsultantOrder();
         try {
-             order = (ConsultantOrder) criteria.uniqueResult();
+            order = (ConsultantOrder) criteria.uniqueResult();
         }catch (Exception ex)
         {
             System.out.print(ex);
@@ -263,8 +263,23 @@ public class OrderRepository {
         Payment payment = new Payment();
         payment.setOrder(order.getOrder());
         payment.setAmountDue(order.getCost());
-        payment.setAmountDue(0);
+        payment.setNrOfEffectuated0fTransactions(0);
         payment.setClient(order.getOrder().getClient());
         sessionFactory.getCurrentSession().persist(payment);
+    }
+
+    public void closeOrder(int orderId, int consultantId) {
+        LOG.info("Updating status for order id = {}", orderId);
+        Query firstQuery = sessionFactory.getCurrentSession().getNamedQuery(UPDATE_ORDER_STATUS);
+        firstQuery.setParameter("orderId", orderId);
+        firstQuery.setParameter("orderStatus", OrderStatus.DONE);
+        firstQuery.executeUpdate();
+
+        LOG.info("Updating bid status for consultant id= {} and order id = {}", consultantId, orderId);
+        Query secondQuery = sessionFactory.getCurrentSession().getNamedQuery(UPDATE_BID_STATUS);
+        secondQuery.setParameter("consultantId", consultantId);
+        secondQuery.setParameter("orderId", orderId);
+        secondQuery.setParameter("status", OrderStatus.DONE);
+        secondQuery.executeUpdate();
     }
 }

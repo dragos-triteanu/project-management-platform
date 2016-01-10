@@ -49,7 +49,7 @@ public class OrderService {
     }
 
     public List<Order> getSearchedOrders(String searchText, String selectedCategory) {
-         return orderRepository.getSearchedOrders(searchText, selectedCategory);
+        return orderRepository.getSearchedOrders(searchText, selectedCategory);
     }
 
     public void updateOrder(Order order) {
@@ -57,7 +57,7 @@ public class OrderService {
     }
 
     public void assignConsultant(int orderId, int consultantId) {
-        orderRepository.assignConsultant(orderId,consultantId);
+        orderRepository.assignConsultant(orderId, consultantId);
     }
 
     public void deleteOrder(int orderId) {
@@ -88,7 +88,11 @@ public class OrderService {
     }
 
     public void startOrder(int orderId, int consultantId) {
-        orderRepository.startOrder(orderId,consultantId);
+        orderRepository.startOrder(orderId, consultantId);
+    }
+
+    public void closeOrder(int orderId, int consultantId) {
+        orderRepository.closeOrder(orderId,consultantId);
     }
 }
 

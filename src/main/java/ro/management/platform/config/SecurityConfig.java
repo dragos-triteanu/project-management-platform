@@ -20,28 +20,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder authBuilder) throws Exception {
-			if(isDatabaseEnabled){
-				authBuilder.authenticationProvider(datasourceAuthenticationProvider());
-			}else{
-				authBuilder.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMINISTRATOR");
-				authBuilder.inMemoryAuthentication().withUser("consultant").password("consultant").roles("CONSULTANT");
-				authBuilder.inMemoryAuthentication().withUser("client").password("client").roles("CLIENT");
-			}
+		if(isDatabaseEnabled){
+			authBuilder.authenticationProvider(datasourceAuthenticationProvider());
+		}else{
+			authBuilder.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMINISTRATOR");
+			authBuilder.inMemoryAuthentication().withUser("consultant").password("consultant").roles("CONSULTANT");
+			authBuilder.inMemoryAuthentication().withUser("client").password("client").roles("CLIENT");
+		}
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	  http.authorizeRequests()
-		.antMatchers("/home**").access("hasAnyRole('ADMINISTRATOR','CONSULTANT','CLIENT')")
-		.antMatchers("/faq**").access("hasAnyRole('ADMINISTRATOR','CONSULTANT','CLIENT')")
-		.antMatchers("/consultants**").access("hasRole('ADMINISTRATOR')")
-		.antMatchers("/myorders**").access("hasAnyRole('CONSULTANT','CLIENT')")
-		.antMatchers("/consultantDetails**").access("hasRole('ADMINISTRATOR')")
-		.antMatchers("/clients**").access("hasRole('ADMINISTRATOR')")
-        .antMatchers("/myOrderDetails**").access("hasAnyRole('CONSULTANT','CLIENT')")
-		.and().formLogin().loginPage("/login").failureUrl("/login?loginError=true")
-		.and().exceptionHandling().accessDeniedPage("/denied")
-		.and().logout().logoutUrl("/logout").and().csrf().disable();
+		http.authorizeRequests()
+				.antMatchers("/home**").access("hasAnyRole('ADMINISTRATOR','CONSULTANT','CLIENT')")
+				.antMatchers("/faq**").access("hasAnyRole('ADMINISTRATOR','CONSULTANT','CLIENT')")
+				.antMatchers("/consultants**").access("hasRole('ADMINISTRATOR')")
+				.antMatchers("/myorders**").access("hasAnyRole('CONSULTANT','CLIENT')")
+				.antMatchers("/consultantDetails**").access("hasRole('ADMINISTRATOR')")
+				.antMatchers("/clients**").access("hasRole('ADMINISTRATOR')")
+				.antMatchers("/myOrderDetails**").access("hasAnyRole('CONSULTANT','CLIENT')")
+				.antMatchers("/payments**").access("hasAnyRole('CLIENT')")
+				.and().formLogin().loginPage("/login").failureUrl("/login?loginError=true")
+				.and().exceptionHandling().accessDeniedPage("/denied")
+				.and().logout().logoutUrl("/logout").and().csrf().disable();
 	}
 
 	@Bean

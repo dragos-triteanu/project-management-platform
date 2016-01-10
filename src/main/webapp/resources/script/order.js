@@ -69,5 +69,18 @@ $(document).ready(function(){
         });
     });
 
+    /*close order section*/
+    $("#closeOrder").on('click',function(event) {
+        event.preventDefault();
+        var params = new Object();
+        params["orderId"] = $("#orderId").val();
+        $.ajax({
+            url: "/myOrderDetails/closeOrder",
+            method: "POST",
+            data: params
+        }).success(function (data) {
+            window.location.href ="/myOrderDetails?orderId="+ $("#orderId").val();
+        });
+    });
 });
 

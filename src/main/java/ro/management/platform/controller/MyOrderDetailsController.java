@@ -5,10 +5,12 @@ import org.springframework.http.ResponseEntity;
 import ro.management.platform.model.dto.ChatMessage;
 import ro.management.platform.model.entities.ConsultantOrder;
 import ro.management.platform.model.entities.Order;
+import ro.management.platform.model.entities.Payment;
 import ro.management.platform.model.entities.User;
 import ro.management.platform.services.BidService;
 import ro.management.platform.services.MessageService;
 import ro.management.platform.services.OrderService;
+import ro.management.platform.services.PaymentService;
 import ro.management.platform.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,9 @@ public class MyOrderDetailsController {
     @Autowired
     private BidService bidService;
 
+    @Autowired
+    private PaymentService paymentService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String getOrderDetails(@RequestParam("orderId") int id, ModelMap modelMap) {
         SessionUtils.populateModelWithAuthenticatedRole(modelMap);
@@ -51,6 +56,12 @@ public class MyOrderDetailsController {
             List<ChatMessage> messages = messageService.getChatMessages(id);
             modelMap.addAttribute("messages",messages);
         }
+
+        Payment paymentDetails = paymentService.getPaymentDetails(id,order.getClient().getUserId());
+        if(paymentDetails != null) {
+            modelMap.addAttribute("paymentDetails", paymentDetails);
+        }
+
         return "myOrderDetailsPage";
     }
 
@@ -59,6 +70,12 @@ public class MyOrderDetailsController {
     public ResponseEntity<Object> startOrder(@RequestParam("orderId")int orderId,ModelMap modelMap){
         orderService.startOrder(orderId, SessionUtils.GetCurrentUser().getUserId());
         return  new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/closeOrder",method = RequestMethod.POST)
+    public ResponseEntity<Object> closeOrder(@RequestParam("orderId")int orderId,ModelMap modelMap){
+        orderService.closeOrder(orderId, SessionUtils.GetCurrentUser().getUserId());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/messages" , method = RequestMethod.GET)
